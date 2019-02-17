@@ -1,11 +1,16 @@
 package com.graduate.engine.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
 /**
  * @anthor jimmy
  * 用于响应请求通用模板
  */
+@Getter
+@Setter
 public class ResponseResult implements Serializable {
     private boolean success = true;
     private Integer code = null;
