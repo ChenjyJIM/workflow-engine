@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.UnionInstMapperMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.UnionInstMapper">
+    <id column="union_inst_id" jdbcType="INTEGER" property="unionInstId" />
+    <result column="union_id" jdbcType="INTEGER" property="unionId" />
+    <result column="inst_id" jdbcType="INTEGER" property="instId" />
+    <result column="stop" jdbcType="BIT" property="stop" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    union_inst_id, union_id, inst_id, stop
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from union_inst_mapper
+    where union_inst_id = #{unionInstId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from union_inst_mapper
+    where union_inst_id = #{unionInstId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.UnionInstMapper">
+    insert into union_inst_mapper (union_inst_id, union_id, inst_id, 
+      stop)
+    values (#{unionInstId,jdbcType=INTEGER}, #{unionId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, 
+      #{stop,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.UnionInstMapper">
+    insert into union_inst_mapper
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unionInstId != null">
+        union_inst_id,
+      </if>
+      <if test="unionId != null">
+        union_id,
+      </if>
+      <if test="instId != null">
+        inst_id,
+      </if>
+      <if test="stop != null">
+        stop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unionInstId != null">
+        #{unionInstId,jdbcType=INTEGER},
+      </if>
+      <if test="unionId != null">
+        #{unionId,jdbcType=INTEGER},
+      </if>
+      <if test="instId != null">
+        #{instId,jdbcType=INTEGER},
+      </if>
+      <if test="stop != null">
+        #{stop,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.UnionInstMapper">
+    update union_inst_mapper
+    <set>
+      <if test="unionId != null">
+        union_id = #{unionId,jdbcType=INTEGER},
+      </if>
+      <if test="instId != null">
+        inst_id = #{instId,jdbcType=INTEGER},
+      </if>
+      <if test="stop != null">
+        stop = #{stop,jdbcType=BIT},
+      </if>
+    </set>
+    where union_inst_id = #{unionInstId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.UnionInstMapper">
+    update union_inst_mapper
+    set union_id = #{unionId,jdbcType=INTEGER},
+      inst_id = #{instId,jdbcType=INTEGER},
+      stop = #{stop,jdbcType=BIT}
+    where union_inst_id = #{unionInstId,jdbcType=INTEGER}
+  </update>
+</mapper>

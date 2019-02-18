@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.TaskExecMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.TaskExec">
+    <id column="task_exec_id" jdbcType="INTEGER" property="taskExecId" />
+    <result column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="task_exec_name" jdbcType="VARCHAR" property="taskExecName" />
+    <result column="task_exec_status" jdbcType="TINYINT" property="taskExecStatus" />
+    <result column="task_exec_report" jdbcType="VARCHAR" property="taskExecReport" />
+    <result column="task_exec_monitor" jdbcType="VARCHAR" property="taskExecMonitor" />
+    <result column="task_exec_docs" jdbcType="VARCHAR" property="taskExecDocs" />
+    <result column="task_exec_rate" jdbcType="DOUBLE" property="taskExecRate" />
+    <result column="task_exec_date" jdbcType="INTEGER" property="taskExecDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    task_exec_id, task_id, task_exec_name, task_exec_status, task_exec_report, task_exec_monitor, 
+    task_exec_docs, task_exec_rate, task_exec_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task_exec
+    where task_exec_id = #{taskExecId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from task_exec
+    where task_exec_id = #{taskExecId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.TaskExec">
+    insert into task_exec (task_exec_id, task_id, task_exec_name, 
+      task_exec_status, task_exec_report, task_exec_monitor, 
+      task_exec_docs, task_exec_rate, task_exec_date
+      )
+    values (#{taskExecId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{taskExecName,jdbcType=VARCHAR}, 
+      #{taskExecStatus,jdbcType=TINYINT}, #{taskExecReport,jdbcType=VARCHAR}, #{taskExecMonitor,jdbcType=VARCHAR}, 
+      #{taskExecDocs,jdbcType=VARCHAR}, #{taskExecRate,jdbcType=DOUBLE}, #{taskExecDate,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.TaskExec">
+    insert into task_exec
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskExecId != null">
+        task_exec_id,
+      </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="taskExecName != null">
+        task_exec_name,
+      </if>
+      <if test="taskExecStatus != null">
+        task_exec_status,
+      </if>
+      <if test="taskExecReport != null">
+        task_exec_report,
+      </if>
+      <if test="taskExecMonitor != null">
+        task_exec_monitor,
+      </if>
+      <if test="taskExecDocs != null">
+        task_exec_docs,
+      </if>
+      <if test="taskExecRate != null">
+        task_exec_rate,
+      </if>
+      <if test="taskExecDate != null">
+        task_exec_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskExecId != null">
+        #{taskExecId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskExecName != null">
+        #{taskExecName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExecStatus != null">
+        #{taskExecStatus,jdbcType=TINYINT},
+      </if>
+      <if test="taskExecReport != null">
+        #{taskExecReport,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExecMonitor != null">
+        #{taskExecMonitor,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExecDocs != null">
+        #{taskExecDocs,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExecRate != null">
+        #{taskExecRate,jdbcType=DOUBLE},
+      </if>
+      <if test="taskExecDate != null">
+        #{taskExecDate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.TaskExec">
+    update task_exec
+    <set>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskExecName != null">
+        task_exec_name = #{taskExecName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExecStatus != null">
+        task_exec_status = #{taskExecStatus,jdbcType=TINYINT},
+      </if>
+      <if test="taskExecReport != null">
+        task_exec_report = #{taskExecReport,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExecMonitor != null">
+        task_exec_monitor = #{taskExecMonitor,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExecDocs != null">
+        task_exec_docs = #{taskExecDocs,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExecRate != null">
+        task_exec_rate = #{taskExecRate,jdbcType=DOUBLE},
+      </if>
+      <if test="taskExecDate != null">
+        task_exec_date = #{taskExecDate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where task_exec_id = #{taskExecId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.TaskExec">
+    update task_exec
+    set task_id = #{taskId,jdbcType=INTEGER},
+      task_exec_name = #{taskExecName,jdbcType=VARCHAR},
+      task_exec_status = #{taskExecStatus,jdbcType=TINYINT},
+      task_exec_report = #{taskExecReport,jdbcType=VARCHAR},
+      task_exec_monitor = #{taskExecMonitor,jdbcType=VARCHAR},
+      task_exec_docs = #{taskExecDocs,jdbcType=VARCHAR},
+      task_exec_rate = #{taskExecRate,jdbcType=DOUBLE},
+      task_exec_date = #{taskExecDate,jdbcType=INTEGER}
+    where task_exec_id = #{taskExecId,jdbcType=INTEGER}
+  </update>
+</mapper>

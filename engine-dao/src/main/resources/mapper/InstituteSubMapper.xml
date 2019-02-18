@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.InstituteSubMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.InstituteSub">
+    <id column="inst_sub_id" jdbcType="INTEGER" property="instSubId" />
+    <result column="inst_sub_name" jdbcType="VARCHAR" property="instSubName" />
+    <result column="inst_sub_short" jdbcType="VARCHAR" property="instSubShort" />
+    <result column="inst_sub_eng_name" jdbcType="VARCHAR" property="instSubEngName" />
+    <result column="industy_id" jdbcType="TINYINT" property="industyId" />
+    <result column="inst_sub_address" jdbcType="VARCHAR" property="instSubAddress" />
+    <result column="inst_sub_website" jdbcType="VARCHAR" property="instSubWebsite" />
+    <result column="inst_sub_wechat" jdbcType="VARCHAR" property="instSubWechat" />
+    <result column="inst_sub_qq" jdbcType="VARCHAR" property="instSubQq" />
+    <result column="inst_sub_others" jdbcType="VARCHAR" property="instSubOthers" />
+    <result column="inst_sub_register_date" jdbcType="INTEGER" property="instSubRegisterDate" />
+    <result column="inst_sub_introduction" jdbcType="VARCHAR" property="instSubIntroduction" />
+    <result column="inst_sub_memo" jdbcType="VARCHAR" property="instSubMemo" />
+    <result column="stop" jdbcType="BIT" property="stop" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    inst_sub_id, inst_sub_name, inst_sub_short, inst_sub_eng_name, industy_id, inst_sub_address, 
+    inst_sub_website, inst_sub_wechat, inst_sub_qq, inst_sub_others, inst_sub_register_date, 
+    inst_sub_introduction, inst_sub_memo, stop
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from institute_sub
+    where inst_sub_id = #{instSubId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from institute_sub
+    where inst_sub_id = #{instSubId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.InstituteSub">
+    insert into institute_sub (inst_sub_id, inst_sub_name, inst_sub_short, 
+      inst_sub_eng_name, industy_id, inst_sub_address, 
+      inst_sub_website, inst_sub_wechat, inst_sub_qq, 
+      inst_sub_others, inst_sub_register_date, inst_sub_introduction, 
+      inst_sub_memo, stop)
+    values (#{instSubId,jdbcType=INTEGER}, #{instSubName,jdbcType=VARCHAR}, #{instSubShort,jdbcType=VARCHAR}, 
+      #{instSubEngName,jdbcType=VARCHAR}, #{industyId,jdbcType=TINYINT}, #{instSubAddress,jdbcType=VARCHAR}, 
+      #{instSubWebsite,jdbcType=VARCHAR}, #{instSubWechat,jdbcType=VARCHAR}, #{instSubQq,jdbcType=VARCHAR}, 
+      #{instSubOthers,jdbcType=VARCHAR}, #{instSubRegisterDate,jdbcType=INTEGER}, #{instSubIntroduction,jdbcType=VARCHAR}, 
+      #{instSubMemo,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.InstituteSub">
+    insert into institute_sub
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="instSubId != null">
+        inst_sub_id,
+      </if>
+      <if test="instSubName != null">
+        inst_sub_name,
+      </if>
+      <if test="instSubShort != null">
+        inst_sub_short,
+      </if>
+      <if test="instSubEngName != null">
+        inst_sub_eng_name,
+      </if>
+      <if test="industyId != null">
+        industy_id,
+      </if>
+      <if test="instSubAddress != null">
+        inst_sub_address,
+      </if>
+      <if test="instSubWebsite != null">
+        inst_sub_website,
+      </if>
+      <if test="instSubWechat != null">
+        inst_sub_wechat,
+      </if>
+      <if test="instSubQq != null">
+        inst_sub_qq,
+      </if>
+      <if test="instSubOthers != null">
+        inst_sub_others,
+      </if>
+      <if test="instSubRegisterDate != null">
+        inst_sub_register_date,
+      </if>
+      <if test="instSubIntroduction != null">
+        inst_sub_introduction,
+      </if>
+      <if test="instSubMemo != null">
+        inst_sub_memo,
+      </if>
+      <if test="stop != null">
+        stop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="instSubId != null">
+        #{instSubId,jdbcType=INTEGER},
+      </if>
+      <if test="instSubName != null">
+        #{instSubName,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubShort != null">
+        #{instSubShort,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubEngName != null">
+        #{instSubEngName,jdbcType=VARCHAR},
+      </if>
+      <if test="industyId != null">
+        #{industyId,jdbcType=TINYINT},
+      </if>
+      <if test="instSubAddress != null">
+        #{instSubAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubWebsite != null">
+        #{instSubWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubWechat != null">
+        #{instSubWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubQq != null">
+        #{instSubQq,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubOthers != null">
+        #{instSubOthers,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubRegisterDate != null">
+        #{instSubRegisterDate,jdbcType=INTEGER},
+      </if>
+      <if test="instSubIntroduction != null">
+        #{instSubIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubMemo != null">
+        #{instSubMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="stop != null">
+        #{stop,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.InstituteSub">
+    update institute_sub
+    <set>
+      <if test="instSubName != null">
+        inst_sub_name = #{instSubName,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubShort != null">
+        inst_sub_short = #{instSubShort,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubEngName != null">
+        inst_sub_eng_name = #{instSubEngName,jdbcType=VARCHAR},
+      </if>
+      <if test="industyId != null">
+        industy_id = #{industyId,jdbcType=TINYINT},
+      </if>
+      <if test="instSubAddress != null">
+        inst_sub_address = #{instSubAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubWebsite != null">
+        inst_sub_website = #{instSubWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubWechat != null">
+        inst_sub_wechat = #{instSubWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubQq != null">
+        inst_sub_qq = #{instSubQq,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubOthers != null">
+        inst_sub_others = #{instSubOthers,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubRegisterDate != null">
+        inst_sub_register_date = #{instSubRegisterDate,jdbcType=INTEGER},
+      </if>
+      <if test="instSubIntroduction != null">
+        inst_sub_introduction = #{instSubIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="instSubMemo != null">
+        inst_sub_memo = #{instSubMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="stop != null">
+        stop = #{stop,jdbcType=BIT},
+      </if>
+    </set>
+    where inst_sub_id = #{instSubId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.InstituteSub">
+    update institute_sub
+    set inst_sub_name = #{instSubName,jdbcType=VARCHAR},
+      inst_sub_short = #{instSubShort,jdbcType=VARCHAR},
+      inst_sub_eng_name = #{instSubEngName,jdbcType=VARCHAR},
+      industy_id = #{industyId,jdbcType=TINYINT},
+      inst_sub_address = #{instSubAddress,jdbcType=VARCHAR},
+      inst_sub_website = #{instSubWebsite,jdbcType=VARCHAR},
+      inst_sub_wechat = #{instSubWechat,jdbcType=VARCHAR},
+      inst_sub_qq = #{instSubQq,jdbcType=VARCHAR},
+      inst_sub_others = #{instSubOthers,jdbcType=VARCHAR},
+      inst_sub_register_date = #{instSubRegisterDate,jdbcType=INTEGER},
+      inst_sub_introduction = #{instSubIntroduction,jdbcType=VARCHAR},
+      inst_sub_memo = #{instSubMemo,jdbcType=VARCHAR},
+      stop = #{stop,jdbcType=BIT}
+    where inst_sub_id = #{instSubId,jdbcType=INTEGER}
+  </update>
+</mapper>

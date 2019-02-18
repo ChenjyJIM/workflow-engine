@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.ActMilestoneMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.ActMilestone">
+    <id column="milestone_id" jdbcType="INTEGER" property="milestoneId" />
+    <result column="act_id" jdbcType="INTEGER" property="actId" />
+    <result column="milestone_name" jdbcType="VARCHAR" property="milestoneName" />
+    <result column="milestone_memo" jdbcType="VARCHAR" property="milestoneMemo" />
+    <result column="milestone_from" jdbcType="INTEGER" property="milestoneFrom" />
+    <result column="milestone_to" jdbcType="INTEGER" property="milestoneTo" />
+    <result column="milestone_report" jdbcType="VARCHAR" property="milestoneReport" />
+    <result column="milestone_monitor" jdbcType="VARCHAR" property="milestoneMonitor" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    milestone_id, act_id, milestone_name, milestone_memo, milestone_from, milestone_to, 
+    milestone_report, milestone_monitor
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from act_milestone
+    where milestone_id = #{milestoneId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from act_milestone
+    where milestone_id = #{milestoneId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.ActMilestone">
+    insert into act_milestone (milestone_id, act_id, milestone_name, 
+      milestone_memo, milestone_from, milestone_to, 
+      milestone_report, milestone_monitor)
+    values (#{milestoneId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{milestoneName,jdbcType=VARCHAR}, 
+      #{milestoneMemo,jdbcType=VARCHAR}, #{milestoneFrom,jdbcType=INTEGER}, #{milestoneTo,jdbcType=INTEGER}, 
+      #{milestoneReport,jdbcType=VARCHAR}, #{milestoneMonitor,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.ActMilestone">
+    insert into act_milestone
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="milestoneId != null">
+        milestone_id,
+      </if>
+      <if test="actId != null">
+        act_id,
+      </if>
+      <if test="milestoneName != null">
+        milestone_name,
+      </if>
+      <if test="milestoneMemo != null">
+        milestone_memo,
+      </if>
+      <if test="milestoneFrom != null">
+        milestone_from,
+      </if>
+      <if test="milestoneTo != null">
+        milestone_to,
+      </if>
+      <if test="milestoneReport != null">
+        milestone_report,
+      </if>
+      <if test="milestoneMonitor != null">
+        milestone_monitor,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="milestoneId != null">
+        #{milestoneId,jdbcType=INTEGER},
+      </if>
+      <if test="actId != null">
+        #{actId,jdbcType=INTEGER},
+      </if>
+      <if test="milestoneName != null">
+        #{milestoneName,jdbcType=VARCHAR},
+      </if>
+      <if test="milestoneMemo != null">
+        #{milestoneMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="milestoneFrom != null">
+        #{milestoneFrom,jdbcType=INTEGER},
+      </if>
+      <if test="milestoneTo != null">
+        #{milestoneTo,jdbcType=INTEGER},
+      </if>
+      <if test="milestoneReport != null">
+        #{milestoneReport,jdbcType=VARCHAR},
+      </if>
+      <if test="milestoneMonitor != null">
+        #{milestoneMonitor,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.ActMilestone">
+    update act_milestone
+    <set>
+      <if test="actId != null">
+        act_id = #{actId,jdbcType=INTEGER},
+      </if>
+      <if test="milestoneName != null">
+        milestone_name = #{milestoneName,jdbcType=VARCHAR},
+      </if>
+      <if test="milestoneMemo != null">
+        milestone_memo = #{milestoneMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="milestoneFrom != null">
+        milestone_from = #{milestoneFrom,jdbcType=INTEGER},
+      </if>
+      <if test="milestoneTo != null">
+        milestone_to = #{milestoneTo,jdbcType=INTEGER},
+      </if>
+      <if test="milestoneReport != null">
+        milestone_report = #{milestoneReport,jdbcType=VARCHAR},
+      </if>
+      <if test="milestoneMonitor != null">
+        milestone_monitor = #{milestoneMonitor,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where milestone_id = #{milestoneId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.ActMilestone">
+    update act_milestone
+    set act_id = #{actId,jdbcType=INTEGER},
+      milestone_name = #{milestoneName,jdbcType=VARCHAR},
+      milestone_memo = #{milestoneMemo,jdbcType=VARCHAR},
+      milestone_from = #{milestoneFrom,jdbcType=INTEGER},
+      milestone_to = #{milestoneTo,jdbcType=INTEGER},
+      milestone_report = #{milestoneReport,jdbcType=VARCHAR},
+      milestone_monitor = #{milestoneMonitor,jdbcType=VARCHAR}
+    where milestone_id = #{milestoneId,jdbcType=INTEGER}
+  </update>
+</mapper>

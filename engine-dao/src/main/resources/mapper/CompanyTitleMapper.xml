@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.CompanyTitleMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.CompanyTitle">
+    <id column="comp_title_id" jdbcType="INTEGER" property="compTitleId" />
+    <result column="comp_title_name" jdbcType="VARCHAR" property="compTitleName" />
+    <result column="stop" jdbcType="BIT" property="stop" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    comp_title_id, comp_title_name, stop
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from company_title
+    where comp_title_id = #{compTitleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from company_title
+    where comp_title_id = #{compTitleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.CompanyTitle">
+    insert into company_title (comp_title_id, comp_title_name, stop
+      )
+    values (#{compTitleId,jdbcType=INTEGER}, #{compTitleName,jdbcType=VARCHAR}, #{stop,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.CompanyTitle">
+    insert into company_title
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="compTitleId != null">
+        comp_title_id,
+      </if>
+      <if test="compTitleName != null">
+        comp_title_name,
+      </if>
+      <if test="stop != null">
+        stop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="compTitleId != null">
+        #{compTitleId,jdbcType=INTEGER},
+      </if>
+      <if test="compTitleName != null">
+        #{compTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="stop != null">
+        #{stop,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.CompanyTitle">
+    update company_title
+    <set>
+      <if test="compTitleName != null">
+        comp_title_name = #{compTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="stop != null">
+        stop = #{stop,jdbcType=BIT},
+      </if>
+    </set>
+    where comp_title_id = #{compTitleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.CompanyTitle">
+    update company_title
+    set comp_title_name = #{compTitleName,jdbcType=VARCHAR},
+      stop = #{stop,jdbcType=BIT}
+    where comp_title_id = #{compTitleId,jdbcType=INTEGER}
+  </update>
+</mapper>

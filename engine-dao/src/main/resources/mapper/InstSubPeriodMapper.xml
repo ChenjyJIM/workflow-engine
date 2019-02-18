@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.InstSubPeriodMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.InstSubPeriod">
+    <id column="inst_sub_period_id" jdbcType="INTEGER" property="instSubPeriodId" />
+    <result column="inst_sub_id" jdbcType="INTEGER" property="instSubId" />
+    <result column="inst_sub_period_no" jdbcType="TINYINT" property="instSubPeriodNo" />
+    <result column="inst_sub_period_from" jdbcType="INTEGER" property="instSubPeriodFrom" />
+    <result column="inst_sub_period_to" jdbcType="INTEGER" property="instSubPeriodTo" />
+    <result column="inst_sub_memo" jdbcType="VARCHAR" property="instSubMemo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    inst_sub_period_id, inst_sub_id, inst_sub_period_no, inst_sub_period_from, inst_sub_period_to, 
+    inst_sub_memo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inst_sub_period
+    where inst_sub_period_id = #{instSubPeriodId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from inst_sub_period
+    where inst_sub_period_id = #{instSubPeriodId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.InstSubPeriod">
+    insert into inst_sub_period (inst_sub_period_id, inst_sub_id, inst_sub_period_no, 
+      inst_sub_period_from, inst_sub_period_to, inst_sub_memo
+      )
+    values (#{instSubPeriodId,jdbcType=INTEGER}, #{instSubId,jdbcType=INTEGER}, #{instSubPeriodNo,jdbcType=TINYINT}, 
+      #{instSubPeriodFrom,jdbcType=INTEGER}, #{instSubPeriodTo,jdbcType=INTEGER}, #{instSubMemo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.InstSubPeriod">
+    insert into inst_sub_period
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="instSubPeriodId != null">
+        inst_sub_period_id,
+      </if>
+      <if test="instSubId != null">
+        inst_sub_id,
+      </if>
+      <if test="instSubPeriodNo != null">
+        inst_sub_period_no,
+      </if>
+      <if test="instSubPeriodFrom != null">
+        inst_sub_period_from,
+      </if>
+      <if test="instSubPeriodTo != null">
+        inst_sub_period_to,
+      </if>
+      <if test="instSubMemo != null">
+        inst_sub_memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="instSubPeriodId != null">
+        #{instSubPeriodId,jdbcType=INTEGER},
+      </if>
+      <if test="instSubId != null">
+        #{instSubId,jdbcType=INTEGER},
+      </if>
+      <if test="instSubPeriodNo != null">
+        #{instSubPeriodNo,jdbcType=TINYINT},
+      </if>
+      <if test="instSubPeriodFrom != null">
+        #{instSubPeriodFrom,jdbcType=INTEGER},
+      </if>
+      <if test="instSubPeriodTo != null">
+        #{instSubPeriodTo,jdbcType=INTEGER},
+      </if>
+      <if test="instSubMemo != null">
+        #{instSubMemo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.InstSubPeriod">
+    update inst_sub_period
+    <set>
+      <if test="instSubId != null">
+        inst_sub_id = #{instSubId,jdbcType=INTEGER},
+      </if>
+      <if test="instSubPeriodNo != null">
+        inst_sub_period_no = #{instSubPeriodNo,jdbcType=TINYINT},
+      </if>
+      <if test="instSubPeriodFrom != null">
+        inst_sub_period_from = #{instSubPeriodFrom,jdbcType=INTEGER},
+      </if>
+      <if test="instSubPeriodTo != null">
+        inst_sub_period_to = #{instSubPeriodTo,jdbcType=INTEGER},
+      </if>
+      <if test="instSubMemo != null">
+        inst_sub_memo = #{instSubMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where inst_sub_period_id = #{instSubPeriodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.InstSubPeriod">
+    update inst_sub_period
+    set inst_sub_id = #{instSubId,jdbcType=INTEGER},
+      inst_sub_period_no = #{instSubPeriodNo,jdbcType=TINYINT},
+      inst_sub_period_from = #{instSubPeriodFrom,jdbcType=INTEGER},
+      inst_sub_period_to = #{instSubPeriodTo,jdbcType=INTEGER},
+      inst_sub_memo = #{instSubMemo,jdbcType=VARCHAR}
+    where inst_sub_period_id = #{instSubPeriodId,jdbcType=INTEGER}
+  </update>
+</mapper>

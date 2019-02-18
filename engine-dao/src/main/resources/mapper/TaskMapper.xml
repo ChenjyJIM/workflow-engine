@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.TaskMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.Task">
+    <id column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="act_sub_id" jdbcType="INTEGER" property="actSubId" />
+    <result column="act_id" jdbcType="INTEGER" property="actId" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="task_short" jdbcType="VARCHAR" property="taskShort" />
+    <result column="task_eng_name" jdbcType="VARCHAR" property="taskEngName" />
+    <result column="task_date_from" jdbcType="INTEGER" property="taskDateFrom" />
+    <result column="task_date_to" jdbcType="INTEGER" property="taskDateTo" />
+    <result column="task_priority" jdbcType="TINYINT" property="taskPriority" />
+    <result column="task_status_id" jdbcType="TINYINT" property="taskStatusId" />
+    <result column="task_memo" jdbcType="VARCHAR" property="taskMemo" />
+    <result column="task_restart_memo" jdbcType="VARCHAR" property="taskRestartMemo" />
+    <result column="stop" jdbcType="BIT" property="stop" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    task_id, act_sub_id, act_id, task_name, task_short, task_eng_name, task_date_from, 
+    task_date_to, task_priority, task_status_id, task_memo, task_restart_memo, stop
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.Task">
+    insert into task (task_id, act_sub_id, act_id, 
+      task_name, task_short, task_eng_name, 
+      task_date_from, task_date_to, task_priority, 
+      task_status_id, task_memo, task_restart_memo, 
+      stop)
+    values (#{taskId,jdbcType=INTEGER}, #{actSubId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, 
+      #{taskName,jdbcType=VARCHAR}, #{taskShort,jdbcType=VARCHAR}, #{taskEngName,jdbcType=VARCHAR}, 
+      #{taskDateFrom,jdbcType=INTEGER}, #{taskDateTo,jdbcType=INTEGER}, #{taskPriority,jdbcType=TINYINT}, 
+      #{taskStatusId,jdbcType=TINYINT}, #{taskMemo,jdbcType=VARCHAR}, #{taskRestartMemo,jdbcType=VARCHAR}, 
+      #{stop,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.Task">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="actSubId != null">
+        act_sub_id,
+      </if>
+      <if test="actId != null">
+        act_id,
+      </if>
+      <if test="taskName != null">
+        task_name,
+      </if>
+      <if test="taskShort != null">
+        task_short,
+      </if>
+      <if test="taskEngName != null">
+        task_eng_name,
+      </if>
+      <if test="taskDateFrom != null">
+        task_date_from,
+      </if>
+      <if test="taskDateTo != null">
+        task_date_to,
+      </if>
+      <if test="taskPriority != null">
+        task_priority,
+      </if>
+      <if test="taskStatusId != null">
+        task_status_id,
+      </if>
+      <if test="taskMemo != null">
+        task_memo,
+      </if>
+      <if test="taskRestartMemo != null">
+        task_restart_memo,
+      </if>
+      <if test="stop != null">
+        stop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="actSubId != null">
+        #{actSubId,jdbcType=INTEGER},
+      </if>
+      <if test="actId != null">
+        #{actId,jdbcType=INTEGER},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskShort != null">
+        #{taskShort,jdbcType=VARCHAR},
+      </if>
+      <if test="taskEngName != null">
+        #{taskEngName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDateFrom != null">
+        #{taskDateFrom,jdbcType=INTEGER},
+      </if>
+      <if test="taskDateTo != null">
+        #{taskDateTo,jdbcType=INTEGER},
+      </if>
+      <if test="taskPriority != null">
+        #{taskPriority,jdbcType=TINYINT},
+      </if>
+      <if test="taskStatusId != null">
+        #{taskStatusId,jdbcType=TINYINT},
+      </if>
+      <if test="taskMemo != null">
+        #{taskMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRestartMemo != null">
+        #{taskRestartMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="stop != null">
+        #{stop,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.Task">
+    update task
+    <set>
+      <if test="actSubId != null">
+        act_sub_id = #{actSubId,jdbcType=INTEGER},
+      </if>
+      <if test="actId != null">
+        act_id = #{actId,jdbcType=INTEGER},
+      </if>
+      <if test="taskName != null">
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskShort != null">
+        task_short = #{taskShort,jdbcType=VARCHAR},
+      </if>
+      <if test="taskEngName != null">
+        task_eng_name = #{taskEngName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskDateFrom != null">
+        task_date_from = #{taskDateFrom,jdbcType=INTEGER},
+      </if>
+      <if test="taskDateTo != null">
+        task_date_to = #{taskDateTo,jdbcType=INTEGER},
+      </if>
+      <if test="taskPriority != null">
+        task_priority = #{taskPriority,jdbcType=TINYINT},
+      </if>
+      <if test="taskStatusId != null">
+        task_status_id = #{taskStatusId,jdbcType=TINYINT},
+      </if>
+      <if test="taskMemo != null">
+        task_memo = #{taskMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRestartMemo != null">
+        task_restart_memo = #{taskRestartMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="stop != null">
+        stop = #{stop,jdbcType=BIT},
+      </if>
+    </set>
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.Task">
+    update task
+    set act_sub_id = #{actSubId,jdbcType=INTEGER},
+      act_id = #{actId,jdbcType=INTEGER},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      task_short = #{taskShort,jdbcType=VARCHAR},
+      task_eng_name = #{taskEngName,jdbcType=VARCHAR},
+      task_date_from = #{taskDateFrom,jdbcType=INTEGER},
+      task_date_to = #{taskDateTo,jdbcType=INTEGER},
+      task_priority = #{taskPriority,jdbcType=TINYINT},
+      task_status_id = #{taskStatusId,jdbcType=TINYINT},
+      task_memo = #{taskMemo,jdbcType=VARCHAR},
+      task_restart_memo = #{taskRestartMemo,jdbcType=VARCHAR},
+      stop = #{stop,jdbcType=BIT}
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+</mapper>

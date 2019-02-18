@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.PersonTitleMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.PersonTitle">
+    <id column="person_title_id" jdbcType="INTEGER" property="personTitleId" />
+    <result column="person_title_name" jdbcType="VARCHAR" property="personTitleName" />
+    <result column="stop" jdbcType="BIT" property="stop" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    person_title_id, person_title_name, stop
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from person_title
+    where person_title_id = #{personTitleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from person_title
+    where person_title_id = #{personTitleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.PersonTitle">
+    insert into person_title (person_title_id, person_title_name, stop
+      )
+    values (#{personTitleId,jdbcType=INTEGER}, #{personTitleName,jdbcType=VARCHAR}, #{stop,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.PersonTitle">
+    insert into person_title
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="personTitleId != null">
+        person_title_id,
+      </if>
+      <if test="personTitleName != null">
+        person_title_name,
+      </if>
+      <if test="stop != null">
+        stop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="personTitleId != null">
+        #{personTitleId,jdbcType=INTEGER},
+      </if>
+      <if test="personTitleName != null">
+        #{personTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="stop != null">
+        #{stop,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.PersonTitle">
+    update person_title
+    <set>
+      <if test="personTitleName != null">
+        person_title_name = #{personTitleName,jdbcType=VARCHAR},
+      </if>
+      <if test="stop != null">
+        stop = #{stop,jdbcType=BIT},
+      </if>
+    </set>
+    where person_title_id = #{personTitleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.PersonTitle">
+    update person_title
+    set person_title_name = #{personTitleName,jdbcType=VARCHAR},
+      stop = #{stop,jdbcType=BIT}
+    where person_title_id = #{personTitleId,jdbcType=INTEGER}
+  </update>
+</mapper>

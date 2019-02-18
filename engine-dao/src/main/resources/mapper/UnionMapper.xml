@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.UnionMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.Union">
+    <id column="union_id" jdbcType="INTEGER" property="unionId" />
+    <result column="union_name" jdbcType="VARCHAR" property="unionName" />
+    <result column="union_short" jdbcType="VARCHAR" property="unionShort" />
+    <result column="union_eng_name" jdbcType="VARCHAR" property="unionEngName" />
+    <result column="union_address" jdbcType="VARCHAR" property="unionAddress" />
+    <result column="union_website" jdbcType="VARCHAR" property="unionWebsite" />
+    <result column="union_wechat" jdbcType="VARCHAR" property="unionWechat" />
+    <result column="union_qq" jdbcType="VARCHAR" property="unionQq" />
+    <result column="union_others" jdbcType="VARCHAR" property="unionOthers" />
+    <result column="union_register_date" jdbcType="INTEGER" property="unionRegisterDate" />
+    <result column="union_introduction" jdbcType="VARCHAR" property="unionIntroduction" />
+    <result column="union_memo" jdbcType="VARCHAR" property="unionMemo" />
+    <result column="stop" jdbcType="BIT" property="stop" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    union_id, union_name, union_short, union_eng_name, union_address, union_website, 
+    union_wechat, union_qq, union_others, union_register_date, union_introduction, union_memo, 
+    stop
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from union
+    where union_id = #{unionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from union
+    where union_id = #{unionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.Union">
+    insert into union (union_id, union_name, union_short, 
+      union_eng_name, union_address, union_website, 
+      union_wechat, union_qq, union_others, 
+      union_register_date, union_introduction, union_memo, 
+      stop)
+    values (#{unionId,jdbcType=INTEGER}, #{unionName,jdbcType=VARCHAR}, #{unionShort,jdbcType=VARCHAR}, 
+      #{unionEngName,jdbcType=VARCHAR}, #{unionAddress,jdbcType=VARCHAR}, #{unionWebsite,jdbcType=VARCHAR}, 
+      #{unionWechat,jdbcType=VARCHAR}, #{unionQq,jdbcType=VARCHAR}, #{unionOthers,jdbcType=VARCHAR}, 
+      #{unionRegisterDate,jdbcType=INTEGER}, #{unionIntroduction,jdbcType=VARCHAR}, #{unionMemo,jdbcType=VARCHAR}, 
+      #{stop,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.Union">
+    insert into union
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="unionId != null">
+        union_id,
+      </if>
+      <if test="unionName != null">
+        union_name,
+      </if>
+      <if test="unionShort != null">
+        union_short,
+      </if>
+      <if test="unionEngName != null">
+        union_eng_name,
+      </if>
+      <if test="unionAddress != null">
+        union_address,
+      </if>
+      <if test="unionWebsite != null">
+        union_website,
+      </if>
+      <if test="unionWechat != null">
+        union_wechat,
+      </if>
+      <if test="unionQq != null">
+        union_qq,
+      </if>
+      <if test="unionOthers != null">
+        union_others,
+      </if>
+      <if test="unionRegisterDate != null">
+        union_register_date,
+      </if>
+      <if test="unionIntroduction != null">
+        union_introduction,
+      </if>
+      <if test="unionMemo != null">
+        union_memo,
+      </if>
+      <if test="stop != null">
+        stop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="unionId != null">
+        #{unionId,jdbcType=INTEGER},
+      </if>
+      <if test="unionName != null">
+        #{unionName,jdbcType=VARCHAR},
+      </if>
+      <if test="unionShort != null">
+        #{unionShort,jdbcType=VARCHAR},
+      </if>
+      <if test="unionEngName != null">
+        #{unionEngName,jdbcType=VARCHAR},
+      </if>
+      <if test="unionAddress != null">
+        #{unionAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="unionWebsite != null">
+        #{unionWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="unionWechat != null">
+        #{unionWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="unionQq != null">
+        #{unionQq,jdbcType=VARCHAR},
+      </if>
+      <if test="unionOthers != null">
+        #{unionOthers,jdbcType=VARCHAR},
+      </if>
+      <if test="unionRegisterDate != null">
+        #{unionRegisterDate,jdbcType=INTEGER},
+      </if>
+      <if test="unionIntroduction != null">
+        #{unionIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="unionMemo != null">
+        #{unionMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="stop != null">
+        #{stop,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.Union">
+    update union
+    <set>
+      <if test="unionName != null">
+        union_name = #{unionName,jdbcType=VARCHAR},
+      </if>
+      <if test="unionShort != null">
+        union_short = #{unionShort,jdbcType=VARCHAR},
+      </if>
+      <if test="unionEngName != null">
+        union_eng_name = #{unionEngName,jdbcType=VARCHAR},
+      </if>
+      <if test="unionAddress != null">
+        union_address = #{unionAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="unionWebsite != null">
+        union_website = #{unionWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="unionWechat != null">
+        union_wechat = #{unionWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="unionQq != null">
+        union_qq = #{unionQq,jdbcType=VARCHAR},
+      </if>
+      <if test="unionOthers != null">
+        union_others = #{unionOthers,jdbcType=VARCHAR},
+      </if>
+      <if test="unionRegisterDate != null">
+        union_register_date = #{unionRegisterDate,jdbcType=INTEGER},
+      </if>
+      <if test="unionIntroduction != null">
+        union_introduction = #{unionIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="unionMemo != null">
+        union_memo = #{unionMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="stop != null">
+        stop = #{stop,jdbcType=BIT},
+      </if>
+    </set>
+    where union_id = #{unionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.Union">
+    update union
+    set union_name = #{unionName,jdbcType=VARCHAR},
+      union_short = #{unionShort,jdbcType=VARCHAR},
+      union_eng_name = #{unionEngName,jdbcType=VARCHAR},
+      union_address = #{unionAddress,jdbcType=VARCHAR},
+      union_website = #{unionWebsite,jdbcType=VARCHAR},
+      union_wechat = #{unionWechat,jdbcType=VARCHAR},
+      union_qq = #{unionQq,jdbcType=VARCHAR},
+      union_others = #{unionOthers,jdbcType=VARCHAR},
+      union_register_date = #{unionRegisterDate,jdbcType=INTEGER},
+      union_introduction = #{unionIntroduction,jdbcType=VARCHAR},
+      union_memo = #{unionMemo,jdbcType=VARCHAR},
+      stop = #{stop,jdbcType=BIT}
+    where union_id = #{unionId,jdbcType=INTEGER}
+  </update>
+</mapper>
