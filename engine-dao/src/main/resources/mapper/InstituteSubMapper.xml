@@ -6,7 +6,7 @@
     <result column="inst_sub_name" jdbcType="VARCHAR" property="instSubName" />
     <result column="inst_sub_short" jdbcType="VARCHAR" property="instSubShort" />
     <result column="inst_sub_eng_name" jdbcType="VARCHAR" property="instSubEngName" />
-    <result column="industy_id" jdbcType="TINYINT" property="industyId" />
+    <result column="industry_id" jdbcType="TINYINT" property="industryId" />
     <result column="inst_sub_address" jdbcType="VARCHAR" property="instSubAddress" />
     <result column="inst_sub_website" jdbcType="VARCHAR" property="instSubWebsite" />
     <result column="inst_sub_wechat" jdbcType="VARCHAR" property="instSubWechat" />
@@ -18,7 +18,7 @@
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    inst_sub_id, inst_sub_name, inst_sub_short, inst_sub_eng_name, industy_id, inst_sub_address, 
+    inst_sub_id, inst_sub_name, inst_sub_short, inst_sub_eng_name, industry_id, inst_sub_address,
     inst_sub_website, inst_sub_wechat, inst_sub_qq, inst_sub_others, inst_sub_register_date, 
     inst_sub_introduction, inst_sub_memo, stop
   </sql>
@@ -34,12 +34,12 @@
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.InstituteSub">
     insert into institute_sub (inst_sub_id, inst_sub_name, inst_sub_short, 
-      inst_sub_eng_name, industy_id, inst_sub_address, 
+      inst_sub_eng_name, industry_id, inst_sub_address,
       inst_sub_website, inst_sub_wechat, inst_sub_qq, 
       inst_sub_others, inst_sub_register_date, inst_sub_introduction, 
       inst_sub_memo, stop)
     values (#{instSubId,jdbcType=INTEGER}, #{instSubName,jdbcType=VARCHAR}, #{instSubShort,jdbcType=VARCHAR}, 
-      #{instSubEngName,jdbcType=VARCHAR}, #{industyId,jdbcType=TINYINT}, #{instSubAddress,jdbcType=VARCHAR}, 
+      #{instSubEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=TINYINT}, #{instSubAddress,jdbcType=VARCHAR},
       #{instSubWebsite,jdbcType=VARCHAR}, #{instSubWechat,jdbcType=VARCHAR}, #{instSubQq,jdbcType=VARCHAR}, 
       #{instSubOthers,jdbcType=VARCHAR}, #{instSubRegisterDate,jdbcType=INTEGER}, #{instSubIntroduction,jdbcType=VARCHAR}, 
       #{instSubMemo,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
@@ -59,8 +59,8 @@
       <if test="instSubEngName != null">
         inst_sub_eng_name,
       </if>
-      <if test="industyId != null">
-        industy_id,
+      <if test="industryId != null">
+        industry_id,
       </if>
       <if test="instSubAddress != null">
         inst_sub_address,
@@ -103,8 +103,8 @@
       <if test="instSubEngName != null">
         #{instSubEngName,jdbcType=VARCHAR},
       </if>
-      <if test="industyId != null">
-        #{industyId,jdbcType=TINYINT},
+      <if test="industryId != null">
+        #{industryId,jdbcType=TINYINT},
       </if>
       <if test="instSubAddress != null">
         #{instSubAddress,jdbcType=VARCHAR},
@@ -147,8 +147,8 @@
       <if test="instSubEngName != null">
         inst_sub_eng_name = #{instSubEngName,jdbcType=VARCHAR},
       </if>
-      <if test="industyId != null">
-        industy_id = #{industyId,jdbcType=TINYINT},
+      <if test="industryId != null">
+        industry_id = #{industryId,jdbcType=TINYINT},
       </if>
       <if test="instSubAddress != null">
         inst_sub_address = #{instSubAddress,jdbcType=VARCHAR},
@@ -185,7 +185,7 @@
     set inst_sub_name = #{instSubName,jdbcType=VARCHAR},
       inst_sub_short = #{instSubShort,jdbcType=VARCHAR},
       inst_sub_eng_name = #{instSubEngName,jdbcType=VARCHAR},
-      industy_id = #{industyId,jdbcType=TINYINT},
+      industry_id = #{industryId,jdbcType=TINYINT},
       inst_sub_address = #{instSubAddress,jdbcType=VARCHAR},
       inst_sub_website = #{instSubWebsite,jdbcType=VARCHAR},
       inst_sub_wechat = #{instSubWechat,jdbcType=VARCHAR},

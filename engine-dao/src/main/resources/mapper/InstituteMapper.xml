@@ -6,7 +6,7 @@
     <result column="inst_name" jdbcType="VARCHAR" property="instName" />
     <result column="inst_short" jdbcType="VARCHAR" property="instShort" />
     <result column="inst_eng_name" jdbcType="VARCHAR" property="instEngName" />
-    <result column="industy_id" jdbcType="TINYINT" property="industyId" />
+    <result column="industry_id" jdbcType="TINYINT" property="industryId" />
     <result column="inst_address" jdbcType="VARCHAR" property="instAddress" />
     <result column="inst_website" jdbcType="VARCHAR" property="instWebsite" />
     <result column="inst_wechat" jdbcType="VARCHAR" property="instWechat" />
@@ -18,7 +18,7 @@
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    inst_id, inst_name, inst_short, inst_eng_name, industy_id, inst_address, inst_website, 
+    inst_id, inst_name, inst_short, inst_eng_name, industry_id, inst_address, inst_website,
     inst_wechat, inst_qq, inst_others, inst_register_date, inst_introduction, inst_memo, 
     stop
   </sql>
@@ -34,12 +34,12 @@
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.Institute">
     insert into institute (inst_id, inst_name, inst_short, 
-      inst_eng_name, industy_id, inst_address, 
+      inst_eng_name, industry_id, inst_address,
       inst_website, inst_wechat, inst_qq, 
       inst_others, inst_register_date, inst_introduction, 
       inst_memo, stop)
     values (#{instId,jdbcType=INTEGER}, #{instName,jdbcType=VARCHAR}, #{instShort,jdbcType=VARCHAR}, 
-      #{instEngName,jdbcType=VARCHAR}, #{industyId,jdbcType=TINYINT}, #{instAddress,jdbcType=VARCHAR}, 
+      #{instEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=TINYINT}, #{instAddress,jdbcType=VARCHAR},
       #{instWebsite,jdbcType=VARCHAR}, #{instWechat,jdbcType=VARCHAR}, #{instQq,jdbcType=VARCHAR}, 
       #{instOthers,jdbcType=VARCHAR}, #{instRegisterDate,jdbcType=INTEGER}, #{instIntroduction,jdbcType=VARCHAR}, 
       #{instMemo,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
@@ -59,8 +59,8 @@
       <if test="instEngName != null">
         inst_eng_name,
       </if>
-      <if test="industyId != null">
-        industy_id,
+      <if test="industryId != null">
+        industry_id,
       </if>
       <if test="instAddress != null">
         inst_address,
@@ -103,8 +103,8 @@
       <if test="instEngName != null">
         #{instEngName,jdbcType=VARCHAR},
       </if>
-      <if test="industyId != null">
-        #{industyId,jdbcType=TINYINT},
+      <if test="industryId != null">
+        #{industryId,jdbcType=TINYINT},
       </if>
       <if test="instAddress != null">
         #{instAddress,jdbcType=VARCHAR},
@@ -147,8 +147,8 @@
       <if test="instEngName != null">
         inst_eng_name = #{instEngName,jdbcType=VARCHAR},
       </if>
-      <if test="industyId != null">
-        industy_id = #{industyId,jdbcType=TINYINT},
+      <if test="industryId != null">
+        industry_id = #{industryId,jdbcType=TINYINT},
       </if>
       <if test="instAddress != null">
         inst_address = #{instAddress,jdbcType=VARCHAR},
@@ -185,7 +185,7 @@
     set inst_name = #{instName,jdbcType=VARCHAR},
       inst_short = #{instShort,jdbcType=VARCHAR},
       inst_eng_name = #{instEngName,jdbcType=VARCHAR},
-      industy_id = #{industyId,jdbcType=TINYINT},
+      industry_id = #{industryId,jdbcType=TINYINT},
       inst_address = #{instAddress,jdbcType=VARCHAR},
       inst_website = #{instWebsite,jdbcType=VARCHAR},
       inst_wechat = #{instWechat,jdbcType=VARCHAR},

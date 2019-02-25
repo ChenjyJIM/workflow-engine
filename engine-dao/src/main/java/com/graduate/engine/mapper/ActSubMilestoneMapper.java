@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.ActSubMilestone;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ActSubMilestoneMapper {
     int deleteByPrimaryKey(Integer subMilestoneId);
 

@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.TaskCheckPoint;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TaskCheckPointMapper {
     int deleteByPrimaryKey(Integer taskCheckPointId);
 

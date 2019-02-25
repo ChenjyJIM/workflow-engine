@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.ProfessionalRank;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ProfessionalRankMapper {
     int deleteByPrimaryKey(Integer profId);
 

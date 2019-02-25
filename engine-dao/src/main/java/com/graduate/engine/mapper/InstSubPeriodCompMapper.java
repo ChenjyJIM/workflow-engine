@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.InstSubPeriodComp;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface InstSubPeriodCompMapper {
     int deleteByPrimaryKey(Integer instSubPeriodCompId);
 

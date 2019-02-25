@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.UnionInstMapper;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UnionInstMapperMapper {
     int deleteByPrimaryKey(Integer unionInstId);
 

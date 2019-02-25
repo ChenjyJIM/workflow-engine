@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.Institute;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface InstituteMapper {
     int deleteByPrimaryKey(Integer instId);
 

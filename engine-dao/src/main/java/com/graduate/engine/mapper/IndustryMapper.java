@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.Industry;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface IndustryMapper {
     int deleteByPrimaryKey(Integer industryId);
 

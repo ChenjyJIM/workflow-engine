@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.TaskExec;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface TaskExecMapper {
     int deleteByPrimaryKey(Integer taskExecId);
 

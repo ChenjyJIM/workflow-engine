@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.ActivitySub;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ActivitySubMapper {
     int deleteByPrimaryKey(Integer actSubId);
 

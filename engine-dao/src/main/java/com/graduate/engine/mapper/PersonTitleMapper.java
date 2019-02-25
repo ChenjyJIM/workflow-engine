@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.PersonTitle;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PersonTitleMapper {
     int deleteByPrimaryKey(Integer personTitleId);
 

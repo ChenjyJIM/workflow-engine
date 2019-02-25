@@ -9,7 +9,7 @@
     <result column="act_name" jdbcType="VARCHAR" property="actName" />
     <result column="act_short" jdbcType="VARCHAR" property="actShort" />
     <result column="act_eng_name" jdbcType="VARCHAR" property="actEngName" />
-    <result column="industy_id" jdbcType="TINYINT" property="industyId" />
+    <result column="industry_id" jdbcType="TINYINT" property="industryId" />
     <result column="act_date" jdbcType="INTEGER" property="actDate" />
     <result column="act_date_from" jdbcType="INTEGER" property="actDateFrom" />
     <result column="act_date_to" jdbcType="INTEGER" property="actDateTo" />
@@ -20,7 +20,7 @@
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    act_id, inst_id, inst_sub_id, person_id, act_name, act_short, act_eng_name, industy_id, 
+    act_id, inst_id, inst_sub_id, person_id, act_name, act_short, act_eng_name, industry_id,
     act_date, act_date_from, act_date_to, act_address, act_priority, act_status_id, act_memo, 
     stop
   </sql>
@@ -37,13 +37,13 @@
   <insert id="insert" parameterType="com.graduate.engine.model.Activity">
     insert into activity (act_id, inst_id, inst_sub_id, 
       person_id, act_name, act_short, 
-      act_eng_name, industy_id, act_date, 
+      act_eng_name, industry_id, act_date,
       act_date_from, act_date_to, act_address, 
       act_priority, act_status_id, act_memo, 
       stop)
     values (#{actId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instSubId,jdbcType=INTEGER}, 
       #{personId,jdbcType=INTEGER}, #{actName,jdbcType=VARCHAR}, #{actShort,jdbcType=VARCHAR}, 
-      #{actEngName,jdbcType=VARCHAR}, #{industyId,jdbcType=TINYINT}, #{actDate,jdbcType=INTEGER}, 
+      #{actEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=TINYINT}, #{actDate,jdbcType=INTEGER},
       #{actDateFrom,jdbcType=INTEGER}, #{actDateTo,jdbcType=INTEGER}, #{actAddress,jdbcType=VARCHAR}, 
       #{actPriority,jdbcType=TINYINT}, #{actStatusId,jdbcType=TINYINT}, #{actMemo,jdbcType=VARCHAR}, 
       #{stop,jdbcType=BIT})
@@ -72,8 +72,8 @@
       <if test="actEngName != null">
         act_eng_name,
       </if>
-      <if test="industyId != null">
-        industy_id,
+      <if test="industryId != null">
+        industry_id,
       </if>
       <if test="actDate != null">
         act_date,
@@ -122,8 +122,8 @@
       <if test="actEngName != null">
         #{actEngName,jdbcType=VARCHAR},
       </if>
-      <if test="industyId != null">
-        #{industyId,jdbcType=TINYINT},
+      <if test="industryId != null">
+        #{industryId,jdbcType=TINYINT},
       </if>
       <if test="actDate != null">
         #{actDate,jdbcType=INTEGER},
@@ -172,8 +172,8 @@
       <if test="actEngName != null">
         act_eng_name = #{actEngName,jdbcType=VARCHAR},
       </if>
-      <if test="industyId != null">
-        industy_id = #{industyId,jdbcType=TINYINT},
+      <if test="industryId != null">
+        industry_id = #{industryId,jdbcType=TINYINT},
       </if>
       <if test="actDate != null">
         act_date = #{actDate,jdbcType=INTEGER},
@@ -210,7 +210,7 @@
       act_name = #{actName,jdbcType=VARCHAR},
       act_short = #{actShort,jdbcType=VARCHAR},
       act_eng_name = #{actEngName,jdbcType=VARCHAR},
-      industy_id = #{industyId,jdbcType=TINYINT},
+      industry_id = #{industryId,jdbcType=TINYINT},
       act_date = #{actDate,jdbcType=INTEGER},
       act_date_from = #{actDateFrom,jdbcType=INTEGER},
       act_date_to = #{actDateTo,jdbcType=INTEGER},

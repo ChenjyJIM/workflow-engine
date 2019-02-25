@@ -1,7 +1,9 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.CompanyMember;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CompanyMemberMapper {
     int deleteByPrimaryKey(Integer compId);
 
