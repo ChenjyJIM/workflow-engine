@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.LoginMapper">
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.Login">
+        <id column="login_id" jdbcType="INTEGER" property="loginId" />
+        <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+        <result column="login_password" jdbcType="VARCHAR" property="loginPassword" />
+        <result column="person_id" jdbcType="INTEGER" property="personId" />
+        <result column="guest_id" jdbcType="INTEGER" property="guestId" />
+        <result column="stop" jdbcType="BIT" property="stop" />
+    </resultMap>
+    <insert id="addLoginUser">
+        insert into login(login_name, login_password, person_id, guest_id)
+        values (#{loginName}, #{loginPassword}, #{personId}, #{guestId})
+    </insert>
+
+    <select id="findLoginUser" resultMap="BaseResultMap">
+        select * from login
+        <where>
+        <if test="loginId != null">
+            `login_id` = #{loginId}
+        </if>
+        <if test="loginName != null">
+            and `login_name` = #{loginName}
+        </if>
+       </where>
+    </select>
+</mapper>

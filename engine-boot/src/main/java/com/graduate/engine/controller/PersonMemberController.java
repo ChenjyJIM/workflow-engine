@@ -1,5 +1,6 @@
 package com.graduate.engine.controller;
 
+import com.graduate.engine.annotation.LoginRequired;
 import com.graduate.engine.model.viewobject.PersonMemberVo;
 import com.graduate.engine.request.TestQuery;
 import com.graduate.engine.response.ResponseResult;
@@ -21,7 +22,9 @@ public class PersonMemberController {
 
     @Resource
     private BaseService baseService;
+
     @PostMapping("/getById")
+    @LoginRequired
     public ResponseResult getById(@RequestBody TestQuery testQuery) {
         try {
             if (testQuery != null) {
