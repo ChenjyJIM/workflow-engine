@@ -1,13 +1,12 @@
 package com.graduate.engine.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.graduate.engine.annotation.CurrentUser;
+import com.graduate.engine.annotation.LoginRequired;
 import com.graduate.engine.model.Login;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.LoginService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -68,5 +67,11 @@ public class LoginController {
         catch (Exception e){
             return ResponseResult.buildError("系统异常！");
         }
+    }
+
+    @GetMapping("/test")
+    @LoginRequired
+    public Object testCurrentUser(@CurrentUser Login login) {
+        return login;
     }
 }

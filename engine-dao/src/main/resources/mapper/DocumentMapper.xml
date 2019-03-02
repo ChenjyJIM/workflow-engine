@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.DocumentMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.Document">
+    <id column="document_id" jdbcType="INTEGER" property="documentId" />
+    <result column="task_exec_id" jdbcType="INTEGER" property="taskExecId" />
+    <result column="doc_path" jdbcType="VARCHAR" property="docPath" />
+    <result column="doc_unique_name" jdbcType="VARCHAR" property="docUniqueName" />
+    <result column="doc_class" jdbcType="VARCHAR" property="docClass" />
+    <result column="doc_catagory" jdbcType="VARCHAR" property="docCatagory" />
+    <result column="doc_name" jdbcType="VARCHAR" property="docName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    document_id, task_exec_id, doc_path, doc_unique_name, doc_class, doc_catagory, doc_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from document
+    where document_id = #{documentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from document
+    where document_id = #{documentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.Document">
+    insert into document (document_id, task_exec_id, doc_path, 
+      doc_unique_name, doc_class, doc_catagory, 
+      doc_name)
+    values (#{documentId,jdbcType=INTEGER}, #{taskExecId,jdbcType=INTEGER}, #{docPath,jdbcType=VARCHAR}, 
+      #{docUniqueName,jdbcType=VARCHAR}, #{docClass,jdbcType=VARCHAR}, #{docCatagory,jdbcType=VARCHAR}, 
+      #{docName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.Document">
+    insert into document
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="documentId != null">
+        document_id,
+      </if>
+      <if test="taskExecId != null">
+        task_exec_id,
+      </if>
+      <if test="docPath != null">
+        doc_path,
+      </if>
+      <if test="docUniqueName != null">
+        doc_unique_name,
+      </if>
+      <if test="docClass != null">
+        doc_class,
+      </if>
+      <if test="docCatagory != null">
+        doc_catagory,
+      </if>
+      <if test="docName != null">
+        doc_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="documentId != null">
+        #{documentId,jdbcType=INTEGER},
+      </if>
+      <if test="taskExecId != null">
+        #{taskExecId,jdbcType=INTEGER},
+      </if>
+      <if test="docPath != null">
+        #{docPath,jdbcType=VARCHAR},
+      </if>
+      <if test="docUniqueName != null">
+        #{docUniqueName,jdbcType=VARCHAR},
+      </if>
+      <if test="docClass != null">
+        #{docClass,jdbcType=VARCHAR},
+      </if>
+      <if test="docCatagory != null">
+        #{docCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="docName != null">
+        #{docName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.Document">
+    update document
+    <set>
+      <if test="taskExecId != null">
+        task_exec_id = #{taskExecId,jdbcType=INTEGER},
+      </if>
+      <if test="docPath != null">
+        doc_path = #{docPath,jdbcType=VARCHAR},
+      </if>
+      <if test="docUniqueName != null">
+        doc_unique_name = #{docUniqueName,jdbcType=VARCHAR},
+      </if>
+      <if test="docClass != null">
+        doc_class = #{docClass,jdbcType=VARCHAR},
+      </if>
+      <if test="docCatagory != null">
+        doc_catagory = #{docCatagory,jdbcType=VARCHAR},
+      </if>
+      <if test="docName != null">
+        doc_name = #{docName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where document_id = #{documentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.Document">
+    update document
+    set task_exec_id = #{taskExecId,jdbcType=INTEGER},
+      doc_path = #{docPath,jdbcType=VARCHAR},
+      doc_unique_name = #{docUniqueName,jdbcType=VARCHAR},
+      doc_class = #{docClass,jdbcType=VARCHAR},
+      doc_catagory = #{docCatagory,jdbcType=VARCHAR},
+      doc_name = #{docName,jdbcType=VARCHAR}
+    where document_id = #{documentId,jdbcType=INTEGER}
+  </update>
+</mapper>

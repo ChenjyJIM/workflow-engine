@@ -2,6 +2,9 @@ package com.graduate.engine.model;
 
 import lombok.Data;
 
+/**
+ * @author jimmy
+ */
 @Data
 public class Login {
     private Long loginId;

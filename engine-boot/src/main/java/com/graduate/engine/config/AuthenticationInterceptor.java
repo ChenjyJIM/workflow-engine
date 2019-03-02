@@ -43,14 +43,15 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         LoginRequired methodAnnotation = method.getAnnotation(LoginRequired.class);
         // 有 @LoginRequired 注解，需要认证
         if (methodAnnotation != null) {
-            // 执行认证
-            String token = request.getHeader("token");  // 从 http 请求头中取出 token
+            // 执行认证,从 http 请求头中取出 token
+            String token = request.getHeader("token");
             if (token == null) {
                 throw new RuntimeException("无token，请重新登录");
             }
             Long loginId;
             try {
-                loginId = Long.parseLong(JWT.decode(token).getAudience().get(0));  // 获取 token 中的 user id
+                // 获取 token 中的 user id
+                loginId = Long.parseLong(JWT.decode(token).getAudience().get(0));
             } catch (JWTDecodeException e) {
                 throw new BusinessException("token无效，请重新登录");
             }
