@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.graduate.engine.annotation.CurrentUser;
 import com.graduate.engine.annotation.LoginRequired;
 import com.graduate.engine.model.Login;
+import com.graduate.engine.request.RegisterRequest;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.LoginService;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,11 @@ public class LoginController {
      */
     @PostMapping("/login")
     public ResponseResult login(@RequestBody Login login) {
+        // TODO 访客登录和用户登录判断，访客更新登录时间。
         try {
+            if (login == null) {
+                ResponseResult.buildError("入参错误，请检查！");
+            }
             String name = login.getLoginName();
             Login userInDataBase = loginService.findByName(name);
             if (userInDataBase == null) {
@@ -46,25 +51,24 @@ public class LoginController {
 
     /**
      * 用户注册接口
-     * @param login
+     * @param  request
      * @return
      */
     @PostMapping("/register")
-    public ResponseResult register(@RequestBody Login login) {
-        try{
-            if (login == null || login.getLoginName() == null) {
+    public ResponseResult register(@RequestBody RegisterRequest request) {
+        try {
+            if (request == null || request.getLoginName() == null) {
                 return ResponseResult.buildError("参数错误！");
             }
-            if (loginService.findByName(login.getLoginName()) != null) {
-                return ResponseResult.buildError("用户名已存在！");
+            if (loginService.findByName(request.getLoginName()) != null) {
+                return ResponseResult.buildError("账号已存在！");
             }
-            if (1 == loginService.add(login)) {
+            if (1 == loginService.add(request)) {
                 return ResponseResult.buildSuccess("注册成功！");
-            }else {
+            } else {
                 return ResponseResult.buildError("注册失败！");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseResult.buildError("系统异常！");
         }
     }

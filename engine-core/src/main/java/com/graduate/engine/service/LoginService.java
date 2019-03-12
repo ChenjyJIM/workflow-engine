@@ -1,9 +1,10 @@
 package com.graduate.engine.service;
 
 import com.graduate.engine.model.Login;
+import com.graduate.engine.request.RegisterRequest;
 
 public interface LoginService {
-    int add(Login login);
+    int add(RegisterRequest registerMemberRequest);
 
     Login findByName(String name);
 

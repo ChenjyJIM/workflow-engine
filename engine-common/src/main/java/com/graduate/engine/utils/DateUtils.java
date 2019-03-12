@@ -124,7 +124,8 @@ public class DateUtils {
     }
 
     public static void main(String[] args) {
-        Long time = getCurrentMillSecondsTimestamp();
-        System.out.println(getDate(time/1000));
+        String time = "2019-03-12";
+        Long result = getTimestampByDateStr(time);
+        System.out.println(result);
     }
 }

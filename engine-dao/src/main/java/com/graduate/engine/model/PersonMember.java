@@ -12,7 +12,7 @@ public class PersonMember {
 
     private String sex;
 
-    private Integer birthday;
+    private Long birthday;
 
     private String ethnic;
 
@@ -36,9 +36,9 @@ public class PersonMember {
 
     private Integer educationId;
 
-    private Integer personMemberId;
+    private Long personMemberId;
 
-    private Integer personMemberDate;
+    private Long personMemberDate;
 
     private String memo;
 

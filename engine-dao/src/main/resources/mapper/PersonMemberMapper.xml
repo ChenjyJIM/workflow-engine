@@ -24,34 +24,41 @@
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    person_id, inst_id, name, sex, birthday, ethnic, partisan, mail, phone1, phone2, 
-    qq, wechat, others, person_public_duty, person_awards, education_id, person_member_id, 
+    person_id, inst_id, name, sex, birthday, ethnic, partisan, mail, phone1, phone2,
+    qq, wechat, others, person_public_duty, person_awards, education_id, person_member_id,
     person_member_date, memo, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from person_member
     where person_id = #{personId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByPersonMemberID" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from person_member
+    where person_member_id = #{personMemberId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from person_member
     where person_id = #{personId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.PersonMember">
-    insert into person_member (person_id, inst_id, name, 
-      sex, birthday, ethnic, 
-      partisan, mail, phone1, 
-      phone2, qq, wechat, 
-      others, person_public_duty, person_awards, 
-      education_id, person_member_id, person_member_date, 
+    insert into person_member (person_id, inst_id, name,
+      sex, birthday, ethnic,
+      partisan, mail, phone1,
+      phone2, qq, wechat,
+      others, person_public_duty, person_awards,
+      education_id, person_member_id, person_member_date,
       memo, stop)
-    values (#{personId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=INTEGER}, #{ethnic,jdbcType=VARCHAR}, 
-      #{partisan,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{phone1,jdbcType=VARCHAR}, 
-      #{phone2,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, 
-      #{others,jdbcType=VARCHAR}, #{personPublicDuty,jdbcType=VARCHAR}, #{personAwards,jdbcType=VARCHAR}, 
-      #{educationId,jdbcType=INTEGER}, #{personMemberId,jdbcType=INTEGER}, #{personMemberDate,jdbcType=INTEGER}, 
+    values (#{personId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+      #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=INTEGER}, #{ethnic,jdbcType=VARCHAR},
+      #{partisan,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{phone1,jdbcType=VARCHAR},
+      #{phone2,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR},
+      #{others,jdbcType=VARCHAR}, #{personPublicDuty,jdbcType=VARCHAR}, #{personAwards,jdbcType=VARCHAR},
+      #{educationId,jdbcType=INTEGER}, #{personMemberId,jdbcType=INTEGER}, #{personMemberDate,jdbcType=INTEGER},
       #{memo,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.PersonMember">

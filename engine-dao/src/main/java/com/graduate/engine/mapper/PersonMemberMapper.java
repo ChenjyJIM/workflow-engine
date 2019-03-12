@@ -13,6 +13,9 @@ public interface PersonMemberMapper {
 
     PersonMember selectByPrimaryKey(Integer personId);
 
+    PersonMember selectByPersonMemberID(Long personMemberId);
+
+
     int updateByPrimaryKeySelective(PersonMember record);
 
     int updateByPrimaryKey(PersonMember record);

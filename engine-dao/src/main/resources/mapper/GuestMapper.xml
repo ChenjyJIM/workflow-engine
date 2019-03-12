@@ -14,27 +14,35 @@
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    guest_id, guest_name, guest_sex, guest_email, guest_phone, last_login, expire_period, 
+    guest_id, guest_name, guest_sex, guest_email, guest_phone, last_login, expire_period,
     register_date, memo, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from guest
     where guest_id = #{guestId,jdbcType=INTEGER}
+    and `stop` = 0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByGuestName" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from guest
+      where guest_name = #{guestName,jdbcType=VARCHAR}
+      and `stop` = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from guest
     where guest_id = #{guestId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.Guest">
-    insert into guest (guest_id, guest_name, guest_sex, 
-      guest_email, guest_phone, last_login, 
-      expire_period, register_date, memo, 
+    insert into guest (guest_id, guest_name, guest_sex,
+      guest_email, guest_phone, last_login,
+      expire_period, register_date, memo,
       stop)
-    values (#{guestId,jdbcType=INTEGER}, #{guestName,jdbcType=VARCHAR}, #{guestSex,jdbcType=VARCHAR}, 
-      #{guestEmail,jdbcType=VARCHAR}, #{guestPhone,jdbcType=VARCHAR}, #{lastLogin,jdbcType=INTEGER}, 
-      #{expirePeriod,jdbcType=INTEGER}, #{registerDate,jdbcType=INTEGER}, #{memo,jdbcType=VARCHAR}, 
+    values (#{guestId,jdbcType=INTEGER}, #{guestName,jdbcType=VARCHAR}, #{guestSex,jdbcType=VARCHAR},
+      #{guestEmail,jdbcType=VARCHAR}, #{guestPhone,jdbcType=VARCHAR}, #{lastLogin,jdbcType=INTEGER},
+      #{expirePeriod,jdbcType=INTEGER}, #{registerDate,jdbcType=INTEGER}, #{memo,jdbcType=VARCHAR},
       #{stop,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.Guest">

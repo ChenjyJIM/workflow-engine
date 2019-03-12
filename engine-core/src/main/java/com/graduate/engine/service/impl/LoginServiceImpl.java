@@ -2,9 +2,17 @@ package com.graduate.engine.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.graduate.engine.exception.BusinessException;
+import com.graduate.engine.mapper.GuestMapper;
 import com.graduate.engine.mapper.LoginMapper;
+import com.graduate.engine.mapper.PersonMemberMapper;
+import com.graduate.engine.model.Guest;
 import com.graduate.engine.model.Login;
+import com.graduate.engine.model.PersonMember;
+import com.graduate.engine.request.RegisterRequest;
 import com.graduate.engine.service.LoginService;
+import com.graduate.engine.utils.BeanUtils;
+import com.graduate.engine.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,16 +26,58 @@ import java.security.NoSuchAlgorithmException;
  */
 @Service
 public class LoginServiceImpl implements LoginService {
+
+    private static final Integer memberIdPrefix = 201900000;
+
     @Resource
     private LoginMapper loginMapper;
+    @Resource
+    private PersonMemberMapper personMemberMapper;
+    @Resource
+    private GuestMapper guestMapper;
 
-    public int add(Login login) {
-        //TODO 该接口还需绑定 personMember信息和guest信息 目前只是简单的插入
-        String passwordHash = passwordToHash(login.getLoginPassword());
-        Login newLogin = new Login();
-        newLogin.setLoginName(login.getLoginName());
-        newLogin.setLoginPassword(passwordHash);
-        return loginMapper.addLoginUser(newLogin);
+    public int add(RegisterRequest registerRequest) {
+        String passwordHash = passwordToHash(registerRequest.getLoginPassword());
+        Login login = new Login();
+        login.setLoginName(registerRequest.getLoginName());
+        login.setLoginPassword(passwordHash);
+        if (registerRequest.getType() == 1) {
+            PersonMember personMember = BeanUtils.copyBean(registerRequest, PersonMember.class);
+            personMember.setBirthday(DateUtils.getTimestampByDateStr(registerRequest.getBirthday().substring(0, 10)) + 86400);
+            Long memberId = memberIdPrefix + System.currentTimeMillis() % 100000;
+            personMember.setPersonMemberId(memberId);
+            personMember.setPersonMemberDate(DateUtils.getCurrentSecondTimestamp());
+            // 此处检查memberId是否重复
+            if (personMemberMapper.selectByPersonMemberID(memberId) != null) {
+                try {
+                    // 主线程暂停一会儿，防止速度太快生成的memberId重复
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                }
+                Long anotherMemberId = memberIdPrefix + System.currentTimeMillis() % 100000;
+                personMember.setPersonMemberId(anotherMemberId);
+                personMemberMapper.insertSelective(personMember);
+                login.setPersonId(personMemberMapper.selectByPersonMemberID(anotherMemberId).getPersonId());
+            }else {
+                System.out.println(personMemberMapper.insertSelective(personMember));
+                login.setPersonId(personMemberMapper.selectByPersonMemberID(memberId).getPersonId());
+            }
+        }else if(registerRequest.getType() == 2){
+            Guest guest = new Guest();
+            guest.setGuestEmail(registerRequest.getMail());
+            guest.setGuestName(registerRequest.getName());
+            guest.setMemo(registerRequest.getMemo());
+            guest.setGuestPhone(registerRequest.getPhone1());
+            guest.setGuestSex(registerRequest.getSex());
+            guest.setExpirePeriod(30);
+            guest.setRegisterDate(System.currentTimeMillis()/1000);
+            guest.setLastLogin(System.currentTimeMillis()/1000);
+            System.out.println(guestMapper.insertSelective(guest));
+            login.setGuestId(guestMapper.selectByGuestName(guest.getGuestName()).getGuestId());
+        }else {
+            throw new BusinessException("不支持类型！请检查");
+        }
+        return loginMapper.addLoginUser(login);
     }
 
     public Login findByName(String name) {

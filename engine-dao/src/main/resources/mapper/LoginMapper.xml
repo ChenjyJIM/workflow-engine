@@ -23,6 +23,7 @@
         <if test="loginName != null">
             and `login_name` = #{loginName}
         </if>
+            and `stop` = 0
        </where>
     </select>
 </mapper>
