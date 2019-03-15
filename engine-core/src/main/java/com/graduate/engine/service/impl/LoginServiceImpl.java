@@ -27,7 +27,7 @@ import java.security.NoSuchAlgorithmException;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    private static final Integer memberIdPrefix = 201900000;
+    private static final Integer MEMBERID_PREFIX = 201900000;
 
     @Resource
     private LoginMapper loginMapper;
@@ -44,7 +44,7 @@ public class LoginServiceImpl implements LoginService {
         if (registerRequest.getType() == 1) {
             PersonMember personMember = BeanUtils.copyBean(registerRequest, PersonMember.class);
             personMember.setBirthday(DateUtils.getTimestampByDateStr(registerRequest.getBirthday().substring(0, 10)) + 86400);
-            Long memberId = memberIdPrefix + System.currentTimeMillis() % 100000;
+            Long memberId = MEMBERID_PREFIX + System.currentTimeMillis() % 100000;
             personMember.setPersonMemberId(memberId);
             personMember.setPersonMemberDate(DateUtils.getCurrentSecondTimestamp());
             // 此处检查memberId是否重复
@@ -54,7 +54,7 @@ public class LoginServiceImpl implements LoginService {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
                 }
-                Long anotherMemberId = memberIdPrefix + System.currentTimeMillis() % 100000;
+                Long anotherMemberId = MEMBERID_PREFIX + System.currentTimeMillis() % 100000;
                 personMember.setPersonMemberId(anotherMemberId);
                 personMemberMapper.insertSelective(personMember);
                 login.setPersonId(personMemberMapper.selectByPersonMemberID(anotherMemberId).getPersonId());
@@ -91,6 +91,19 @@ public class LoginServiceImpl implements LoginService {
         login.setLoginId(id);
         return loginMapper.findLoginUser(login);
     }
+
+
+    public int updateLastLogin(final Long guestId) {
+        final Long now = System.currentTimeMillis() / 1000;
+        Guest guest = new Guest(){
+            {
+                setLastLogin(now);
+                setGuestId(guestId);
+            }
+        };
+        return guestMapper.updateByPrimaryKeySelective(guest);
+    }
+
     //用于密码加密存储
     private String passwordToHash(String password) {
         try {
@@ -132,4 +145,5 @@ public class LoginServiceImpl implements LoginService {
         }
         return token;
     }
+
 }

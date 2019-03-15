@@ -13,4 +13,9 @@ public interface LoginService {
     boolean comparePassword(Login loginUser, Login userInDataBase);
 
     String getToken(Login login);
+
+    /**
+     * 更新访客最后登录时间
+     */
+    int updateLastLogin(Long guestId);
 }

@@ -40,9 +40,14 @@ public class LoginController {
             if (!loginService.comparePassword(login, userInDataBase)) {
                 return ResponseResult.buildError("密码错误！");
             }
+            if (userInDataBase.getGuestId() != null) {
+               // 更新访客的最后登录时间
+                System.out.println(loginService.updateLastLogin(userInDataBase.getGuestId()));
+            }
             String token = loginService.getToken(userInDataBase);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("token", token);
+            jsonObject.put("type", userInDataBase.getPersonId() != null ? 1 : 2);
             return ResponseResult.buildSuccess(jsonObject);
         } catch (Exception e) {
             return ResponseResult.buildError("系统异常！");
