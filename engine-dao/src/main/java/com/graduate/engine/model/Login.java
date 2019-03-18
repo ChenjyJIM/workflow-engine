@@ -10,7 +10,7 @@ public class Login {
     private Long loginId;
     private String loginName;
     private String loginPassword;
-    private Integer personId;
+    private Long personId;
     private Long guestId;
     private Boolean stop;
 }

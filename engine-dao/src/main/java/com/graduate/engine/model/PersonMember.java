@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class PersonMember {
-    private Integer personId;
+    private Long personId;
 
-    private Integer instId;
+    private Long instId;
 
     private String name;
 
@@ -34,7 +34,7 @@ public class PersonMember {
 
     private String personAwards;
 
-    private Integer educationId;
+    private Long educationId;
 
     private Long personMemberId;
 

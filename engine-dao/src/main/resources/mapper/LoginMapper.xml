@@ -13,6 +13,11 @@
         insert into login(login_name, login_password, person_id, guest_id)
         values (#{loginName}, #{loginPassword}, #{personId}, #{guestId})
     </insert>
+    <update id="updatePassword">
+        update login
+        set `login_password` = #{loginPassword}
+        where `login_id` = #{loginId}
+    </update>
 
     <select id="findLoginUser" resultMap="BaseResultMap">
         select * from login

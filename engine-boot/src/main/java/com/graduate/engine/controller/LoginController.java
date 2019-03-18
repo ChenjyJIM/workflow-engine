@@ -7,6 +7,7 @@ import com.graduate.engine.model.Login;
 import com.graduate.engine.request.RegisterRequest;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.LoginService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -47,6 +48,11 @@ public class LoginController {
             String token = loginService.getToken(userInDataBase);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("token", token);
+            if (userInDataBase.getGuestId() == null && userInDataBase.getPersonId() == null) {
+                //其他登录类型
+                jsonObject.put("type", 0);
+                return ResponseResult.buildSuccess(jsonObject);
+            }
             jsonObject.put("type", userInDataBase.getPersonId() != null ? 1 : 2);
             return ResponseResult.buildSuccess(jsonObject);
         } catch (Exception e) {

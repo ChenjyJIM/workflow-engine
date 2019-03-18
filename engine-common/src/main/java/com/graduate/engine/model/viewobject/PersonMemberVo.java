@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PersonMemberVo {
+    private String loginName;
     private Long personId;
     private Long instId;
     private String name;
@@ -28,5 +29,5 @@ public class PersonMemberVo {
     private Long personMemberId;
     private Long personMemberDate;
     private String memo;
-    private Short stop;
+    private Boolean stop;
 }

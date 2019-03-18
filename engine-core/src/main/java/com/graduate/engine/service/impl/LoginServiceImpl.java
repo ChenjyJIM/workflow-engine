@@ -9,6 +9,7 @@ import com.graduate.engine.mapper.PersonMemberMapper;
 import com.graduate.engine.model.Guest;
 import com.graduate.engine.model.Login;
 import com.graduate.engine.model.PersonMember;
+import com.graduate.engine.request.PasswordChangeRequest;
 import com.graduate.engine.request.RegisterRequest;
 import com.graduate.engine.service.LoginService;
 import com.graduate.engine.utils.BeanUtils;
@@ -19,6 +20,7 @@ import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 
 /**
  * 注册登录相关service
@@ -43,7 +45,11 @@ public class LoginServiceImpl implements LoginService {
         login.setLoginPassword(passwordHash);
         if (registerRequest.getType() == 1) {
             PersonMember personMember = BeanUtils.copyBean(registerRequest, PersonMember.class);
-            personMember.setBirthday(DateUtils.getTimestampByDateStr(registerRequest.getBirthday().substring(0, 10)) + 86400);
+            try {
+                personMember.setBirthday(DateUtils.getTimeStampByUTC(registerRequest.getBirthday()));
+            } catch (ParseException e) {
+                //pass
+            }
             Long memberId = MEMBERID_PREFIX + System.currentTimeMillis() % 100000;
             personMember.setPersonMemberId(memberId);
             personMember.setPersonMemberDate(DateUtils.getCurrentSecondTimestamp());
@@ -104,6 +110,18 @@ public class LoginServiceImpl implements LoginService {
         return guestMapper.updateByPrimaryKeySelective(guest);
     }
 
+    public int passwordChange(PasswordChangeRequest request) {
+        Login login = new Login();
+        login.setLoginId(request.getLoginId());
+        Login userInDataBase = loginMapper.findLoginUser(login);
+        if (passwordToHash(request.getPassword()).equals(userInDataBase.getLoginPassword())) {
+            login.setLoginPassword(passwordToHash(request.getNewPassword()));
+        }else {
+            throw new BusinessException("原密码错误！");
+        }
+        return loginMapper.updatePassword(login);
+    }
+
     //用于密码加密存储
     private String passwordToHash(String password) {
         try {
@@ -126,8 +144,10 @@ public class LoginServiceImpl implements LoginService {
     }
 
     public boolean comparePassword(Login loginUser, Login userInDataBase) {
-        return passwordToHash(loginUser.getLoginPassword())      // 将用户提交的密码转换为 hash
-                .equals(userInDataBase.getLoginPassword()); // 数据库中的 password 已经是 hash，不用转换
+        // 将用户提交的密码转换为 hash
+        return passwordToHash(loginUser.getLoginPassword())
+                // 数据库中的 password 已经是 hash，不用转换
+                .equals(userInDataBase.getLoginPassword());
     }
 
     /**
@@ -139,8 +159,10 @@ public class LoginServiceImpl implements LoginService {
         String token = "";
         try {
             token = JWT.create()
-                    .withAudience(login.getLoginId().toString())          // 将 user id 保存到 token 里面
-                    .sign(Algorithm.HMAC256(login.getLoginPassword()));   // 以 password 作为 token 的密钥
+                    // 将 user id 保存到 token 里面
+                    .withAudience(login.getLoginId().toString())
+                    // 以 password 作为 token 的密钥
+                    .sign(Algorithm.HMAC256(login.getLoginPassword()));
         } catch (UnsupportedEncodingException ignore) {
         }
         return token;

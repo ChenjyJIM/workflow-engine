@@ -32,14 +32,14 @@
     select
     <include refid="Base_Column_List" />
     from person_member
-    where person_id = #{personId,jdbcType=INTEGER}
+    where person_id = #{personId,jdbcType=INTEGER} and `stop` = 0
   </select>
 
   <select id="selectByPersonMemberID" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from person_member
-    where person_member_id = #{personMemberId,jdbcType=INTEGER}
+    where person_member_id = #{personMemberId,jdbcType=INTEGER} and `stop` = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from person_member

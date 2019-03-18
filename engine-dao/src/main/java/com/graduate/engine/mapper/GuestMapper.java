@@ -3,13 +3,12 @@ package com.graduate.engine.mapper;
 import com.graduate.engine.model.Guest;
 
 public interface GuestMapper {
-    int deleteByPrimaryKey(Integer guestId);
 
     int insert(Guest record);
 
     int insertSelective(Guest record);
 
-    Guest selectByPrimaryKey(Integer guestId);
+    Guest selectByPrimaryKey(Long guestId);
 
     int updateByPrimaryKeySelective(Guest record);
 

@@ -25,6 +25,7 @@ import java.lang.reflect.Method;
  * @Description: API 的拦截器, 做相关鉴权
  */
 public class AuthenticationInterceptor implements HandlerInterceptor {
+
     @Resource
     private LoginService loginService;
 
@@ -46,7 +47,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             // 执行认证,从 http 请求头中取出 token
             String token = request.getHeader("token");
             if (token == null) {
-                throw new RuntimeException("无token，请重新登录");
+                throw new BusinessException("无token，请重新登录");
             }
             Long loginId;
             try {
@@ -57,7 +58,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
             Login user = loginService.findById(loginId);
             if (user == null) {
-                throw new RuntimeException("用户不存在，请重新登录");
+                throw new BusinessException("用户不存在，请重新登录");
             }
             // 验证 token
             try {
@@ -65,7 +66,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
                 try {
                     verifier.verify(token);
                 } catch (JWTVerificationException e) {
-                    throw new RuntimeException("token无效，请重新登录");
+                    throw new BusinessException("token无效，请重新登录");
                 }
             } catch (UnsupportedEncodingException ignore) {}
             request.setAttribute("currentUser", user);

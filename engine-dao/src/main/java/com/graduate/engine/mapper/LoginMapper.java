@@ -8,4 +8,11 @@ public interface LoginMapper {
     int addLoginUser(Login login);
 
     Login findLoginUser(Login login);
+
+    /**
+     * 修改密码接口
+     * @param login
+     * @return
+     */
+    int updatePassword(Login login);
 }
