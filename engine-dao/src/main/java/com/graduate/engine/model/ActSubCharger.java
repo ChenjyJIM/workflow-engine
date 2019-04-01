@@ -4,17 +4,17 @@ import lombok.Data;
 
 @Data
 public class ActSubCharger {
-    private Integer actSubChargerId;
+    private Long actSubChargerId;
 
-    private Integer actSubId;
+    private Long actSubId;
 
-    private Integer personId;
+    private Long personId;
 
     private Integer actSubChargerOrder;
 
     private Boolean actSubChargerEditer;
 
-    private Integer instId;
+    private Long instId;
 
     private String actSubChargerDuty;
 

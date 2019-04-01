@@ -24,7 +24,7 @@ public class Institute {
 
     private String instOthers;
 
-    private Integer instRegisterDate;
+    private Long instRegisterDate;
 
     private String instIntroduction;
 

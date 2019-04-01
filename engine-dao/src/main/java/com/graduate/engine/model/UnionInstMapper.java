@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class UnionInstMapper {
-    private Integer unionInstId;
+    private Long unionInstId;
 
-    private Integer unionId;
+    private Long unionId;
 
-    private Integer instId;
+    private Long instId;
 
     private Boolean stop;
 }

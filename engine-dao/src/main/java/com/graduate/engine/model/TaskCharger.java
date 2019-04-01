@@ -4,17 +4,17 @@ import lombok.Data;
 
 @Data
 public class TaskCharger {
-    private Integer taskChargerId;
+    private Long taskChargerId;
 
-    private Integer taskId;
+    private Long taskId;
 
-    private Integer personId;
+    private Long personId;
 
     private Byte taskChargerOrder;
 
     private Boolean taskChargerEditer;
 
-    private Integer instId;
+    private Long instId;
 
     private String taskChargerDuty;
 

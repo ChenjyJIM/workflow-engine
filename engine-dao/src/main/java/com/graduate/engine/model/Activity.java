@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class Activity {
-    private Integer actId;
+    private Long actId;
 
-    private Integer instId;
+    private Long instId;
 
-    private Integer instSubId;
+    private Long instSubId;
 
-    private Integer personId;
+    private Long personId;
 
     private String actName;
 
@@ -20,11 +20,11 @@ public class Activity {
 
     private Byte industryId;
 
-    private Integer actDate;
+    private Long actDate;
 
-    private Integer actDateFrom;
+    private Long actDateFrom;
 
-    private Integer actDateTo;
+    private Long actDateTo;
 
     private String actAddress;
 

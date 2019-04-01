@@ -2,11 +2,13 @@ package com.graduate.engine.model;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class TaskExec {
-    private Integer taskExecId;
+    private Long taskExecId;
 
-    private Integer taskId;
+    private Long taskId;
 
     private String taskExecName;
 
@@ -18,7 +20,7 @@ public class TaskExec {
 
     private String taskExecDocs;
 
-    private Double taskExecRate;
+    private BigDecimal taskExecRate;
 
-    private Integer taskExecDate;
+    private Long taskExecDate;
 }

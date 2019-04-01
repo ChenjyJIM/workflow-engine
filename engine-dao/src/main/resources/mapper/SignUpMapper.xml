@@ -6,6 +6,7 @@
     <result column="sign_name" jdbcType="VARCHAR" property="signName" />
     <result column="sign_short" jdbcType="VARCHAR" property="signShort" />
     <result column="sign_eng_name" jdbcType="VARCHAR" property="signEngName" />
+    <result column="act_id" property="actId"/>
     <result column="industry_id" jdbcType="INTEGER" property="industryId" />
     <result column="sign_date_from" jdbcType="INTEGER" property="signDateFrom" />
     <result column="sign_date_to" jdbcType="INTEGER" property="signDateTo" />
@@ -13,11 +14,11 @@
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    sign_id, sign_name, sign_short, sign_eng_name, industry_id, sign_date_from, sign_date_to, 
+    sign_id, sign_name, sign_short, sign_eng_name, act_id, industry_id, sign_date_from, sign_date_to,
     memo, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from sign_up
     where sign_id = #{signId,jdbcType=INTEGER}
@@ -27,11 +28,11 @@
     where sign_id = #{signId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.SignUp">
-    insert into sign_up (sign_id, sign_name, sign_short, 
-      sign_eng_name, industry_id, sign_date_from, 
+    insert into sign_up (sign_id, sign_name, sign_short,
+      sign_eng_name, industry_id, act_id, sign_date_from,
       sign_date_to, memo, stop)
-    values (#{signId,jdbcType=INTEGER}, #{signName,jdbcType=VARCHAR}, #{signShort,jdbcType=VARCHAR}, 
-      #{signEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=INTEGER}, #{signDateFrom,jdbcType=INTEGER}, 
+    values (#{signId,jdbcType=INTEGER}, #{signName,jdbcType=VARCHAR}, #{signShort,jdbcType=VARCHAR},
+      #{signEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{signDateFrom,jdbcType=INTEGER},
       #{signDateTo,jdbcType=INTEGER}, #{memo,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.SignUp">
@@ -51,6 +52,9 @@
       </if>
       <if test="industryId != null">
         industry_id,
+      </if>
+      <if test="actId != null">
+        act_id,
       </if>
       <if test="signDateFrom != null">
         sign_date_from,
@@ -81,6 +85,9 @@
       <if test="industryId != null">
         #{industryId,jdbcType=INTEGER},
       </if>
+      <if test="actId != null">
+        #{actId,jdbcType=INTEGER},
+      </if>
       <if test="signDateFrom != null">
         #{signDateFrom,jdbcType=INTEGER},
       </if>
@@ -110,6 +117,9 @@
       <if test="industryId != null">
         industry_id = #{industryId,jdbcType=INTEGER},
       </if>
+      <if test="actId != null">
+        act_id = #{actId,jdbcType=INTEGER},
+      </if>
       <if test="signDateFrom != null">
         sign_date_from = #{signDateFrom,jdbcType=INTEGER},
       </if>
@@ -131,6 +141,7 @@
       sign_short = #{signShort,jdbcType=VARCHAR},
       sign_eng_name = #{signEngName,jdbcType=VARCHAR},
       industry_id = #{industryId,jdbcType=INTEGER},
+      act_id = #{actId,jdbcType=INTEGER},
       sign_date_from = #{signDateFrom,jdbcType=INTEGER},
       sign_date_to = #{signDateTo,jdbcType=INTEGER},
       memo = #{memo,jdbcType=VARCHAR},

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class InstituteSub {
-    private Integer instSubId;
+    private Long instSubId;
 
     private String instSubName;
 
@@ -24,7 +24,7 @@ public class InstituteSub {
 
     private String instSubOthers;
 
-    private Integer instSubRegisterDate;
+    private Long instSubRegisterDate;
 
     private String instSubIntroduction;
 

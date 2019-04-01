@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Union {
-    private Integer unionId;
+    private Long unionId;
 
     private String unionName;
 
@@ -22,7 +22,7 @@ public class Union {
 
     private String unionOthers;
 
-    private Integer unionRegisterDate;
+    private Long unionRegisterDate;
 
     private String unionIntroduction;
 

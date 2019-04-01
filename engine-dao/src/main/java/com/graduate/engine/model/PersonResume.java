@@ -22,9 +22,9 @@ public class PersonResume {
 
     private String personResumeSpec;
 
-    private Integer personResumeFrom;
+    private Long personResumeFrom;
 
-    private Integer personResumeTo;
+    private Long personResumeTo;
 
     private String memo;
 }

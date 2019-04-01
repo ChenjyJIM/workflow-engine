@@ -4,11 +4,11 @@ import lombok.Data;
 
 @Data
 public class Task {
-    private Integer taskId;
+    private Long taskId;
 
-    private Integer actSubId;
+    private Long actSubId;
 
-    private Integer actId;
+    private Long actId;
 
     private String taskName;
 
@@ -16,9 +16,9 @@ public class Task {
 
     private String taskEngName;
 
-    private Integer taskDateFrom;
+    private Long taskDateFrom;
 
-    private Integer taskDateTo;
+    private Long taskDateTo;
 
     private Byte taskPriority;
 

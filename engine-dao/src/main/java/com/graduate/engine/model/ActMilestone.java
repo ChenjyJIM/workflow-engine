@@ -4,17 +4,17 @@ import lombok.Data;
 
 @Data
 public class ActMilestone {
-    private Integer milestoneId;
+    private Long milestoneId;
 
-    private Integer actId;
+    private Long actId;
 
     private String milestoneName;
 
     private String milestoneMemo;
 
-    private Integer milestoneFrom;
+    private Long milestoneFrom;
 
-    private Integer milestoneTo;
+    private Long milestoneTo;
 
     private String milestoneReport;
 

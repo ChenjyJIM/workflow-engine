@@ -4,17 +4,17 @@ import lombok.Data;
 
 @Data
 public class ActSubMilestone {
-    private Integer subMilestoneId;
+    private Long subMilestoneId;
 
-    private Integer actSubId;
+    private Long actSubId;
 
     private String subMilestoneName;
 
     private String subMilestoneMemo;
 
-    private Integer subMilestoneFrom;
+    private Long subMilestoneFrom;
 
-    private Integer subMilestoneTo;
+    private Long subMilestoneTo;
 
     private String subMilestoneReport;
 

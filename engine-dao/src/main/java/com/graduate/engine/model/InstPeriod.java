@@ -4,15 +4,15 @@ import lombok.Data;
 
 @Data
 public class InstPeriod {
-    private Integer instPeriodId;
+    private Long instPeriodId;
 
-    private Integer instId;
+    private Long instId;
 
     private Byte instPeriodNo;
 
-    private Integer instPeriodFrom;
+    private Long instPeriodFrom;
 
-    private Integer instPeriodTo;
+    private Long instPeriodTo;
 
     private String instMemo;
 }

@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class ActivitySub {
-    private Integer actSubId;
+    private Long actSubId;
 
-    private Integer actId;
+    private Long actId;
 
-    private Integer instId;
+    private Long instId;
 
-    private Integer instSubId;
+    private Long instSubId;
 
     private String actSubName;
 
@@ -20,9 +20,9 @@ public class ActivitySub {
 
     private Byte industryId;
 
-    private Integer actSubDateFrom;
+    private Long actSubDateFrom;
 
-    private Integer actSubDataTo;
+    private Long actSubDataTo;
 
     private String actSubAddress;
 
@@ -32,11 +32,11 @@ public class ActivitySub {
 
     private String actSubMemo;
 
-    private Integer actSubSplit;
+    private Long actSubSplit;
 
-    private Integer actSubMerge;
+    private Long actSubMerge;
 
-    private Integer actSubFatherId;
+    private Long actSubFatherId;
 
     private String actSubRestartMemo;
 

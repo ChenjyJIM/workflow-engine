@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class CompanyMember {
-    private Integer compId;
+    private Long compId;
 
-    private Integer instId;
+    private Long instId;
 
     private String compName;
 
@@ -20,7 +20,7 @@ public class CompanyMember {
 
     private String compWebsite;
 
-    private Integer compRegisterDate;
+    private Long compRegisterDate;
 
     private Integer compRegisterCapital;
 
@@ -28,7 +28,7 @@ public class CompanyMember {
 
     private String compLegalInform;
 
-    private Integer personId;
+    private Long personId;
 
     private Integer compEmployeeCount;
 
@@ -42,9 +42,9 @@ public class CompanyMember {
 
     private String memo;
 
-    private Integer compMemberId;
+    private Long compMemberId;
 
-    private Integer compMemberDate;
+    private Long compMemberDate;
 
     private Boolean stop;
 }
