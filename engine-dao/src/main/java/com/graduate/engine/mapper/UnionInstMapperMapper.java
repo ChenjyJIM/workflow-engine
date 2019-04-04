@@ -1,19 +1,8 @@
 package com.graduate.engine.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.graduate.engine.model.UnionInstMapper;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UnionInstMapperMapper {
-    int deleteByPrimaryKey(Integer unionInstId);
+public interface UnionInstMapperMapper extends BaseMapper<UnionInstMapper> {
 
-    int insert(UnionInstMapper record);
-
-    int insertSelective(UnionInstMapper record);
-
-    UnionInstMapper selectByPrimaryKey(Integer unionInstId);
-
-    int updateByPrimaryKeySelective(UnionInstMapper record);
-
-    int updateByPrimaryKey(UnionInstMapper record);
 }

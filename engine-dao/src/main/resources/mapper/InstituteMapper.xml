@@ -1,200 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.InstituteMapper">
-  <resultMap id="BaseResultMap" type="com.graduate.engine.model.Institute">
-    <id column="inst_id" jdbcType="INTEGER" property="instId" />
-    <result column="inst_name" jdbcType="VARCHAR" property="instName" />
-    <result column="inst_short" jdbcType="VARCHAR" property="instShort" />
-    <result column="inst_eng_name" jdbcType="VARCHAR" property="instEngName" />
-    <result column="industry_id" jdbcType="TINYINT" property="industryId" />
-    <result column="inst_address" jdbcType="VARCHAR" property="instAddress" />
-    <result column="inst_website" jdbcType="VARCHAR" property="instWebsite" />
-    <result column="inst_wechat" jdbcType="VARCHAR" property="instWechat" />
-    <result column="inst_qq" jdbcType="VARCHAR" property="instQq" />
-    <result column="inst_others" jdbcType="VARCHAR" property="instOthers" />
-    <result column="inst_register_date" jdbcType="INTEGER" property="instRegisterDate" />
-    <result column="inst_introduction" jdbcType="VARCHAR" property="instIntroduction" />
-    <result column="inst_memo" jdbcType="VARCHAR" property="instMemo" />
-    <result column="stop" jdbcType="BIT" property="stop" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    inst_id, inst_name, inst_short, inst_eng_name, industry_id, inst_address, inst_website,
-    inst_wechat, inst_qq, inst_others, inst_register_date, inst_introduction, inst_memo, 
-    stop
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from institute
-    where inst_id = #{instId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from institute
-    where inst_id = #{instId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.graduate.engine.model.Institute">
-    insert into institute (inst_id, inst_name, inst_short, 
-      inst_eng_name, industry_id, inst_address,
-      inst_website, inst_wechat, inst_qq, 
-      inst_others, inst_register_date, inst_introduction, 
-      inst_memo, stop)
-    values (#{instId,jdbcType=INTEGER}, #{instName,jdbcType=VARCHAR}, #{instShort,jdbcType=VARCHAR}, 
-      #{instEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=TINYINT}, #{instAddress,jdbcType=VARCHAR},
-      #{instWebsite,jdbcType=VARCHAR}, #{instWechat,jdbcType=VARCHAR}, #{instQq,jdbcType=VARCHAR}, 
-      #{instOthers,jdbcType=VARCHAR}, #{instRegisterDate,jdbcType=INTEGER}, #{instIntroduction,jdbcType=VARCHAR}, 
-      #{instMemo,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.Institute">
-    insert into institute
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="instId != null">
-        inst_id,
-      </if>
-      <if test="instName != null">
-        inst_name,
-      </if>
-      <if test="instShort != null">
-        inst_short,
-      </if>
-      <if test="instEngName != null">
-        inst_eng_name,
-      </if>
-      <if test="industryId != null">
-        industry_id,
-      </if>
-      <if test="instAddress != null">
-        inst_address,
-      </if>
-      <if test="instWebsite != null">
-        inst_website,
-      </if>
-      <if test="instWechat != null">
-        inst_wechat,
-      </if>
-      <if test="instQq != null">
-        inst_qq,
-      </if>
-      <if test="instOthers != null">
-        inst_others,
-      </if>
-      <if test="instRegisterDate != null">
-        inst_register_date,
-      </if>
-      <if test="instIntroduction != null">
-        inst_introduction,
-      </if>
-      <if test="instMemo != null">
-        inst_memo,
-      </if>
-      <if test="stop != null">
-        stop,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="instId != null">
-        #{instId,jdbcType=INTEGER},
-      </if>
-      <if test="instName != null">
-        #{instName,jdbcType=VARCHAR},
-      </if>
-      <if test="instShort != null">
-        #{instShort,jdbcType=VARCHAR},
-      </if>
-      <if test="instEngName != null">
-        #{instEngName,jdbcType=VARCHAR},
-      </if>
-      <if test="industryId != null">
-        #{industryId,jdbcType=TINYINT},
-      </if>
-      <if test="instAddress != null">
-        #{instAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="instWebsite != null">
-        #{instWebsite,jdbcType=VARCHAR},
-      </if>
-      <if test="instWechat != null">
-        #{instWechat,jdbcType=VARCHAR},
-      </if>
-      <if test="instQq != null">
-        #{instQq,jdbcType=VARCHAR},
-      </if>
-      <if test="instOthers != null">
-        #{instOthers,jdbcType=VARCHAR},
-      </if>
-      <if test="instRegisterDate != null">
-        #{instRegisterDate,jdbcType=INTEGER},
-      </if>
-      <if test="instIntroduction != null">
-        #{instIntroduction,jdbcType=VARCHAR},
-      </if>
-      <if test="instMemo != null">
-        #{instMemo,jdbcType=VARCHAR},
-      </if>
-      <if test="stop != null">
-        #{stop,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.Institute">
-    update institute
-    <set>
-      <if test="instName != null">
-        inst_name = #{instName,jdbcType=VARCHAR},
-      </if>
-      <if test="instShort != null">
-        inst_short = #{instShort,jdbcType=VARCHAR},
-      </if>
-      <if test="instEngName != null">
-        inst_eng_name = #{instEngName,jdbcType=VARCHAR},
-      </if>
-      <if test="industryId != null">
-        industry_id = #{industryId,jdbcType=TINYINT},
-      </if>
-      <if test="instAddress != null">
-        inst_address = #{instAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="instWebsite != null">
-        inst_website = #{instWebsite,jdbcType=VARCHAR},
-      </if>
-      <if test="instWechat != null">
-        inst_wechat = #{instWechat,jdbcType=VARCHAR},
-      </if>
-      <if test="instQq != null">
-        inst_qq = #{instQq,jdbcType=VARCHAR},
-      </if>
-      <if test="instOthers != null">
-        inst_others = #{instOthers,jdbcType=VARCHAR},
-      </if>
-      <if test="instRegisterDate != null">
-        inst_register_date = #{instRegisterDate,jdbcType=INTEGER},
-      </if>
-      <if test="instIntroduction != null">
-        inst_introduction = #{instIntroduction,jdbcType=VARCHAR},
-      </if>
-      <if test="instMemo != null">
-        inst_memo = #{instMemo,jdbcType=VARCHAR},
-      </if>
-      <if test="stop != null">
-        stop = #{stop,jdbcType=BIT},
-      </if>
-    </set>
-    where inst_id = #{instId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.Institute">
-    update institute
-    set inst_name = #{instName,jdbcType=VARCHAR},
-      inst_short = #{instShort,jdbcType=VARCHAR},
-      inst_eng_name = #{instEngName,jdbcType=VARCHAR},
-      industry_id = #{industryId,jdbcType=TINYINT},
-      inst_address = #{instAddress,jdbcType=VARCHAR},
-      inst_website = #{instWebsite,jdbcType=VARCHAR},
-      inst_wechat = #{instWechat,jdbcType=VARCHAR},
-      inst_qq = #{instQq,jdbcType=VARCHAR},
-      inst_others = #{instOthers,jdbcType=VARCHAR},
-      inst_register_date = #{instRegisterDate,jdbcType=INTEGER},
-      inst_introduction = #{instIntroduction,jdbcType=VARCHAR},
-      inst_memo = #{instMemo,jdbcType=VARCHAR},
-      stop = #{stop,jdbcType=BIT}
-    where inst_id = #{instId,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.Institute">
+        <id column="inst_id" jdbcType="INTEGER" property="instId" />
+        <result column="inst_name" jdbcType="VARCHAR" property="instName" />
+        <result column="inst_short" jdbcType="VARCHAR" property="instShort" />
+        <result column="inst_eng_name" jdbcType="VARCHAR" property="instEngName" />
+        <result column="industry_id" jdbcType="TINYINT" property="industryId" />
+        <result column="inst_address" jdbcType="VARCHAR" property="instAddress" />
+        <result column="inst_website" jdbcType="VARCHAR" property="instWebsite" />
+        <result column="inst_wechat" jdbcType="VARCHAR" property="instWechat" />
+        <result column="inst_qq" jdbcType="VARCHAR" property="instQq" />
+        <result column="inst_others" jdbcType="VARCHAR" property="instOthers" />
+        <result column="inst_register_date" jdbcType="INTEGER" property="instRegisterDate" />
+        <result column="inst_introduction" jdbcType="VARCHAR" property="instIntroduction" />
+        <result column="inst_memo" jdbcType="VARCHAR" property="instMemo" />
+        <result column="stop" jdbcType="BIT" property="stop" />
+    </resultMap>
+
+    <select id="queryAllInst" resultMap="BaseResultMap">
+		select * from institute where `stop` = 0
+	</select>
+
+    <select id="queryAllInstList" resultType="string">
+		select inst_name from institute where `stop` = 0
+	</select>
 </mapper>
