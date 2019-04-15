@@ -18,14 +18,11 @@ public class UnionInstMapper implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "学联体学会映射主键")
     @TableId(value = "union_inst_id", type = IdType.AUTO)
     private Long unionInstId;
 
-    @ApiModelProperty(value = "学联体id")
     private Long unionId;
 
-    @ApiModelProperty(value = "学会id")
     private Long instId;
 
     private Boolean stop;

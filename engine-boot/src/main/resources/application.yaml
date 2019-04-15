@@ -10,7 +10,10 @@ deploy:
   version: 1.0.0
 
 #mybatis
-mybatis:
+mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
 server:
   port: 8081
+logging:
+  level:
+    io.swagger.models.parameters.AbstractSerializableParameter: error

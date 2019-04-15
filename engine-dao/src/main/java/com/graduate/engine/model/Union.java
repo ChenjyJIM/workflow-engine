@@ -23,7 +23,6 @@ public class Union implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "学联体代号")
     @TableId(value = "union_id", type = IdType.AUTO)
     private Long unionId;
 
@@ -49,7 +48,6 @@ public class Union implements Serializable {
 
     private String unionOthers;
 
-    @ApiModelProperty(value = "学联体成立时间")
     private Long unionRegisterDate;
 
     @ApiModelProperty(value = "学联体简介")

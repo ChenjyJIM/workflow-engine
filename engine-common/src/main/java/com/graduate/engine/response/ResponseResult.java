@@ -47,6 +47,10 @@ public class ResponseResult implements Serializable {
         return build(false, errMsg, null);
     }
 
+    public static ResponseResult buildError(int code, String errMsg) {
+        return new ResponseResult(false,code, errMsg, null);
+    }
+
     public static ResponseResult buildSuccess(Object data) {
         return build(true, data);
     }

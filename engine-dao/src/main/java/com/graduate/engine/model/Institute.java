@@ -11,7 +11,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Data
@@ -22,9 +21,8 @@ public class Institute implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "学会代号")
     @TableId(value = "inst_id", type = IdType.AUTO)
-    private Integer instId;
+    private Long instId;
 
     private String instName;
 
@@ -32,8 +30,7 @@ public class Institute implements Serializable {
 
     private String instEngName;
 
-    @ApiModelProperty(value = "学会行业分类")
-    private Integer industryId;
+    private Long industryId;
 
     @TableField(exist=false)
     @ApiModelProperty(value = "学会行业分类名称")
@@ -58,7 +55,6 @@ public class Institute implements Serializable {
     @ApiModelProperty(value = "学会其他联系方式")
     private String instOthers;
 
-    @ApiModelProperty(value = "学会成立时间")
     private Long instRegisterDate;
 
     @ApiModelProperty(value = "学会介绍")

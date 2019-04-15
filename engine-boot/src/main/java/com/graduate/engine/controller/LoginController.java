@@ -7,19 +7,25 @@ import com.graduate.engine.model.Login;
 import com.graduate.engine.request.RegisterRequest;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.LoginService;
+import com.graduate.engine.service.ShiroService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 /**
  * @author jimmy
  */
 @RequestMapping("/authentication")
 @RestController
-public class LoginController {
+public class LoginController extends AbstractController{
     @Resource
     private LoginService loginService;
+    @Resource
+    private ShiroService shiroService;
 
     /**
      * 用户登录接口
@@ -88,5 +94,21 @@ public class LoginController {
     @LoginRequired
     public Object testCurrentUser(@CurrentUser Login login) {
         return login;
+    }
+
+    @ApiOperation("获取用户信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "Long"),
+    })
+    @GetMapping("/info")
+    public JSONObject getUserInfo(@RequestParam(value = "token") String token){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name",getUser().getLoginName());
+        jsonObject.put("user_id",getUserId());
+        Set<String> permissions = shiroService.getUserPermissions(getUserId());
+        jsonObject.put("access",permissions);
+        jsonObject.put("token",token);
+        jsonObject.put("avator","https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png");
+        return jsonObject;
     }
 }

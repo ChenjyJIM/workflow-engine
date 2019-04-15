@@ -1,17 +1,8 @@
 package com.graduate.engine.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.graduate.engine.model.Role;
 
-public interface RoleMapper {
-    int deleteByPrimaryKey(Integer roleId);
+public interface RoleMapper extends BaseMapper<Role> {
 
-    int insert(Role record);
-
-    int insertSelective(Role record);
-
-    Role selectByPrimaryKey(Integer roleId);
-
-    int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKey(Role record);
 }

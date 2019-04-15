@@ -22,7 +22,7 @@ public class Industry implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "industry_id", type = IdType.AUTO)
-    private Integer industryId;
+    private Long industryId;
 
     @ApiModelProperty(value = "行业名称")
     @NotBlank(message="行业名称不能为空", groups = {AddGroup.class, UpdateGroup.class})

@@ -13,6 +13,7 @@ import com.graduate.engine.service.BaseService;
 import com.graduate.engine.service.GuestService;
 import com.graduate.engine.service.LoginService;
 import com.graduate.engine.service.PersonMemberService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

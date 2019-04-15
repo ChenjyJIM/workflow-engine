@@ -31,4 +31,17 @@
             and `stop` = 0
        </where>
     </select>
+    <!-- 查询用户的所有权限 -->
+    <select id="queryAllPerms" resultType="string">
+        select m.perms from person_role_mapper prm
+            LEFT JOIN role_menu rm on prm.role_id = rm.role_id
+            LEFT JOIN menu m on rm.menu_id = m.menu_id
+        where prm.person_id = #{userId}
+    </select>
+    <!-- 查询用户的所有菜单 -->
+    <select id="queryAllMenu" resultType="long">
+        select distinct rm.menu_id from person_role_mapper prm
+                                LEFT JOIN role_menu rm on prm.role_id = rm.role_id
+        where prm.person_id = #{userId}
+    </select>
 </mapper>

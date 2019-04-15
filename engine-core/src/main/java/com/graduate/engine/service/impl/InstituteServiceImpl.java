@@ -29,7 +29,7 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
 
     public Institute getInstById(String instId) {
         Institute institute = this.getById(instId);
-        int industryId = institute.getIndustryId();
+        Long industryId = institute.getIndustryId();
         Industry industry = industryMapper.selectById(industryId);
         //todo 如果分类没有怎么做？插入时判断/这里判断
         institute.setIndusName(industry.getIndusName());
