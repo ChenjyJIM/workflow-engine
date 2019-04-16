@@ -20,9 +20,9 @@ public class Task {
 
     private Long taskDateTo;
 
-    private Byte taskPriority;
+    private Integer taskPriority;
 
-    private Byte taskStatusId;
+    private Integer taskStatusId;
 
     private String taskMemo;
 
