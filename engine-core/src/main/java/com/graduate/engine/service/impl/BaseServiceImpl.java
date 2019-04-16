@@ -18,6 +18,7 @@ public class BaseServiceImpl implements BaseService {
     @Resource
     private TestMapper testMapper;
 
+    @Override
     public PersonMemberVo getByPersonId(Long personId) {
         PersonMemberVo personMemberVo = new PersonMemberVo();
         PersonMember personMember = testMapper.getMemberById(personId);

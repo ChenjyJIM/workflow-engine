@@ -26,37 +26,48 @@
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    comp_id, inst_id, comp_name, comp_short, comp_eng_name, comp_prop_id, comp_address, 
-    comp_website, comp_register_date, comp_register_capital, comp_legal_name, comp_legal_inform, 
-    person_id, comp_employee_count, comp_employee_college_rate, comp_employee_it_count, 
+    comp_id, inst_id, comp_name, comp_short, comp_eng_name, comp_prop_id, comp_address,
+    comp_website, comp_register_date, comp_register_capital, comp_legal_name, comp_legal_inform,
+    person_id, comp_employee_count, comp_employee_college_rate, comp_employee_it_count,
     comp_employee_it_rate, comp_business, memo, comp_member_id, comp_member_date, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from company_member
     where comp_id = #{compId,jdbcType=INTEGER}
+  </select>
+  <select id="countByInstId" resultType="java.lang.Integer">
+      select count(*)
+      from company_member
+      where inst_id = #{instId}
+    </select>
+  <select id="getByInstId" resultType="com.graduate.engine.model.CompanyMember">
+    select
+    <include refid="Base_Column_List"/>
+    from company_member
+    where inst_id = #{instId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from company_member
     where comp_id = #{compId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.CompanyMember">
-    insert into company_member (comp_id, inst_id, comp_name, 
-      comp_short, comp_eng_name, comp_prop_id, 
-      comp_address, comp_website, comp_register_date, 
-      comp_register_capital, comp_legal_name, comp_legal_inform, 
-      person_id, comp_employee_count, comp_employee_college_rate, 
-      comp_employee_it_count, comp_employee_it_rate, 
-      comp_business, memo, comp_member_id, 
+    insert into company_member (comp_id, inst_id, comp_name,
+      comp_short, comp_eng_name, comp_prop_id,
+      comp_address, comp_website, comp_register_date,
+      comp_register_capital, comp_legal_name, comp_legal_inform,
+      person_id, comp_employee_count, comp_employee_college_rate,
+      comp_employee_it_count, comp_employee_it_rate,
+      comp_business, memo, comp_member_id,
       comp_member_date, stop)
-    values (#{compId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{compName,jdbcType=VARCHAR}, 
-      #{compShort,jdbcType=VARCHAR}, #{compEngName,jdbcType=VARCHAR}, #{compPropId,jdbcType=TINYINT}, 
-      #{compAddress,jdbcType=VARCHAR}, #{compWebsite,jdbcType=VARCHAR}, #{compRegisterDate,jdbcType=INTEGER}, 
-      #{compRegisterCapital,jdbcType=INTEGER}, #{compLegalName,jdbcType=VARCHAR}, #{compLegalInform,jdbcType=VARCHAR}, 
-      #{personId,jdbcType=INTEGER}, #{compEmployeeCount,jdbcType=INTEGER}, #{compEmployeeCollegeRate,jdbcType=DOUBLE}, 
-      #{compEmployeeItCount,jdbcType=INTEGER}, #{compEmployeeItRate,jdbcType=DOUBLE}, 
-      #{compBusiness,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{compMemberId,jdbcType=INTEGER}, 
+    values (#{compId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{compName,jdbcType=VARCHAR},
+      #{compShort,jdbcType=VARCHAR}, #{compEngName,jdbcType=VARCHAR}, #{compPropId,jdbcType=TINYINT},
+      #{compAddress,jdbcType=VARCHAR}, #{compWebsite,jdbcType=VARCHAR}, #{compRegisterDate,jdbcType=INTEGER},
+      #{compRegisterCapital,jdbcType=INTEGER}, #{compLegalName,jdbcType=VARCHAR}, #{compLegalInform,jdbcType=VARCHAR},
+      #{personId,jdbcType=INTEGER}, #{compEmployeeCount,jdbcType=INTEGER}, #{compEmployeeCollegeRate,jdbcType=DOUBLE},
+      #{compEmployeeItCount,jdbcType=INTEGER}, #{compEmployeeItRate,jdbcType=DOUBLE},
+      #{compBusiness,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{compMemberId,jdbcType=INTEGER},
       #{compMemberDate,jdbcType=INTEGER}, #{stop,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.CompanyMember">

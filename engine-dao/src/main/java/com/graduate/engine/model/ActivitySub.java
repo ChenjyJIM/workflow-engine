@@ -18,7 +18,7 @@ public class ActivitySub {
 
     private String actSubEngName;
 
-    private Byte industryId;
+    private Integer industryId;
 
     private Long actSubDateFrom;
 
@@ -26,9 +26,9 @@ public class ActivitySub {
 
     private String actSubAddress;
 
-    private Byte actSubPriority;
+    private Integer actSubPriority;
 
-    private Byte actSubStatusId;
+    private Integer actSubStatusId;
 
     private String actSubMemo;
 

@@ -28,7 +28,8 @@
     qq, wechat, others, person_public_duty, person_awards, education_id, person_member_id,
     person_member_date, memo, stop
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from person_member
@@ -41,7 +42,17 @@
     from person_member
     where person_member_id = #{personMemberId,jdbcType=INTEGER} and `stop` = 0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="countByInstId" resultType="java.lang.Integer">
+      select count(*)
+      from person_member
+      where inst_id = #{instId}
+    </select>
+  <select id="getByInstId" resultMap="BaseResultMap">
+     select <include refid="Base_Column_List" />
+    from person_member
+    where inst_id =#{instId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from person_member
     where person_id = #{personId,jdbcType=INTEGER}
   </delete>

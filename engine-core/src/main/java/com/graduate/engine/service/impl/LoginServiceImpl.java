@@ -38,6 +38,7 @@ public class LoginServiceImpl implements LoginService {
     @Resource
     private GuestMapper guestMapper;
 
+    @Override
     public int add(RegisterRequest registerRequest) {
         String passwordHash = passwordToHash(registerRequest.getLoginPassword());
         Login login = new Login();
@@ -86,19 +87,21 @@ public class LoginServiceImpl implements LoginService {
         return loginMapper.addLoginUser(login);
     }
 
+    @Override
     public Login findByName(String name) {
         Login login = new Login();
         login.setLoginName(name);
         return loginMapper.findLoginUser(login);
     }
 
+    @Override
     public Login findById(Long id) {
         Login login = new Login();
         login.setLoginId(id);
         return loginMapper.findLoginUser(login);
     }
 
-
+    @Override
     public int updateLastLogin(final Long guestId) {
         final Long now = System.currentTimeMillis() / 1000;
         Guest guest = new Guest(){
@@ -109,7 +112,7 @@ public class LoginServiceImpl implements LoginService {
         };
         return guestMapper.updateByPrimaryKeySelective(guest);
     }
-
+    @Override
     public int passwordChange(PasswordChangeRequest request) {
         Login login = new Login();
         login.setLoginId(request.getLoginId());
@@ -143,6 +146,7 @@ public class LoginServiceImpl implements LoginService {
         return null;
     }
 
+    @Override
     public boolean comparePassword(Login loginUser, Login userInDataBase) {
         // 将用户提交的密码转换为 hash
         return passwordToHash(loginUser.getLoginPassword())
@@ -155,6 +159,7 @@ public class LoginServiceImpl implements LoginService {
      * @param login
      * @return
      */
+    @Override
     public String getToken(Login login) {
         String token = "";
         try {

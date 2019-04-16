@@ -3,8 +3,6 @@ package com.graduate.engine.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.graduate.engine.vaildator.group.AddGroup;
-import com.graduate.engine.vaildator.group.UpdateGroup;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,7 +28,8 @@ public class Institute implements Serializable {
 
     private String instEngName;
 
-    private Long industryId;
+    @ApiModelProperty(value = "学会行业分类")
+    private Integer industryId;
 
     @TableField(exist=false)
     @ApiModelProperty(value = "学会行业分类名称")

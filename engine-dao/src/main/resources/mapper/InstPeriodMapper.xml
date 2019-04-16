@@ -13,20 +13,34 @@
     inst_period_id, inst_id, inst_period_no, inst_period_from, inst_period_to, inst_memo
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from inst_period
     where inst_period_id = #{instPeriodId,jdbcType=INTEGER}
+  </select>
+    <select id="getByInstId" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"/>
+      from inst_period
+      where inst_id = #{instId}
+    </select>
+  <select id="getCurrentPeriod" resultType="com.graduate.engine.model.InstPeriod">
+    select
+    <include refid="Base_Column_List"/>
+    from inst_period
+    where inst_id = #{instId}
+    order by inst_period_id desc
+    limit 1
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from inst_period
     where inst_period_id = #{instPeriodId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.InstPeriod">
-    insert into inst_period (inst_period_id, inst_id, inst_period_no, 
+    insert into inst_period (inst_period_id, inst_id, inst_period_no,
       inst_period_from, inst_period_to, inst_memo
       )
-    values (#{instPeriodId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instPeriodNo,jdbcType=TINYINT}, 
+    values (#{instPeriodId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instPeriodNo,jdbcType=TINYINT},
       #{instPeriodFrom,jdbcType=INTEGER}, #{instPeriodTo,jdbcType=INTEGER}, #{instMemo,jdbcType=VARCHAR}
       )
   </insert>

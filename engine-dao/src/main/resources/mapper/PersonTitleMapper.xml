@@ -10,12 +10,18 @@
     person_title_id, person_title_name, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from person_title
     where person_title_id = #{personTitleId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getNameById" resultType="java.lang.String">
+      select person_title_name from
+      person_title
+      where person_title_id = #{personTitleId}
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from person_title
     where person_title_id = #{personTitleId,jdbcType=INTEGER}
   </delete>

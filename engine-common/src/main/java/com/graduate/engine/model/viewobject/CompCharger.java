@@ -1,9 +1,15 @@
-package com.graduate.engine.model;
+package com.graduate.engine.model.viewobject;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
+/**
+ * 学会或分会 企业理事（负责人）信息
+ * @author jimmy
+ */
 @Data
-public class CompanyMember {
+public class CompCharger {
     private Long compId;
 
     private Long instId;
@@ -32,11 +38,11 @@ public class CompanyMember {
 
     private Integer compEmployeeCount;
 
-    private Double compEmployeeCollegeRate;
+    private BigDecimal compEmployeeCollegeRate;
 
     private Integer compEmployeeItCount;
 
-    private Double compEmployeeItRate;
+    private BigDecimal compEmployeeItRate;
 
     private String compBusiness;
 

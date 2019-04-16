@@ -10,7 +10,7 @@ public class InstPeriodComp {
 
     private Long instPeriodId;
 
-    private Byte instPeriodCompOrder;
+    private Integer instPeriodCompOrder;
 
     private Long compId;
 

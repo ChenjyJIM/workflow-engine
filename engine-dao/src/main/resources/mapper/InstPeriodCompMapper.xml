@@ -11,25 +11,31 @@
     <result column="inst_period_comp_memo" jdbcType="VARCHAR" property="instPeriodCompMemo" />
   </resultMap>
   <sql id="Base_Column_List">
-    inst_period_comp_id, inst_id, inst_period_id, inst_period_comp_order, comp_id, comp_title_id, 
+    inst_period_comp_id, inst_id, inst_period_id, inst_period_comp_order, comp_id, comp_title_id,
     inst_period_comp_memo
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from inst_period_comp
     where inst_period_comp_id = #{instPeriodCompId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getByInstPeriodId" resultType="com.graduate.engine.model.InstPeriodComp">
+      select
+      <include refid="Base_Column_List"/>
+      from inst_period_comp
+      where inst_period_id = #{instPeriodId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from inst_period_comp
     where inst_period_comp_id = #{instPeriodCompId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.InstPeriodComp">
-    insert into inst_period_comp (inst_period_comp_id, inst_id, inst_period_id, 
-      inst_period_comp_order, comp_id, comp_title_id, 
+    insert into inst_period_comp (inst_period_comp_id, inst_id, inst_period_id,
+      inst_period_comp_order, comp_id, comp_title_id,
       inst_period_comp_memo)
-    values (#{instPeriodCompId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instPeriodId,jdbcType=INTEGER}, 
-      #{instPeriodCompOrder,jdbcType=TINYINT}, #{compId,jdbcType=INTEGER}, #{compTitleId,jdbcType=INTEGER}, 
+    values (#{instPeriodCompId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instPeriodId,jdbcType=INTEGER},
+      #{instPeriodCompOrder,jdbcType=TINYINT}, #{compId,jdbcType=INTEGER}, #{compTitleId,jdbcType=INTEGER},
       #{instPeriodCompMemo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.InstPeriodComp">

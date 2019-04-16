@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class IndustryServiceImpl extends ServiceImpl<IndustryMapper, Industry> implements IndustryService {
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void stopByPrimaryKey(String industryId) {
         Industry industry = this.getById(industryId);

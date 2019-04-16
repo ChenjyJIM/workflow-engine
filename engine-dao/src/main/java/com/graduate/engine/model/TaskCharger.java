@@ -10,7 +10,7 @@ public class TaskCharger {
 
     private Long personId;
 
-    private Byte taskChargerOrder;
+    private Integer taskChargerOrder;
 
     private Boolean taskChargerEditer;
 

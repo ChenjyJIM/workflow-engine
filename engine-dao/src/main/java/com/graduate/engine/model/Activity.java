@@ -18,7 +18,7 @@ public class Activity {
 
     private String actEngName;
 
-    private Byte industryId;
+    private Integer industryId;
 
     private Long actDate;
 
@@ -28,9 +28,9 @@ public class Activity {
 
     private String actAddress;
 
-    private Byte actPriority;
+    private Integer actPriority;
 
-    private Byte actStatusId;
+    private Integer actStatusId;
 
     private String actMemo;
 

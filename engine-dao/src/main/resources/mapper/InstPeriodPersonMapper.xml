@@ -11,25 +11,31 @@
     <result column="inst_period_person_memo" jdbcType="VARCHAR" property="instPeriodPersonMemo" />
   </resultMap>
   <sql id="Base_Column_List">
-    inst_period_person_id, inst_id, inst_period_id, inst_period_person_order, person_id, 
+    inst_period_person_id, inst_id, inst_period_id, inst_period_person_order, person_id,
     person_title_id, inst_period_person_memo
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
+    select
+    <include refid="Base_Column_List"/>
     from inst_period_person
     where inst_period_person_id = #{instPeriodPersonId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="getByInstPeriodId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from inst_period_person
+    where inst_period_id = #{instPeriodId}
+  </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from inst_period_person
     where inst_period_person_id = #{instPeriodPersonId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.InstPeriodPerson">
-    insert into inst_period_person (inst_period_person_id, inst_id, inst_period_id, 
-      inst_period_person_order, person_id, person_title_id, 
+    insert into inst_period_person (inst_period_person_id, inst_id, inst_period_id,
+      inst_period_person_order, person_id, person_title_id,
       inst_period_person_memo)
-    values (#{instPeriodPersonId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instPeriodId,jdbcType=INTEGER}, 
-      #{instPeriodPersonOrder,jdbcType=TINYINT}, #{personId,jdbcType=INTEGER}, #{personTitleId,jdbcType=INTEGER}, 
+    values (#{instPeriodPersonId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instPeriodId,jdbcType=INTEGER},
+      #{instPeriodPersonOrder,jdbcType=TINYINT}, #{personId,jdbcType=INTEGER}, #{personTitleId,jdbcType=INTEGER},
       #{instPeriodPersonMemo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.InstPeriodPerson">

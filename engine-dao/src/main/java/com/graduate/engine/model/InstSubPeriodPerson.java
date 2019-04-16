@@ -10,7 +10,7 @@ public class InstSubPeriodPerson {
 
     private Long instSubPeriodId;
 
-    private Byte instSubPeriodPersonOrder;
+    private Integer instSubPeriodPersonOrder;
 
     private Long personId;
 

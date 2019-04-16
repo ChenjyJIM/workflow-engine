@@ -21,12 +21,14 @@ public class PersonMemberServiceImpl implements PersonMemberService {
     @Resource
     private PersonMemberMapper personMemberMapper;
 
+    @Override
     public PersonMemberVo getByPersonId(Long personId) {
        PersonMember personMember = personMemberMapper.selectByPersonMemberID(personId);
         PersonMemberVo personMemberVo = BeanUtils.copyBean(personMember, PersonMemberVo.class);
         return personMemberVo;
     }
 
+    @Override
     public int infoModified(MemberModifiedRequest memberModifiedRequest) {
         PersonMember personMember = BeanUtils.copyBean(memberModifiedRequest, PersonMember.class);
         if(memberModifiedRequest.getBirthday() != null){

@@ -1,7 +1,10 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.InstPeriodComp;
+import com.graduate.engine.model.InstPeriodPerson;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface InstPeriodCompMapper {
@@ -16,4 +19,6 @@ public interface InstPeriodCompMapper {
     int updateByPrimaryKeySelective(InstPeriodComp record);
 
     int updateByPrimaryKey(InstPeriodComp record);
+
+    List<InstPeriodComp> getByInstPeriodId(Long instPeriodId);
 }

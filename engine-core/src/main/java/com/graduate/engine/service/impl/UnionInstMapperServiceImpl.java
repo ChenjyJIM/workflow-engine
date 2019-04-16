@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 public class UnionInstMapperServiceImpl extends ServiceImpl<UnionInstMapperMapper, UnionInstMapper> implements UnionInstMapperService {
 
+    @Override
     public void saveOrUpdate(Long unionId, List<Long> instituteIdList) {
         HashMap<String,Object> map = new HashMap<String, Object>();
         map.put("union_id",unionId);

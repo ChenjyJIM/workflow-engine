@@ -3,6 +3,7 @@
 <mapper namespace="com.graduate.engine.mapper.InstituteSubMapper">
   <resultMap id="BaseResultMap" type="com.graduate.engine.model.InstituteSub">
     <id column="inst_sub_id" jdbcType="INTEGER" property="instSubId" />
+    <result column="inst_id" jdbcType="INTEGER" property="instId" />
     <result column="inst_sub_name" jdbcType="VARCHAR" property="instSubName" />
     <result column="inst_sub_short" jdbcType="VARCHAR" property="instSubShort" />
     <result column="inst_sub_eng_name" jdbcType="VARCHAR" property="instSubEngName" />
@@ -18,30 +19,36 @@
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    inst_sub_id, inst_sub_name, inst_sub_short, inst_sub_eng_name, industry_id, inst_sub_address,
-    inst_sub_website, inst_sub_wechat, inst_sub_qq, inst_sub_others, inst_sub_register_date, 
+    inst_sub_id, inst_id, inst_sub_name, inst_sub_short, inst_sub_eng_name, industry_id, inst_sub_address,
+    inst_sub_website, inst_sub_wechat, inst_sub_qq, inst_sub_others, inst_sub_register_date,
     inst_sub_introduction, inst_sub_memo, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from institute_sub
     where inst_sub_id = #{instSubId,jdbcType=INTEGER}
+  </select>
+  <select id="getInstSubsByInstId" resultType="com.graduate.engine.model.InstituteSub">
+    select
+    <include refid="Base_Column_List" />
+    from institute_sub
+    where inst_id = #{instId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from institute_sub
     where inst_sub_id = #{instSubId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.InstituteSub">
-    insert into institute_sub (inst_sub_id, inst_sub_name, inst_sub_short, 
+    insert into institute_sub (inst_sub_id, inst_id, inst_sub_name, inst_sub_short,
       inst_sub_eng_name, industry_id, inst_sub_address,
-      inst_sub_website, inst_sub_wechat, inst_sub_qq, 
-      inst_sub_others, inst_sub_register_date, inst_sub_introduction, 
+      inst_sub_website, inst_sub_wechat, inst_sub_qq,
+      inst_sub_others, inst_sub_register_date, inst_sub_introduction,
       inst_sub_memo, stop)
-    values (#{instSubId,jdbcType=INTEGER}, #{instSubName,jdbcType=VARCHAR}, #{instSubShort,jdbcType=VARCHAR}, 
+    values (#{instSubId,jdbcType=INTEGER}, #{instId, jdbcType=INTEGER}, #{instSubName,jdbcType=VARCHAR}, #{instSubShort,jdbcType=VARCHAR},
       #{instSubEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=TINYINT}, #{instSubAddress,jdbcType=VARCHAR},
-      #{instSubWebsite,jdbcType=VARCHAR}, #{instSubWechat,jdbcType=VARCHAR}, #{instSubQq,jdbcType=VARCHAR}, 
-      #{instSubOthers,jdbcType=VARCHAR}, #{instSubRegisterDate,jdbcType=INTEGER}, #{instSubIntroduction,jdbcType=VARCHAR}, 
+      #{instSubWebsite,jdbcType=VARCHAR}, #{instSubWechat,jdbcType=VARCHAR}, #{instSubQq,jdbcType=VARCHAR},
+      #{instSubOthers,jdbcType=VARCHAR}, #{instSubRegisterDate,jdbcType=INTEGER}, #{instSubIntroduction,jdbcType=VARCHAR},
       #{instSubMemo,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.InstituteSub">
@@ -49,6 +56,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="instSubId != null">
         inst_sub_id,
+      </if>
+      <if test="instId != null">
+        inst_id,
       </if>
       <if test="instSubName != null">
         inst_sub_name,
@@ -94,6 +104,9 @@
       <if test="instSubId != null">
         #{instSubId,jdbcType=INTEGER},
       </if>
+      <if test="instId != null">
+        #{instId,jdbcType=INTEGER},
+      </if>
       <if test="instSubName != null">
         #{instSubName,jdbcType=VARCHAR},
       </if>
@@ -138,9 +151,13 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.InstituteSub">
     update institute_sub
     <set>
+      <if test="instId != null">
+        inst_id = #{instId,jdbcType=INTEGER},
+      </if>
       <if test="instSubName != null">
         inst_sub_name = #{instSubName,jdbcType=VARCHAR},
       </if>
+
       <if test="instSubShort != null">
         inst_sub_short = #{instSubShort,jdbcType=VARCHAR},
       </if>
@@ -182,7 +199,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.InstituteSub">
     update institute_sub
-    set inst_sub_name = #{instSubName,jdbcType=VARCHAR},
+    set
+      inst_id = #{instId,jdbcType=INTEGER},
+      inst_sub_name = #{instSubName,jdbcType=VARCHAR},
       inst_sub_short = #{instSubShort,jdbcType=VARCHAR},
       inst_sub_eng_name = #{instSubEngName,jdbcType=VARCHAR},
       industry_id = #{industryId,jdbcType=TINYINT},

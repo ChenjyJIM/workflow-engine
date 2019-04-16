@@ -11,26 +11,34 @@
     <result column="inst_sub_period_person_memo" jdbcType="VARCHAR" property="instSubPeriodPersonMemo" />
   </resultMap>
   <sql id="Base_Column_List">
-    inst_sub_period_person_id, inst_sub_id, inst_sub_period_id, inst_sub_period_person_order, 
+    inst_sub_period_person_id, inst_sub_id, inst_sub_period_id, inst_sub_period_person_order,
     person_id, person_title_id, inst_sub_period_person_memo
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from inst_sub_period_person
-    where inst_sub_period_person_id = #{instSubPeriodPersonId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List"/>
+      from inst_sub_period_person
+      where inst_sub_period_person_id = #{instSubPeriodPersonId,jdbcType=INTEGER}
+    </select>
+    <select id="getMainPersonByPeriodId" resultType="com.graduate.engine.model.InstSubPeriodPerson">
+      select
+      <include refid="Base_Column_List"/>
+      from inst_sub_period_person
+      where inst_sub_period_id = #{instSubPeriodId}
+      order by inst_sub_period_person_order asc
+      limit 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from inst_sub_period_person
     where inst_sub_period_person_id = #{instSubPeriodPersonId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.InstSubPeriodPerson">
-    insert into inst_sub_period_person (inst_sub_period_person_id, inst_sub_id, 
-      inst_sub_period_id, inst_sub_period_person_order, 
+    insert into inst_sub_period_person (inst_sub_period_person_id, inst_sub_id,
+      inst_sub_period_id, inst_sub_period_person_order,
       person_id, person_title_id, inst_sub_period_person_memo
       )
-    values (#{instSubPeriodPersonId,jdbcType=INTEGER}, #{instSubId,jdbcType=INTEGER}, 
-      #{instSubPeriodId,jdbcType=INTEGER}, #{instSubPeriodPersonOrder,jdbcType=TINYINT}, 
+    values (#{instSubPeriodPersonId,jdbcType=INTEGER}, #{instSubId,jdbcType=INTEGER},
+      #{instSubPeriodId,jdbcType=INTEGER}, #{instSubPeriodPersonOrder,jdbcType=TINYINT},
       #{personId,jdbcType=INTEGER}, #{personTitleId,jdbcType=INTEGER}, #{instSubPeriodPersonMemo,jdbcType=VARCHAR}
       )
   </insert>

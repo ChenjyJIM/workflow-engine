@@ -16,4 +16,6 @@ public interface InstSubPeriodPersonMapper {
     int updateByPrimaryKeySelective(InstSubPeriodPerson record);
 
     int updateByPrimaryKey(InstSubPeriodPerson record);
+
+    InstSubPeriodPerson getMainPersonByPeriodId(Long instSubPeriodId);
 }

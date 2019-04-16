@@ -1,9 +1,11 @@
-package com.graduate.engine.model;
+package com.graduate.engine.model.viewobject;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
-public class InstituteSub {
+public class InstituteSubVo {
     private Long instSubId;
 
     private Long instId;
@@ -26,11 +28,17 @@ public class InstituteSub {
 
     private String instSubOthers;
 
-    private Long instSubRegisterDate;
+    private String instSubRegisterDate;
 
     private String instSubIntroduction;
 
     private String instSubMemo;
+    /**
+     * 行业分类名称
+     */
+    private String industryName;
+
+    private List<InstSubPeriodVo> instPeriods;
 
     private Boolean stop;
 }

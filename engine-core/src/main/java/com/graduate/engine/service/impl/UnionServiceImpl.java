@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UnionServiceImpl extends ServiceImpl<UnionMapper, Union> implements UnionService {
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void stopByPrimaryKey(String unionId) {
         Union union = this.getById(unionId);

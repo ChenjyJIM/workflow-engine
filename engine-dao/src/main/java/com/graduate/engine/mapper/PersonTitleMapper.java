@@ -16,4 +16,6 @@ public interface PersonTitleMapper {
     int updateByPrimaryKeySelective(PersonTitle record);
 
     int updateByPrimaryKey(PersonTitle record);
+
+    String getNameById(Integer personTitleId);
 }

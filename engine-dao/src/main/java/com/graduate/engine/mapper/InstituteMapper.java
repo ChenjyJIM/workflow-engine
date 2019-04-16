@@ -2,10 +2,30 @@ package com.graduate.engine.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.graduate.engine.model.Institute;
+import com.graduate.engine.request.InstituteQuery;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface InstituteMapper extends BaseMapper<Institute> {
+@Repository
+public interface InstituteMapper extends BaseMapper<Institute>{
+
+    Long count(InstituteQuery query);
+
+    List<Institute> getInstitutesSelective(InstituteQuery query);
+
+
+    int deleteByPrimaryKey(Integer instId);
+
+//    int insert(Institute record);
+
+    int insertSelective(Institute record);
+
+    Institute selectByPrimaryKey(Long instId);
+
+    int updateByPrimaryKeySelective(Institute record);
+
+    int updateByPrimaryKey(Institute record);
 
     /**
      * 查询所有未停用的学会信息

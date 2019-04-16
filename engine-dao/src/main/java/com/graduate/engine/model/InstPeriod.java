@@ -8,7 +8,7 @@ public class InstPeriod {
 
     private Long instId;
 
-    private Byte instPeriodNo;
+    private Integer instPeriodNo;
 
     private Long instPeriodFrom;
 
