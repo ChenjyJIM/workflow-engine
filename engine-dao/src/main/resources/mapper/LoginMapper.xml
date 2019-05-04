@@ -44,4 +44,9 @@
                                 LEFT JOIN role_menu rm on prm.role_id = rm.role_id
         where prm.person_id = #{userId}
     </select>
+    <!-- 获取所有用户列表 -->
+    <select id="getAllUsers" resultType="long">
+        select login_id from login
+        where `stop` = 0
+    </select>
 </mapper>

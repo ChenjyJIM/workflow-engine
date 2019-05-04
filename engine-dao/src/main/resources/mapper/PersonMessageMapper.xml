@@ -26,5 +26,11 @@
     <update id="removeMsg">
         update person_message set status = 2 where user_id = #{userId} and message_id = #{messageId}
     </update>
+    <insert id="saveBatch">
+        insert into person_message (user_id, message_id, status) values
+        <foreach collection="userIds" item="userId" open="" separator="," close="">
+            (#{userId},#{messageId},0)
+        </foreach>
+    </insert>
 
 </mapper>

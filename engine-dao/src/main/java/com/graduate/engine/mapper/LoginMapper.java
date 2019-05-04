@@ -19,6 +19,11 @@ public interface LoginMapper {
     int updatePassword(Login login);
 
     /**
+     * 获取所有用户列表
+     */
+    List<Long> getAllUsers();
+
+    /**
      * 查询用户的所有权限
      * @param userId  用户ID
      */

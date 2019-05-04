@@ -1,6 +1,7 @@
 package com.graduate.engine.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.graduate.engine.vaildator.group.AddGroup;
@@ -49,6 +50,12 @@ public class Union implements Serializable {
     private String unionOthers;
 
     private Long unionRegisterDate;
+
+    /**
+     * 将时间转换为String类型，方便前端显示
+     */
+    @TableField(exist=false)
+    private String registerTime;
 
     @ApiModelProperty(value = "学联体简介")
     private String unionIntroduction;

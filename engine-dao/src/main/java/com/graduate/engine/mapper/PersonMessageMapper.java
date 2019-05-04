@@ -5,6 +5,7 @@ import com.graduate.engine.model.PersonMessage;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PersonMessageMapper extends BaseMapper<PersonMessage> {
 
@@ -16,8 +17,10 @@ public interface PersonMessageMapper extends BaseMapper<PersonMessage> {
 
     List<Long> getTrashList(Long userId);
 
-    void hasReadMsg(@Param("userId") Long userId,@Param("messageId") Long messageId);
+    void hasReadMsg(@Param("userId") Long userId, @Param("messageId") Long messageId);
 
-    void removeMsg(@Param("userId")Long userId,@Param("messageId")Long messageId);
+    void removeMsg(@Param("userId") Long userId, @Param("messageId") Long messageId);
+
+    int saveBatch(Map<String,Object> personMessageMap);
 
 }

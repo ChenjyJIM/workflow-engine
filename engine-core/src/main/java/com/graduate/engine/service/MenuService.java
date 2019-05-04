@@ -20,4 +20,6 @@ public interface MenuService extends IService<Menu> {
 
     void delete(Long menuId);
 
+    List<MenuVo> getUserMenuTree(Long userId);
+
 }

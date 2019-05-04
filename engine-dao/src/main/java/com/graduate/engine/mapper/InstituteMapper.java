@@ -39,5 +39,10 @@ public interface InstituteMapper extends BaseMapper<Institute>{
      */
     List<String> queryAllInstList();
 
+    /**
+     * 根据学会id查询学会信息
+     */
+    List<Institute> queryInstByInstIds(Long[] instIds);
+
     List<Institute> getByPersonId(@Param("personId") Long personId);
 }

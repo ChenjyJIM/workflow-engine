@@ -56,6 +56,12 @@ public class Institute implements Serializable {
 
     private Long instRegisterDate;
 
+    /**
+     * 将时间转换为String类型，方便前端显示
+     */
+    @TableField(exist=false)
+    private String registerTime;
+
     @ApiModelProperty(value = "学会介绍")
     private String instIntroduction;
 

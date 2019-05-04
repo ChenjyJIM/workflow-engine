@@ -73,7 +73,7 @@ public class LoginController extends AbstractController{
      */
     @PostMapping("/register")
     public ResponseResult register(@RequestBody RegisterRequest request) {
-        try {
+            try {
             if (request == null || request.getLoginName() == null) {
                 return ResponseResult.buildError("参数错误！");
             }
@@ -98,7 +98,7 @@ public class LoginController extends AbstractController{
 
     @ApiOperation("获取用户信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "Long"),
+            @ApiImplicitParam(name = "token", value = "token", required = true, dataType = "String"),
     })
     @GetMapping("/info")
     public JSONObject getUserInfo(@RequestParam(value = "token") String token){

@@ -27,6 +27,8 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
             RoleMenu roleMenu = new RoleMenu();
             roleMenu.setMenuId(menuId);
             roleMenu.setRoleId(roleId);
+
+            this.save(roleMenu);
         }
     }
 

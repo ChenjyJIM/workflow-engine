@@ -1,12 +1,18 @@
 package com.graduate.engine.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.graduate.engine.model.Industry;
 import com.graduate.engine.model.Institute;
 import com.graduate.engine.model.Union;
+import com.graduate.engine.model.UnionInstMapper;
+import com.graduate.engine.request.UnionRequest;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.IndustryService;
 import com.graduate.engine.service.InstituteService;
+import com.graduate.engine.service.UnionInstMapperService;
 import com.graduate.engine.service.UnionService;
+import com.graduate.engine.utils.DateUtils;
 import com.graduate.engine.vaildator.ValidatorUtils;
 import com.graduate.engine.vaildator.group.AddGroup;
 import com.graduate.engine.vaildator.group.UpdateGroup;
@@ -16,7 +22,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/societies")
 @RestController
@@ -27,15 +36,18 @@ public class SocietyController {
     private IndustryService industryService;
     @Resource
     private InstituteService instituteService;
+    @Resource
+    private UnionInstMapperService unionInstMapperService;
 
     @ApiOperation("新增学联体")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "union",value = "学联体信息",required = true,dataType = "Union")
     })
     @PostMapping("/unions")
-    public ResponseResult addUnion(@RequestBody Union union) {
+    public ResponseResult addUnion(@RequestBody Union union) throws ParseException {
         ValidatorUtils.validateEntity(union, AddGroup.class);
 
+        union.setUnionRegisterDate(DateUtils.getTimeStampByUTC(union.getRegisterTime()));
         if (unionService.save(union)) {
             return ResponseResult.buildSuccess("添加成功！");
         }
@@ -47,9 +59,10 @@ public class SocietyController {
             @ApiImplicitParam(name = "union",value = "学联体信息",required = true,dataType = "Union")
     })
     @PutMapping("/unions")
-    public ResponseResult updateUnion(@RequestBody Union union) {
+    public ResponseResult updateUnion(@RequestBody Union union) throws ParseException {
         ValidatorUtils.validateEntity(union, UpdateGroup.class);
 
+        union.setUnionRegisterDate(DateUtils.getTimeStampByUTC(union.getRegisterTime()));
         if (unionService.updateById(union)){
             return ResponseResult.buildSuccess("修改成功！");
         }
@@ -63,13 +76,17 @@ public class SocietyController {
     @GetMapping("/unions/{unionId}")
     public ResponseResult unionInfo(@PathVariable String unionId) {
         Union union = unionService.getById(unionId);
+        union.setRegisterTime(DateUtils.getDateStrByTimestamp(union.getUnionRegisterDate()));
         return ResponseResult.buildSuccess(union);
     }
 
     @ApiOperation("获取学联体列表")
     @GetMapping("/unions/list")
     public ResponseResult unionList() {
-        List<Union> list = unionService.list();
+        List<Union> list = unionService.getUnionList();
+        for (Union union : list) {
+            union.setRegisterTime(DateUtils.getDateStrByTimestamp(union.getUnionRegisterDate(),"yyyy-MM-dd"));
+        }
         return ResponseResult.buildSuccess(list);
     }
 
@@ -81,6 +98,71 @@ public class SocietyController {
     public ResponseResult stopUnion(@PathVariable String unionId) {
         unionService.stopByPrimaryKey(unionId);
         return ResponseResult.buildSuccess("学联体停用成功！");
+    }
+
+    @ApiOperation("获取学联体所含学会列表")
+    @GetMapping("/unions/institutes/{unionId}")
+    public ResponseResult getInstList(@PathVariable Long unionId) {
+        List<Institute> instituteList;
+        try {
+            instituteList = unionService.getInstList(unionId);
+        } catch (RuntimeException e) {
+            return ResponseResult.buildError(e.getMessage());
+        }
+        return ResponseResult.buildSuccess(instituteList);
+    }
+
+    @ApiOperation("学联体添加学会列表")
+    @GetMapping("/unions/institutes/list/{unionId}")
+    public ResponseResult getAllInstList(@PathVariable Long unionId) {
+        List<Institute> list = instituteService.getInstitutes();
+        JSONArray jsonArray = new JSONArray();
+        List<Long> unionInstGroup = new ArrayList<>();
+        List<Institute> instituteList;
+        try {
+            instituteList = unionService.getInstList(unionId);
+            list.forEach(item -> {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("instId",item.getInstId());
+                jsonObject.put("instName",item.getInstName());
+                for (Institute institute : instituteList) {
+                    if (item.getInstName().equals(institute.getInstName())){
+                        jsonObject.put("isInclude",true);
+                        break;
+                    } else {
+                        jsonObject.put("isInclude",false);
+                    }
+                }
+                jsonArray.add(jsonObject);
+            });
+            unionInstGroup = instituteList.stream().map(Institute::getInstId).collect(Collectors.toList());
+        } catch (RuntimeException e) {
+            list.forEach(item -> {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("instId",item.getInstId());
+                jsonObject.put("instName",item.getInstName());
+                jsonObject.put("isInclude",false);
+                jsonArray.add(jsonObject);
+            });
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("instList",jsonArray);
+        jsonObject.put("unionInstGroup",unionInstGroup);
+        return ResponseResult.buildSuccess(jsonObject);
+    }
+
+    @ApiOperation("学联体添加学会")
+    @PostMapping("/unions/institutes")
+    public ResponseResult instAddInUnion(@RequestBody UnionRequest unionInst) {
+        unionInstMapperService.saveOrUpdate(unionInst.getUnionId(),unionInst.getInitId());
+        return ResponseResult.buildSuccess("添加成功");
+    }
+
+    @ApiOperation("学联体移除学会")
+    @DeleteMapping("/unions/institutes/{unionId}/{instId}")
+    public ResponseResult instRemoveUnion(@PathVariable Long unionId,@PathVariable Long instId) {
+        unionInstMapperService.stopByUnionIdInstId(unionId,instId);
+        return ResponseResult.buildSuccess("移除成功");
     }
 
     @ApiOperation("新增学会行业分类")

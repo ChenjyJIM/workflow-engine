@@ -8,4 +8,12 @@
             #{roleId}
         </foreach>
     </delete>
+    <!-- 根据角色ID返回该角色的所有userId -->
+    <select id="selectAllUserIds" resultType="long">
+        select person_id from person_role_mapper where role_id in
+        <foreach collection="array" item="roleId" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
+    </select>
+
 </mapper>

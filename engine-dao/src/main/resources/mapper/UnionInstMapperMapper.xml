@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.UnionInstMapperMapper">
+    <select id="queryInstIdsByUnionId" resultType="long">
+        select inst_id from union_inst_mapper where union_id = #{value} and `stop` = 0
+    </select>
 
+    <update id="stopByUnionIdInstId">
+        update union_inst_mapper
+        set `stop` = 1
+        where union_id = #{unionId,jdbcType=INTEGER}
+        and inst_id= #{instId,jdbcType=INTEGER}
+    </update>
 </mapper>

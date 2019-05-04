@@ -26,6 +26,7 @@ public class ResponseResult implements Serializable {
 
     public ResponseResult(boolean success, Object data) {
         this.success = success;
+        this.code = 200;
         this.data = data;
     }
 

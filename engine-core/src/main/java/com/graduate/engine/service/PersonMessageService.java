@@ -42,4 +42,19 @@ public interface PersonMessageService extends IService<PersonMessage> {
      * 将消息还原为已读
      */
     void restoreMessage(Long userId,Long messageId);
+
+    /**
+     * 将消息发送给所有用户
+     */
+    int messageToAll(Long messageId);
+
+    /**
+     * 将消息发送给某些角色
+     */
+    int messageToRoles(Long messageId,Long[] roleIds);
+
+    /**
+     * 将消息发送给某些人
+     */
+    int messageToUsers(Long messageId,Long[] userIds);
 }

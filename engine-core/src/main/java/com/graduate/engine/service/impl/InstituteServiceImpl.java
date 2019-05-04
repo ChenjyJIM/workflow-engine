@@ -221,4 +221,9 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
         return results;
     }
 
+    @Override
+    public List<Institute> getInstListBuInstIds(Long[] instIds) {
+        return instituteMapper.queryInstByInstIds(instIds);
+    }
+
 }

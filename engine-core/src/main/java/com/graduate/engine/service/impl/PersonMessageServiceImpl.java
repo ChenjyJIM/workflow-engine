@@ -1,18 +1,24 @@
 package com.graduate.engine.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.graduate.engine.mapper.LoginMapper;
 import com.graduate.engine.mapper.MessageMapper;
 import com.graduate.engine.mapper.PersonMessageMapper;
+import com.graduate.engine.mapper.PersonRoleMapperMapper;
 import com.graduate.engine.model.Message;
 import com.graduate.engine.model.PersonMessage;
 import com.graduate.engine.model.viewobject.MessageSummary;
 import com.graduate.engine.service.BaseService;
 import com.graduate.engine.service.PersonMessageService;
+import com.graduate.engine.utils.DateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 
@@ -21,7 +27,11 @@ public class PersonMessageServiceImpl extends ServiceImpl<PersonMessageMapper, P
     @Resource
     PersonMessageMapper personMessageMapper;
     @Resource
+    LoginMapper loginMapper;
+    @Resource
     MessageMapper messageMapper;
+    @Resource
+    PersonRoleMapperMapper personRoleMapperMapper;
     @Resource
     BaseService baseService;
 
@@ -64,18 +74,41 @@ public class PersonMessageServiceImpl extends ServiceImpl<PersonMessageMapper, P
     }
 
     @Override
-    public void hasReadMessage(Long userId,Long messageId) {
-        personMessageMapper.hasReadMsg(userId,messageId);
+    public void hasReadMessage(Long userId, Long messageId) {
+        personMessageMapper.hasReadMsg(userId, messageId);
     }
 
     @Override
-    public void removeMessage(Long userId,Long messageId) {
-        personMessageMapper.removeMsg(userId,messageId);
+    public void removeMessage(Long userId, Long messageId) {
+        personMessageMapper.removeMsg(userId, messageId);
     }
 
     @Override
-    public void restoreMessage(Long userId,Long messageId) {
-        personMessageMapper.hasReadMsg(userId,messageId);
+    public void restoreMessage(Long userId, Long messageId) {
+        personMessageMapper.hasReadMsg(userId, messageId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int messageToAll(Long messageId) {
+        List<Long> allUsers = loginMapper.getAllUsers();
+        return this.messageToUsers(messageId, allUsers.toArray(new Long[0]));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int messageToRoles(Long messageId, Long[] roleIds) {
+        List<Long> allUsers = personRoleMapperMapper.selectAllUserIds(roleIds);
+        return this.messageToUsers(messageId, allUsers.toArray(new Long[0]));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int messageToUsers(Long messageId, Long[] userIds) {
+        Map<String, Object> saveMap = new HashMap<>();
+        saveMap.put("messageId", messageId);
+        saveMap.put("userIds", userIds);
+        return personMessageMapper.saveBatch(saveMap);
     }
 
     /**
@@ -85,7 +118,7 @@ public class PersonMessageServiceImpl extends ServiceImpl<PersonMessageMapper, P
         MessageSummary messageSummary = new MessageSummary();
         messageSummary.setMessageId(message.getMessageId());
         messageSummary.setMessageTitle(message.getMessageTitle());
-        messageSummary.setCreateTime(message.getCreateTime());
+        messageSummary.setCreateTime(DateUtils.format(message.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
         messageSummary.setCreateUserId(message.getCreateUserId());
         messageSummary.setCreateUserName(baseService.getByPersonId(message.getCreateUserId()).getName());
         return messageSummary;

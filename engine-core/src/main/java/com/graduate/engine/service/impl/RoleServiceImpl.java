@@ -10,11 +10,13 @@ import com.graduate.engine.service.PersonRoleMapperService;
 import com.graduate.engine.service.RoleMenuService;
 import com.graduate.engine.service.RoleService;
 import com.graduate.engine.utils.Constant;
+import com.graduate.engine.utils.DateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
@@ -50,6 +52,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         roleMenuService.deleteBatch(new Long[]{roleId});
         //删除角色用户关联
         personRoleMapperService.deleteBatch(new Long[]{roleId});
+    }
+
+    @Override
+    public List<Role> getRoleList(Map<String, Object> map) {
+        List<Role> roleList = (List<Role>) this.listByMap(map);
+        for (Role role : roleList) {
+            role.setFormatTime(DateUtils.format(role.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
+        }
+        return roleList;
     }
 
     /**

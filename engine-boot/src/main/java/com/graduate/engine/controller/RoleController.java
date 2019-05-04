@@ -5,6 +5,7 @@ import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.RoleMenuService;
 import com.graduate.engine.service.RoleService;
 import com.graduate.engine.utils.Constant;
+import com.graduate.engine.utils.DateUtils;
 import com.graduate.engine.vaildator.ValidatorUtils;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -33,7 +34,7 @@ public class RoleController extends AbstractController {
         if (getUserId() != Constant.SUPER_ADMIN) {
             map.put("create_user_id",getUserId());
         }
-        List<Role> list = (List<Role>) roleService.listByMap(map);
+        List<Role> list = roleService.getRoleList(map);
         return ResponseResult.buildSuccess(list);
     }
 
@@ -76,7 +77,7 @@ public class RoleController extends AbstractController {
         return ResponseResult.buildSuccess();
     }
 
-    @ApiOperation("获取角色信息")
+    @ApiOperation("删除角色信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "Long"),
     })

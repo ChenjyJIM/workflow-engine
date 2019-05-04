@@ -58,4 +58,6 @@ public interface InstituteService extends IService<Institute>{
      * @return
      */
     InfoListVo getInfoList(Long instId);
+
+    List<Institute> getInstListBuInstIds(Long[] instIds);
 }

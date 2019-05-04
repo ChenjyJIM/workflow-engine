@@ -38,6 +38,12 @@ public class Role implements Serializable {
     @TableField(exist=false)
     private List<Long> menuId;
 
+    /**
+     * 将时间转换为String类型，方便前端显示
+     */
+    @TableField(exist=false)
+    private String formatTime;
+
     private Boolean stop;
 
 

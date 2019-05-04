@@ -21,7 +21,7 @@ import java.util.Set;
 
 @RequestMapping("/menu")
 @RestController
-public class MenuController extends AbstractController{
+public class MenuController extends AbstractController {
     @Resource
     private MenuService menuService;
     @Resource
@@ -33,14 +33,14 @@ public class MenuController extends AbstractController{
         List<MenuVo> menuList = menuService.getUserMenuList(getUserId());
         Set<String> permissions = shiroService.getUserPermissions(getUserId());
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("menuList",menuList);
-        jsonObject.put("permissions",permissions);
+        jsonObject.put("menuList", menuList);
+        jsonObject.put("permissions", permissions);
         return ResponseResult.buildSuccess(jsonObject);
     }
 
     @ApiOperation("获取菜单列表")
     @GetMapping("/list")
-    public ResponseResult getMenuList(){
+    public ResponseResult getMenuList() {
         List<Menu> menuVoList = menuService.list();
         for (Menu menu : menuVoList) {
             Menu parentMenu = menuService.getById(menu.getParentId());
@@ -53,20 +53,48 @@ public class MenuController extends AbstractController{
 
     @ApiOperation("获取菜单下拉列表")
     @GetMapping("/select")
-    public ResponseResult getMenuSelectList(){
+    public ResponseResult getMenuSelectList() {
         List<MenuVo> menuList = menuService.getUserMenuList(getUserId());
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject1 = new JSONObject();
-        jsonObject1.put("menuId",0);
-        jsonObject1.put("menuName","一级菜单");
+        jsonObject1.put("menuId", 0);
+        jsonObject1.put("menuName", "一级菜单");
         jsonArray.add(jsonObject1);
+        return ResponseResult.buildSuccess(getSelect(menuList,jsonArray));
+    }
+
+    private JSONArray getSelect(List<MenuVo> menuList,JSONArray select) {
         for (MenuVo menu : menuList) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("menuId",menu.getId());
-            jsonObject.put("menuName",menu.getMeta().get("title"));
-            jsonArray.add(jsonObject);
+            jsonObject.put("menuId", menu.getId());
+            jsonObject.put("menuName", menu.getMeta().get("title"));
+            select.add(jsonObject);
+            if (menu.getChildren() != null && menu.getChildren().size() != 0) {
+                select = getSelect(menu.getChildren(),select);
+            }
         }
-        return ResponseResult.buildSuccess(jsonArray);
+        return select;
+    }
+
+    @ApiOperation("获取菜单树状列表")
+    @GetMapping("/tree")
+    public ResponseResult getMenuTree() {
+        List<MenuVo> menuList = menuService.getUserMenuTree(getUserId());
+        return ResponseResult.buildSuccess(getTreeChildren(menuList));
+    }
+
+    private JSONArray getTreeChildren(List<MenuVo> menuList) {
+        JSONArray children = new JSONArray();
+        for (MenuVo menu : menuList) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", menu.getId());
+            jsonObject.put("title", menu.getMeta().get("title"));
+            if (menu.getChildren() != null && menu.getChildren().size() != 0) {
+                jsonObject.put("children", getTreeChildren(menu.getChildren()));
+            }
+            children.add(jsonObject);
+        }
+        return children;
     }
 
     @ApiOperation("获取菜单信息")
@@ -74,7 +102,7 @@ public class MenuController extends AbstractController{
             @ApiImplicitParam(name = "menuId", value = "菜单id", required = true, dataType = "Long"),
     })
     @GetMapping("/info/{menuId}")
-    public ResponseResult getInfo(@PathVariable("menuId") Long menuId){
+    public ResponseResult getInfo(@PathVariable("menuId") Long menuId) {
         Menu menu = menuService.getById(menuId);
         Menu parentMenu = menuService.getById(menu.getParentId());
         if (parentMenu != null) {
@@ -85,7 +113,7 @@ public class MenuController extends AbstractController{
 
     @ApiOperation("新增菜单信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "menu",value = "菜单信息",required = true,dataType = "Menu")
+            @ApiImplicitParam(name = "menu", value = "菜单信息", required = true, dataType = "Menu")
     })
     @PostMapping("/info")
     public ResponseResult saveMenu(@RequestBody Menu menu) {
@@ -96,7 +124,7 @@ public class MenuController extends AbstractController{
 
     @ApiOperation("更新菜单信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "menu",value = "菜单信息",required = true,dataType = "Menu")
+            @ApiImplicitParam(name = "menu", value = "菜单信息", required = true, dataType = "Menu")
     })
     @PutMapping("/info")
     public ResponseResult updateMenu(@RequestBody Menu menu) {
@@ -133,7 +161,7 @@ public class MenuController extends AbstractController{
         }
 
         //菜单
-        if (menu.getType() == Constant.MenuType.MENU.getValue()){
+        if (menu.getType() == Constant.MenuType.MENU.getValue()) {
             if (StringUtils.isBlank(menu.getPath())) {
                 throw new BasicException("菜单URL不能为空");
             }

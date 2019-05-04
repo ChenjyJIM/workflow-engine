@@ -6,11 +6,15 @@ import com.graduate.engine.model.UnionInstMapper;
 import com.graduate.engine.service.UnionInstMapperService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UnionInstMapperServiceImpl extends ServiceImpl<UnionInstMapperMapper, UnionInstMapper> implements UnionInstMapperService {
+    @Resource
+    UnionInstMapperMapper unionInstMapperMapper;
 
     @Override
     public void saveOrUpdate(Long unionId, List<Long> instituteIdList) {
@@ -25,5 +29,15 @@ public class UnionInstMapperServiceImpl extends ServiceImpl<UnionInstMapperMappe
 
             this.save(unionInstMapper);
         }
+    }
+
+    @Override
+    public List<Long> getInstIdByUnionId(Long unionId) {
+        return unionInstMapperMapper.queryInstIdsByUnionId(unionId);
+    }
+
+    @Override
+    public void stopByUnionIdInstId(Long unionId,Long instId) {
+        unionInstMapperMapper.stopByUnionIdInstId(unionId,instId);
     }
 }

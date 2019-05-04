@@ -19,5 +19,5 @@ public class MessageSummary {
 
     private String createUserName;
 
-    private Date createTime;
+    private String createTime;
 }
