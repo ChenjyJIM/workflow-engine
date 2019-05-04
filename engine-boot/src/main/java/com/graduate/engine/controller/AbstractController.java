@@ -11,4 +11,8 @@ public abstract class AbstractController {
     protected Long getUserId() {
         return getUser().getLoginId();
     }
+
+    protected Long getPersonId() {
+        return getUser().getPersonId();
+    }
 }

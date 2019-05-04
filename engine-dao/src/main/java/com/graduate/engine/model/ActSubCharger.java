@@ -12,7 +12,7 @@ public class ActSubCharger {
 
     private Integer actSubChargerOrder;
 
-    private Boolean actSubChargerEditer;
+    private Boolean actSubChargerEditor;
 
     private Long instId;
 

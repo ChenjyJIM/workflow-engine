@@ -1,5 +1,6 @@
 package com.graduate.engine.model;
 
+import com.graduate.engine.model.viewobject.InstSubInfoSimple;
 import lombok.Data;
 
 @Data
@@ -33,4 +34,11 @@ public class InstituteSub {
     private String instSubMemo;
 
     private Boolean stop;
+
+    public InstSubInfoSimple packetSimpleInfo() {
+        InstSubInfoSimple result = new InstSubInfoSimple();
+        result.setInstSubName(this.instSubName);
+        result.setInstSubId(this.instSubId);
+        return result;
+    }
 }

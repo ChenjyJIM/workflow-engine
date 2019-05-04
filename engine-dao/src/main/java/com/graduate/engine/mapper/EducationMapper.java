@@ -3,6 +3,8 @@ package com.graduate.engine.mapper;
 import com.graduate.engine.model.Education;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface EducationMapper {
     int deleteByPrimaryKey(Integer eduId);
@@ -16,4 +18,6 @@ public interface EducationMapper {
     int updateByPrimaryKeySelective(Education record);
 
     int updateByPrimaryKey(Education record);
+
+    List<Education> getAll();
 }

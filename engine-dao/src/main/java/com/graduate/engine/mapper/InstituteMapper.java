@@ -3,6 +3,8 @@ package com.graduate.engine.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.graduate.engine.model.Institute;
 import com.graduate.engine.request.InstituteQuery;
+import io.swagger.models.auth.In;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -36,4 +38,6 @@ public interface InstituteMapper extends BaseMapper<Institute>{
      * 查询未停用学会列表
      */
     List<String> queryAllInstList();
+
+    List<Institute> getByPersonId(@Param("personId") Long personId);
 }

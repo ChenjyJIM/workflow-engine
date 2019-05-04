@@ -11,7 +11,7 @@
     <result column="act_sub_eng_name" jdbcType="VARCHAR" property="actSubEngName" />
     <result column="industry_id" jdbcType="TINYINT" property="industryId" />
     <result column="act_sub_date_from" jdbcType="INTEGER" property="actSubDateFrom" />
-    <result column="act_sub_data_to" jdbcType="INTEGER" property="actSubDataTo" />
+    <result column="act_sub_date_to" jdbcType="INTEGER" property="actSubDateTo" />
     <result column="act_sub_address" jdbcType="VARCHAR" property="actSubAddress" />
     <result column="act_sub_priority" jdbcType="TINYINT" property="actSubPriority" />
     <result column="act_sub_status_id" jdbcType="TINYINT" property="actSubStatusId" />
@@ -23,13 +23,13 @@
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    act_sub_id, act_id, inst_id, inst_sub_id, act_sub_name, act_sub_short, act_sub_eng_name, 
-    industry_id, act_sub_date_from, act_sub_data_to, act_sub_address, act_sub_priority,
-    act_sub_status_id, act_sub_memo, act_sub_split, act_sub_merge, act_sub_father_id, 
+    act_sub_id, act_id, inst_id, inst_sub_id, act_sub_name, act_sub_short, act_sub_eng_name,
+    industry_id, act_sub_date_from, act_sub_date_to, act_sub_address, act_sub_priority,
+    act_sub_status_id, act_sub_memo, act_sub_split, act_sub_merge, act_sub_father_id,
     act_sub_restart_memo, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from activity_sub
     where act_sub_id = #{actSubId,jdbcType=INTEGER}
@@ -39,22 +39,22 @@
     where act_sub_id = #{actSubId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.ActivitySub">
-    insert into activity_sub (act_sub_id, act_id, inst_id, 
-      inst_sub_id, act_sub_name, act_sub_short, 
+    insert into activity_sub (act_sub_id, act_id, inst_id,
+      inst_sub_id, act_sub_name, act_sub_short,
       act_sub_eng_name, industry_id, act_sub_date_from,
-      act_sub_data_to, act_sub_address, act_sub_priority, 
-      act_sub_status_id, act_sub_memo, act_sub_split, 
-      act_sub_merge, act_sub_father_id, act_sub_restart_memo, 
+      act_sub_date_to, act_sub_address, act_sub_priority,
+      act_sub_status_id, act_sub_memo, act_sub_split,
+      act_sub_merge, act_sub_father_id, act_sub_restart_memo,
       stop)
-    values (#{actSubId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, 
-      #{instSubId,jdbcType=INTEGER}, #{actSubName,jdbcType=VARCHAR}, #{actSubShort,jdbcType=VARCHAR}, 
+    values (#{actSubId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER},
+      #{instSubId,jdbcType=INTEGER}, #{actSubName,jdbcType=VARCHAR}, #{actSubShort,jdbcType=VARCHAR},
       #{actSubEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=TINYINT}, #{actSubDateFrom,jdbcType=INTEGER},
-      #{actSubDataTo,jdbcType=INTEGER}, #{actSubAddress,jdbcType=VARCHAR}, #{actSubPriority,jdbcType=TINYINT}, 
-      #{actSubStatusId,jdbcType=TINYINT}, #{actSubMemo,jdbcType=VARCHAR}, #{actSubSplit,jdbcType=INTEGER}, 
-      #{actSubMerge,jdbcType=INTEGER}, #{actSubFatherId,jdbcType=INTEGER}, #{actSubRestartMemo,jdbcType=VARCHAR}, 
+      #{actSubDateTo,jdbcType=INTEGER}, #{actSubAddress,jdbcType=VARCHAR}, #{actSubPriority,jdbcType=TINYINT},
+      #{actSubStatusId,jdbcType=TINYINT}, #{actSubMemo,jdbcType=VARCHAR}, #{actSubSplit,jdbcType=INTEGER},
+      #{actSubMerge,jdbcType=INTEGER}, #{actSubFatherId,jdbcType=INTEGER}, #{actSubRestartMemo,jdbcType=VARCHAR},
       #{stop,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.ActivitySub">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="actSubId" parameterType="com.graduate.engine.model.ActivitySub">
     insert into activity_sub
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="actSubId != null">
@@ -84,8 +84,8 @@
       <if test="actSubDateFrom != null">
         act_sub_date_from,
       </if>
-      <if test="actSubDataTo != null">
-        act_sub_data_to,
+      <if test="actSubDateTo != null">
+        act_sub_date_to,
       </if>
       <if test="actSubAddress != null">
         act_sub_address,
@@ -143,8 +143,8 @@
       <if test="actSubDateFrom != null">
         #{actSubDateFrom,jdbcType=INTEGER},
       </if>
-      <if test="actSubDataTo != null">
-        #{actSubDataTo,jdbcType=INTEGER},
+      <if test="actSubDateTo != null">
+        #{actSubDateTo,jdbcType=INTEGER},
       </if>
       <if test="actSubAddress != null">
         #{actSubAddress,jdbcType=VARCHAR},
@@ -202,8 +202,8 @@
       <if test="actSubDateFrom != null">
         act_sub_date_from = #{actSubDateFrom,jdbcType=INTEGER},
       </if>
-      <if test="actSubDataTo != null">
-        act_sub_data_to = #{actSubDataTo,jdbcType=INTEGER},
+      <if test="actSubDateTo != null">
+        act_sub_date_to = #{actSubDateTo,jdbcType=INTEGER},
       </if>
       <if test="actSubAddress != null">
         act_sub_address = #{actSubAddress,jdbcType=VARCHAR},
@@ -245,7 +245,7 @@
       act_sub_eng_name = #{actSubEngName,jdbcType=VARCHAR},
       industry_id = #{industryId,jdbcType=TINYINT},
       act_sub_date_from = #{actSubDateFrom,jdbcType=INTEGER},
-      act_sub_data_to = #{actSubDataTo,jdbcType=INTEGER},
+      act_sub_date_to = #{actSubDateTo,jdbcType=INTEGER},
       act_sub_address = #{actSubAddress,jdbcType=VARCHAR},
       act_sub_priority = #{actSubPriority,jdbcType=TINYINT},
       act_sub_status_id = #{actSubStatusId,jdbcType=TINYINT},

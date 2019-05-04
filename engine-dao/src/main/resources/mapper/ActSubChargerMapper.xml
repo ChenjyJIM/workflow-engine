@@ -6,17 +6,17 @@
     <result column="act_sub_id" jdbcType="INTEGER" property="actSubId" />
     <result column="person_id" jdbcType="INTEGER" property="personId" />
     <result column="act_sub_charger_order" jdbcType="INTEGER" property="actSubChargerOrder" />
-    <result column="act_sub_charger_editer" jdbcType="BIT" property="actSubChargerEditer" />
+    <result column="act_sub_charger_editor" jdbcType="BIT" property="actSubChargerEditor" />
     <result column="inst_id" jdbcType="INTEGER" property="instId" />
     <result column="act_sub_charger_duty" jdbcType="VARCHAR" property="actSubChargerDuty" />
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    act_sub_charger_id, act_sub_id, person_id, act_sub_charger_order, act_sub_charger_editer, 
+    act_sub_charger_id, act_sub_id, person_id, act_sub_charger_order, act_sub_charger_editor,
     inst_id, act_sub_charger_duty, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from act_sub_charger
     where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
@@ -26,11 +26,11 @@
     where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.ActSubCharger">
-    insert into act_sub_charger (act_sub_charger_id, act_sub_id, person_id, 
-      act_sub_charger_order, act_sub_charger_editer, inst_id, 
+    insert into act_sub_charger (act_sub_charger_id, act_sub_id, person_id,
+      act_sub_charger_order, act_sub_charger_editor, inst_id,
       act_sub_charger_duty, stop)
-    values (#{actSubChargerId,jdbcType=INTEGER}, #{actSubId,jdbcType=INTEGER}, #{personId,jdbcType=INTEGER}, 
-      #{actSubChargerOrder,jdbcType=INTEGER}, #{actSubChargerEditer,jdbcType=BIT}, #{instId,jdbcType=INTEGER}, 
+    values (#{actSubChargerId,jdbcType=INTEGER}, #{actSubId,jdbcType=INTEGER}, #{personId,jdbcType=INTEGER},
+      #{actSubChargerOrder,jdbcType=INTEGER}, #{actSubChargerEditor,jdbcType=BIT}, #{instId,jdbcType=INTEGER},
       #{actSubChargerDuty,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.ActSubCharger">
@@ -48,8 +48,8 @@
       <if test="actSubChargerOrder != null">
         act_sub_charger_order,
       </if>
-      <if test="actSubChargerEditer != null">
-        act_sub_charger_editer,
+      <if test="actSubChargerEditor != null">
+        act_sub_charger_editor,
       </if>
       <if test="instId != null">
         inst_id,
@@ -74,8 +74,8 @@
       <if test="actSubChargerOrder != null">
         #{actSubChargerOrder,jdbcType=INTEGER},
       </if>
-      <if test="actSubChargerEditer != null">
-        #{actSubChargerEditer,jdbcType=BIT},
+      <if test="actSubChargerEditor != null">
+        #{actSubChargerEditor,jdbcType=BIT},
       </if>
       <if test="instId != null">
         #{instId,jdbcType=INTEGER},
@@ -100,8 +100,8 @@
       <if test="actSubChargerOrder != null">
         act_sub_charger_order = #{actSubChargerOrder,jdbcType=INTEGER},
       </if>
-      <if test="actSubChargerEditer != null">
-        act_sub_charger_editer = #{actSubChargerEditer,jdbcType=BIT},
+      <if test="actSubChargerEditor != null">
+        act_sub_charger_editor = #{actSubChargerEditor,jdbcType=BIT},
       </if>
       <if test="instId != null">
         inst_id = #{instId,jdbcType=INTEGER},
@@ -120,7 +120,7 @@
     set act_sub_id = #{actSubId,jdbcType=INTEGER},
       person_id = #{personId,jdbcType=INTEGER},
       act_sub_charger_order = #{actSubChargerOrder,jdbcType=INTEGER},
-      act_sub_charger_editer = #{actSubChargerEditer,jdbcType=BIT},
+      act_sub_charger_editor = #{actSubChargerEditor,jdbcType=BIT},
       inst_id = #{instId,jdbcType=INTEGER},
       act_sub_charger_duty = #{actSubChargerDuty,jdbcType=VARCHAR},
       stop = #{stop,jdbcType=BIT}

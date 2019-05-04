@@ -13,22 +13,30 @@
   <sql id="Base_Column_List">
     document_id, task_exec_id, doc_path, doc_unique_name, doc_class, doc_catagory, doc_name
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from document
     where document_id = #{documentId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="getByTaskExecId" resultType="com.graduate.engine.model.Document">
+    select
+    <include refid="Base_Column_List"/>
+    from document
+    where task_exec_id = #{taskExecId}
+    order by document_id desc
+    limit 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from document
     where document_id = #{documentId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.Document">
-    insert into document (document_id, task_exec_id, doc_path, 
-      doc_unique_name, doc_class, doc_catagory, 
+    insert into document (document_id, task_exec_id, doc_path,
+      doc_unique_name, doc_class, doc_catagory,
       doc_name)
-    values (#{documentId,jdbcType=INTEGER}, #{taskExecId,jdbcType=INTEGER}, #{docPath,jdbcType=VARCHAR}, 
-      #{docUniqueName,jdbcType=VARCHAR}, #{docClass,jdbcType=VARCHAR}, #{docCatagory,jdbcType=VARCHAR}, 
+    values (#{documentId,jdbcType=INTEGER}, #{taskExecId,jdbcType=INTEGER}, #{docPath,jdbcType=VARCHAR},
+      #{docUniqueName,jdbcType=VARCHAR}, #{docClass,jdbcType=VARCHAR}, #{docCatagory,jdbcType=VARCHAR},
       #{docName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.Document">

@@ -21,11 +21,11 @@
   </resultMap>
   <sql id="Base_Column_List">
     act_id, inst_id, inst_sub_id, person_id, act_name, act_short, act_eng_name, industry_id,
-    act_date, act_date_from, act_date_to, act_address, act_priority, act_status_id, act_memo, 
+    act_date, act_date_from, act_date_to, act_address, act_priority, act_status_id, act_memo,
     stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from activity
     where act_id = #{actId,jdbcType=INTEGER}
@@ -35,20 +35,20 @@
     where act_id = #{actId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.Activity">
-    insert into activity (act_id, inst_id, inst_sub_id, 
-      person_id, act_name, act_short, 
+    insert into activity (act_id, inst_id, inst_sub_id,
+      person_id, act_name, act_short,
       act_eng_name, industry_id, act_date,
-      act_date_from, act_date_to, act_address, 
-      act_priority, act_status_id, act_memo, 
+      act_date_from, act_date_to, act_address,
+      act_priority, act_status_id, act_memo,
       stop)
-    values (#{actId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instSubId,jdbcType=INTEGER}, 
-      #{personId,jdbcType=INTEGER}, #{actName,jdbcType=VARCHAR}, #{actShort,jdbcType=VARCHAR}, 
+    values (#{actId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instSubId,jdbcType=INTEGER},
+      #{personId,jdbcType=INTEGER}, #{actName,jdbcType=VARCHAR}, #{actShort,jdbcType=VARCHAR},
       #{actEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=TINYINT}, #{actDate,jdbcType=INTEGER},
-      #{actDateFrom,jdbcType=INTEGER}, #{actDateTo,jdbcType=INTEGER}, #{actAddress,jdbcType=VARCHAR}, 
-      #{actPriority,jdbcType=TINYINT}, #{actStatusId,jdbcType=TINYINT}, #{actMemo,jdbcType=VARCHAR}, 
+      #{actDateFrom,jdbcType=INTEGER}, #{actDateTo,jdbcType=INTEGER}, #{actAddress,jdbcType=VARCHAR},
+      #{actPriority,jdbcType=TINYINT}, #{actStatusId,jdbcType=TINYINT}, #{actMemo,jdbcType=VARCHAR},
       #{stop,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.Activity">
+  <insert id="insertSelective"   useGeneratedKeys="true" keyProperty="actId"  parameterType="com.graduate.engine.model.Activity">
     insert into activity
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="actId != null">

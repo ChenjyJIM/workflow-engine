@@ -1,6 +1,7 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.PersonMember;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,5 +40,5 @@ public interface PersonMemberMapper {
      *
      * @param instId
      */
-    List<PersonMember> getByInstId(Long instId);
+    List<PersonMember> getByInstId(@Param("instId") Long instId);
 }

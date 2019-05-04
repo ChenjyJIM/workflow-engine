@@ -41,6 +41,10 @@ public class ShiroConfig {
         shiroFilter.setFilters(filters);
 
         Map<String, String> filterMap = new LinkedHashMap<>();
+        filterMap.put("/upload/test", "anon");
+        filterMap.put("/upload/download", "anon");
+        filterMap.put("/upload/down", "anon");
+
         filterMap.put("/authentication/login", "anon");
         filterMap.put("/authentication/register", "anon");
         filterMap.put("/swagger-ui.html", "anon");

@@ -22,7 +22,7 @@ public class ActivitySub {
 
     private Long actSubDateFrom;
 
-    private Long actSubDataTo;
+    private Long actSubDateTo;
 
     private String actSubAddress;
 

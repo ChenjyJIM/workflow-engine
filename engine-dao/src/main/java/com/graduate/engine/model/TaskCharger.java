@@ -12,7 +12,7 @@ public class TaskCharger {
 
     private Integer taskChargerOrder;
 
-    private Boolean taskChargerEditer;
+    private Boolean taskChargerEditor;
 
     private Long instId;
 

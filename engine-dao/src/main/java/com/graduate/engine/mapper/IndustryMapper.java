@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.graduate.engine.model.Industry;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface IndustryMapper extends BaseMapper<Industry> {
     int deleteByPrimaryKey(Integer industryId);
@@ -18,4 +20,6 @@ public interface IndustryMapper extends BaseMapper<Industry> {
     int updateByPrimaryKeySelective(Industry record);
 
     int updateByPrimaryKey(Industry record);
+
+    List<Industry> getAll();
 }

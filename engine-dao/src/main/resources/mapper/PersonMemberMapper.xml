@@ -47,11 +47,22 @@
       from person_member
       where inst_id = #{instId}
     </select>
+
+  <sql id="query">
+      <where>
+        <if test="instId != null">
+          inst_id = #{instId}
+        </if>
+      </where>
+  </sql>
+
+
   <select id="getByInstId" resultMap="BaseResultMap">
      select <include refid="Base_Column_List" />
     from person_member
-    where inst_id =#{instId}
+    <include refid="query"/>
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from person_member
     where person_id = #{personId,jdbcType=INTEGER}

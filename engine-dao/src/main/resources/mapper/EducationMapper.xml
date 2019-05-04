@@ -10,12 +10,16 @@
     edu_id, edu_name, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from education
     where edu_id = #{eduId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getAll" resultType="com.graduate.engine.model.Education">
+      select <include refid="Base_Column_List"/>
+      from education
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from education
     where edu_id = #{eduId,jdbcType=INTEGER}
   </delete>

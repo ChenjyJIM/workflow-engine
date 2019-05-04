@@ -17,11 +17,11 @@
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    task_id, act_sub_id, act_id, task_name, task_short, task_eng_name, task_date_from, 
+    task_id, act_sub_id, act_id, task_name, task_short, task_eng_name, task_date_from,
     task_date_to, task_priority, task_status_id, task_memo, task_restart_memo, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from task
     where task_id = #{taskId,jdbcType=INTEGER}
@@ -31,18 +31,18 @@
     where task_id = #{taskId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.Task">
-    insert into task (task_id, act_sub_id, act_id, 
-      task_name, task_short, task_eng_name, 
-      task_date_from, task_date_to, task_priority, 
-      task_status_id, task_memo, task_restart_memo, 
+    insert into task (task_id, act_sub_id, act_id,
+      task_name, task_short, task_eng_name,
+      task_date_from, task_date_to, task_priority,
+      task_status_id, task_memo, task_restart_memo,
       stop)
-    values (#{taskId,jdbcType=INTEGER}, #{actSubId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, 
-      #{taskName,jdbcType=VARCHAR}, #{taskShort,jdbcType=VARCHAR}, #{taskEngName,jdbcType=VARCHAR}, 
-      #{taskDateFrom,jdbcType=INTEGER}, #{taskDateTo,jdbcType=INTEGER}, #{taskPriority,jdbcType=TINYINT}, 
-      #{taskStatusId,jdbcType=TINYINT}, #{taskMemo,jdbcType=VARCHAR}, #{taskRestartMemo,jdbcType=VARCHAR}, 
+    values (#{taskId,jdbcType=INTEGER}, #{actSubId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER},
+      #{taskName,jdbcType=VARCHAR}, #{taskShort,jdbcType=VARCHAR}, #{taskEngName,jdbcType=VARCHAR},
+      #{taskDateFrom,jdbcType=INTEGER}, #{taskDateTo,jdbcType=INTEGER}, #{taskPriority,jdbcType=TINYINT},
+      #{taskStatusId,jdbcType=TINYINT}, #{taskMemo,jdbcType=VARCHAR}, #{taskRestartMemo,jdbcType=VARCHAR},
       #{stop,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.Task">
+  <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="taskId"  parameterType="com.graduate.engine.model.Task">
     insert into task
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="taskId != null">

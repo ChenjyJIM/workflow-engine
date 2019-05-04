@@ -108,6 +108,7 @@ public class LoginController extends AbstractController{
         Set<String> permissions = shiroService.getUserPermissions(getUserId());
         jsonObject.put("access",permissions);
         jsonObject.put("token",token);
+        jsonObject.put("personId", getPersonId());
         jsonObject.put("avator","https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png");
         return jsonObject;
     }

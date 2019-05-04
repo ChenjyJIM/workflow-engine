@@ -226,7 +226,13 @@
     where inst_id = #{instId,jdbcType=INTEGER}
   </update>
 
-    <select id="queryAllInstList" resultType="string">
+  <select id="queryAllInstList" resultType="string">
 		select inst_name from institute where `stop` = 0
 	</select>
+
+  <select id="getByPersonId" resultType="com.graduate.engine.model.Institute">
+    select inst_name, inst_id from `institute`
+    where inst_id in (select inst_id from person_member where person_id = #{personId})
+  </select>
+
 </mapper>

@@ -6,17 +6,17 @@
     <result column="task_id" jdbcType="INTEGER" property="taskId" />
     <result column="person_id" jdbcType="INTEGER" property="personId" />
     <result column="task_charger_order" jdbcType="TINYINT" property="taskChargerOrder" />
-    <result column="task_charger_editer" jdbcType="BIT" property="taskChargerEditer" />
+    <result column="task_charger_editor" jdbcType="BIT" property="taskChargerEditor" />
     <result column="inst_id" jdbcType="INTEGER" property="instId" />
     <result column="task_charger_duty" jdbcType="VARCHAR" property="taskChargerDuty" />
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
-    task_charger_id, task_id, person_id, task_charger_order, task_charger_editer, inst_id, 
+    task_charger_id, task_id, person_id, task_charger_order, task_charger_editor, inst_id,
     task_charger_duty, stop
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from task_charger
     where task_charger_id = #{taskChargerId,jdbcType=INTEGER}
@@ -26,11 +26,11 @@
     where task_charger_id = #{taskChargerId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.TaskCharger">
-    insert into task_charger (task_charger_id, task_id, person_id, 
-      task_charger_order, task_charger_editer, inst_id, 
+    insert into task_charger (task_charger_id, task_id, person_id,
+      task_charger_order, task_charger_editor, inst_id,
       task_charger_duty, stop)
-    values (#{taskChargerId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{personId,jdbcType=INTEGER}, 
-      #{taskChargerOrder,jdbcType=TINYINT}, #{taskChargerEditer,jdbcType=BIT}, #{instId,jdbcType=INTEGER}, 
+    values (#{taskChargerId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{personId,jdbcType=INTEGER},
+      #{taskChargerOrder,jdbcType=TINYINT}, #{taskChargerEditor,jdbcType=BIT}, #{instId,jdbcType=INTEGER},
       #{taskChargerDuty,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.TaskCharger">
@@ -48,8 +48,8 @@
       <if test="taskChargerOrder != null">
         task_charger_order,
       </if>
-      <if test="taskChargerEditer != null">
-        task_charger_editer,
+      <if test="taskChargerEditor != null">
+        task_charger_editor,
       </if>
       <if test="instId != null">
         inst_id,
@@ -74,8 +74,8 @@
       <if test="taskChargerOrder != null">
         #{taskChargerOrder,jdbcType=TINYINT},
       </if>
-      <if test="taskChargerEditer != null">
-        #{taskChargerEditer,jdbcType=BIT},
+      <if test="taskChargerEditor != null">
+        #{taskChargerEditor,jdbcType=BIT},
       </if>
       <if test="instId != null">
         #{instId,jdbcType=INTEGER},
@@ -100,8 +100,8 @@
       <if test="taskChargerOrder != null">
         task_charger_order = #{taskChargerOrder,jdbcType=TINYINT},
       </if>
-      <if test="taskChargerEditer != null">
-        task_charger_editer = #{taskChargerEditer,jdbcType=BIT},
+      <if test="taskChargerEditor != null">
+        task_charger_editor = #{taskChargerEditor,jdbcType=BIT},
       </if>
       <if test="instId != null">
         inst_id = #{instId,jdbcType=INTEGER},
@@ -120,7 +120,7 @@
     set task_id = #{taskId,jdbcType=INTEGER},
       person_id = #{personId,jdbcType=INTEGER},
       task_charger_order = #{taskChargerOrder,jdbcType=TINYINT},
-      task_charger_editer = #{taskChargerEditer,jdbcType=BIT},
+      task_charger_editor = #{taskChargerEditor,jdbcType=BIT},
       inst_id = #{instId,jdbcType=INTEGER},
       task_charger_duty = #{taskChargerDuty,jdbcType=VARCHAR},
       stop = #{stop,jdbcType=BIT}
