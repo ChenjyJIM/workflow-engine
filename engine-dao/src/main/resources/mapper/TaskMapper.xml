@@ -25,6 +25,7 @@
     <include refid="Base_Column_List" />
     from task
     where task_id = #{taskId,jdbcType=INTEGER}
+    and `stop` = 1
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from task

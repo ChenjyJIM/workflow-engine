@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class TaskRequest implements Serializable {
     private Long actId;
+    private Long taskId;
     private String taskName;
     private String taskShort;
     private String taskEngName;
@@ -22,5 +23,7 @@ public class TaskRequest implements Serializable {
     private String taskDateTo;
     private String parentType;
     private Long parentId;
+    private Long personId;
+    private String duty;
     private List<TaskChargerDto> personChargers;
 }

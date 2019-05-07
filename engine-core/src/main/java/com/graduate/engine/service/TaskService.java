@@ -6,4 +6,7 @@ public interface TaskService {
 
     Long addTask(TaskRequest request);
 
+    boolean modifyTask(TaskRequest request);
+
+    int deleteTask(Long taskId);
 }

@@ -5,10 +5,7 @@ import com.graduate.engine.request.ActivityRequest;
 import com.graduate.engine.request.ActivitySubRequest;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.ActivityService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -48,6 +45,14 @@ public class ActivityController {
         }
     }
 
+    @GetMapping("/deleteActivity")
+    public ResponseResult deleteActivity(Long actId) {
+        if (actId == null) {
+            return ResponseResult.buildError("参数错误！");
+        }
+        return ResponseResult.build(1 == activityService.deleteActivity(actId));
+    }
+
     @PostMapping("/addSubActivity")
     public ResponseResult addSubActivity(@RequestBody ActivitySubRequest request) {
         if (request == null) {
@@ -60,6 +65,26 @@ public class ActivityController {
         } catch (Exception e) {
             return ResponseResult.buildError("系统异常！");
         }
+    }
+
+    @PostMapping("/modifyActivitySub")
+    public ResponseResult modifyActivitySub(@RequestBody ActivitySubRequest request) {
+        if (request == null) {
+            return ResponseResult.buildError("参数错误！");
+        }
+        try {
+            return ResponseResult.build(activityService.modifyActivitySub(request));
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
+    }
+
+    @GetMapping("/deleteActivitySub")
+    public ResponseResult deleteActivitySub(Long actSubId) {
+        if (actSubId == null) {
+            return ResponseResult.buildError("参数错误！");
+        }
+        return ResponseResult.build(1 == activityService.deleteActivitySub(actSubId));
     }
 
 }

@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 public class ActivitySubRequest implements Serializable {
     private Long actId;
+    private Long actSubId;
     private String actSubName;
     private String actSubShort;
     private String actSubEngName;
@@ -29,6 +30,16 @@ public class ActivitySubRequest implements Serializable {
      * 格式：['1','2'] 第一个为学会id，第二个为分会id
      */
     private List<String> ids;
+
+    /**
+     * 修改时的负责人id
+     */
+    private Long personId;
+
+    /**
+     * 修改时的负责人职责
+     */
+    private String duty;
 
     private List<ActivitySubDto> personChargers;
 }

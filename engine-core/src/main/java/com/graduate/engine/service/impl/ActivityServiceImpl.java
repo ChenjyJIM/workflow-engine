@@ -8,8 +8,6 @@ import com.graduate.engine.mapper.PersonMemberMapper;
 import com.graduate.engine.model.ActSubCharger;
 import com.graduate.engine.model.Activity;
 import com.graduate.engine.model.ActivitySub;
-import com.graduate.engine.model.PersonMember;
-import com.graduate.engine.model.viewobject.ActivitySubCharger;
 import com.graduate.engine.model.viewobject.ActivitySubDto;
 import com.graduate.engine.request.ActivityRequest;
 import com.graduate.engine.request.ActivitySubRequest;
@@ -17,6 +15,7 @@ import com.graduate.engine.service.ActivityService;
 import com.graduate.engine.utils.BeanUtils;
 import com.graduate.engine.utils.DateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -68,6 +67,18 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public int deleteActivity(Long actId) {
+        Activity activity = new Activity(){
+            {
+                setActId(actId);
+                // 逻辑删除
+                setStop(true);
+            }
+        };
+       return activityMapper.updateByPrimaryKeySelective(activity);
+    }
+
+    @Override
     public Long addSubActivity(ActivitySubRequest request) {
         ActivitySub activitySub = BeanUtils.copyBean(request, ActivitySub.class);
         activitySub.setActSubStatusId(0);
@@ -98,5 +109,36 @@ public class ActivityServiceImpl implements ActivityService {
             throw new BusinessException("插入失败！");
         }
         return activitySub.getActSubId();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean modifyActivitySub(ActivitySubRequest request){
+        ActivitySub activitySub = BeanUtils.copyBean(request, ActivitySub.class);
+        try {
+            activitySub.setActSubDateTo(DateUtils.getTimeStampByUTC(request.getActSubDateTo()));
+            activitySub.setActSubDateFrom(DateUtils.getTimeStampByUTC(request.getActSubDateFrom()));
+        } catch (Exception e) {
+            throw new BusinessException("日期转化解析失败！");
+        }
+        ActSubCharger actSubCharger = new ActSubCharger();
+        actSubCharger.setActSubId(request.getActSubId());
+        actSubCharger.setPersonId(request.getPersonId());
+        actSubCharger.setActSubChargerDuty(request.getDuty());
+        activitySubMapper.updateByPrimaryKeySelective(activitySub);
+        actSubChargerMapper.updateByPrimaryKeySelective(actSubCharger);
+        return true ;
+    }
+
+    @Override
+    public int deleteActivitySub(Long actSubId) {
+        ActivitySub activitySub = new ActivitySub(){
+            {
+                setActSubId(actSubId);
+                // 逻辑删除
+                setStop(true);
+            }
+        };
+        return activitySubMapper.updateByPrimaryKeySelective(activitySub);
     }
 }

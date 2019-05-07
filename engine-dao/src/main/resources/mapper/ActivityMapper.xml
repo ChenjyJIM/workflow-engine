@@ -29,11 +29,14 @@
     <include refid="Base_Column_List" />
     from activity
     where act_id = #{actId,jdbcType=INTEGER}
+    and `stop` = 0
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from activity
     where act_id = #{actId,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.graduate.engine.model.Activity">
     insert into activity (act_id, inst_id, inst_sub_id,
       person_id, act_name, act_short,

@@ -12,11 +12,16 @@ import com.graduate.engine.service.TaskService;
 import com.graduate.engine.utils.BeanUtils;
 import com.graduate.engine.utils.DateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 任务相关服务
+ * @author jimmy
+ */
 @Service
 public class TaskServiceImpl implements TaskService {
 
@@ -55,5 +60,35 @@ public class TaskServiceImpl implements TaskService {
             throw new BusinessException("插入失败！");
         }
         return task.getTaskId();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean modifyTask(TaskRequest request) {
+        Task task = BeanUtils.copyBean(request, Task.class);
+        try {
+            task.setTaskDateTo(DateUtils.getTimeStampByUTC(request.getTaskDateTo()));
+            task.setTaskDateFrom(DateUtils.getTimeStampByUTC(request.getTaskDateFrom()));
+        } catch (Exception e) {
+            throw new BusinessException("日期转化解析失败！");
+        }
+        TaskCharger taskCharger = new TaskCharger();
+        taskCharger.setTaskId(request.getTaskId());
+        taskCharger.setPersonId(request.getPersonId());
+        taskCharger.setTaskChargerDuty(request.getDuty());
+        taskMapper.updateByPrimaryKeySelective(task);
+        taskChargerMapper.updateByPrimaryKeySelective(taskCharger);
+        return true ;
+    }
+
+    @Override
+    public int deleteTask(Long taskId) {
+        Task task = new Task() {
+            {
+                setTaskId(taskId);
+                setStop(true);
+            }
+        };
+        return taskMapper.updateByPrimaryKeySelective(task);
     }
 }

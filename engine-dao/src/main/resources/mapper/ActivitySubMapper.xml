@@ -33,6 +33,7 @@
     <include refid="Base_Column_List" />
     from activity_sub
     where act_sub_id = #{actSubId,jdbcType=INTEGER}
+    and `stop` = 0
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from activity_sub
