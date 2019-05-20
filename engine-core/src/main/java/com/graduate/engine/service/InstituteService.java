@@ -31,12 +31,9 @@ public interface InstituteService extends IService<Institute>{
     /**
      * 获取学会信息，包括了学会行业分类信息
      */
-    Institute getInstById(String instId);
+    Institute getInstById(Long instId);
 
     List<Institute> getInstitutes();
-
-    List<String> getInstList();
-
 
     /**
      * 根据学会id获取到历届学会信息

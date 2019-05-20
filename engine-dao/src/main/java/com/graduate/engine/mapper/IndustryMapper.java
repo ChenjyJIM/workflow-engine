@@ -2,6 +2,7 @@ package com.graduate.engine.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.graduate.engine.model.Industry;
+import io.swagger.models.auth.In;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface IndustryMapper extends BaseMapper<Industry> {
     int updateByPrimaryKey(Industry record);
 
     List<Industry> getAll();
+
+    List<Industry> getWithoutStop();
 }

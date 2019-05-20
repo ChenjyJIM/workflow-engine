@@ -1,16 +1,23 @@
 package com.graduate.engine.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.graduate.engine.mapper.*;
 import com.graduate.engine.model.InstituteSub;
+import com.graduate.engine.model.Role;
 import com.graduate.engine.model.viewobject.InstInfoSimple;
 import com.graduate.engine.response.ResponseResult;
+import com.graduate.engine.service.RoleService;
+import com.graduate.engine.utils.Constant;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 
@@ -21,7 +28,7 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/common")
-public class CommonController {
+public class CommonController extends AbstractController {
 
     @Resource
     private PersonMemberMapper personMemberMapper;
@@ -37,6 +44,9 @@ public class CommonController {
 
     @Resource
     private InstituteSubMapper instituteSubMapper;
+
+    @Resource
+    private RoleService roleService;
 
     /**
      * 查询学会所有成员接口
@@ -101,6 +111,32 @@ public class CommonController {
             return ResponseResult.buildError("系统异常！");
         }
 
+    }
+
+    /**
+     * 查询角色接口
+     */
+    @GetMapping("/getAllRole")
+    public ResponseResult getAllRole() {
+        try {
+            Map<String, Object> map = new HashMap<>();
+
+            //除了管理员，只能查询自己创建的角色
+            if (getUserId() != Constant.SUPER_ADMIN) {
+                map.put("create_user_id",getUserId());
+            }
+            List<Role> list = roleService.getRoleList(map);
+            JSONArray jsonArray = new JSONArray();
+            for (Role role : list) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("roleId",role.getRoleId());
+                jsonObject.put("roleName",role.getRoleName());
+                jsonArray.add(jsonObject);
+            }
+            return ResponseResult.buildSuccess(jsonArray);
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
     }
 }
 

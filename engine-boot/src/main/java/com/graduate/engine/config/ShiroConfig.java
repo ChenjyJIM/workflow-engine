@@ -46,7 +46,7 @@ public class ShiroConfig {
         filterMap.put("/upload/down", "anon");
 
         filterMap.put("/authentication/login", "anon");
-        filterMap.put("/authentication/register", "anon");
+        filterMap.put("/authentication/guest/register", "anon");
         filterMap.put("/swagger-ui.html", "anon");
         filterMap.put("/swagger/**", "anon");
         filterMap.put("/webjars/springfox-swagger-ui/**", "anon");

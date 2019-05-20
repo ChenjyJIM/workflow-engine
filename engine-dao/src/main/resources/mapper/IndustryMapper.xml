@@ -83,4 +83,7 @@
       stop = #{stop,jdbcType=BIT}
     where industry_id = #{industryId,jdbcType=INTEGER}
   </update>
+    <select id="getWithoutStop" resultMap="BaseResultMap">
+        select * from industry where `stop` = 0
+    </select>
 </mapper>

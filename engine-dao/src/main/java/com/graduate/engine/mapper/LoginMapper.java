@@ -1,12 +1,13 @@
 package com.graduate.engine.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.graduate.engine.model.Login;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface LoginMapper {
+public interface LoginMapper extends BaseMapper<Login> {
     int addLoginUser(Login login);
 
     Login findLoginUser(Login login);
@@ -34,4 +35,9 @@ public interface LoginMapper {
      * @param userId  用户ID
      */
     List<Long> queryAllMenu(Long userId);
+
+    /**
+     * 批量停用账户
+     */
+    void stopBatch(Long[] userIds);
 }

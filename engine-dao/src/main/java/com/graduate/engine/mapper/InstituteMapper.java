@@ -35,11 +35,6 @@ public interface InstituteMapper extends BaseMapper<Institute>{
     List<Institute> queryAllInst();
 
     /**
-     * 查询未停用学会列表
-     */
-    List<String> queryAllInstList();
-
-    /**
      * 根据学会id查询学会信息
      */
     List<Institute> queryInstByInstIds(Long[] instIds);

@@ -49,4 +49,13 @@
         select login_id from login
         where `stop` = 0
     </select>
+    <!--批量停用用户 -->
+    <update id="stopBatch">
+        update login
+        set `stop` = 1
+        where login_id in
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </update>
 </mapper>

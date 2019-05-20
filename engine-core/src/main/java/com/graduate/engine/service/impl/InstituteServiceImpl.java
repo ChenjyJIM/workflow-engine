@@ -110,7 +110,7 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
     }
 
     @Override
-    public Institute getInstById(String instId) {
+    public Institute getInstById(Long instId) {
         Institute institute = this.getById(instId);
         int industryId = institute.getIndustryId();
         Industry industry = industryMapper.selectById(industryId);
@@ -124,11 +124,6 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
     public List<Institute> getInstitutes() {
         //todo 考虑加入学会行业分类信息
         return instituteMapper.queryAllInst();
-    }
-
-    @Override
-    public List<String> getInstList() {
-        return instituteMapper.queryAllInstList();
     }
 
     @Override

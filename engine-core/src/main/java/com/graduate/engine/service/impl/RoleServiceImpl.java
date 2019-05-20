@@ -12,6 +12,7 @@ import com.graduate.engine.service.RoleService;
 import com.graduate.engine.utils.Constant;
 import com.graduate.engine.utils.DateUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -45,6 +46,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteRole(Long roleId) {
         this.removeById(roleId);
 

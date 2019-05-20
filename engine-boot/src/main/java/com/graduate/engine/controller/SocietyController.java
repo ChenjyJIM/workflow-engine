@@ -206,7 +206,7 @@ public class SocietyController {
     @ApiOperation("获取学会行业分类")
     @GetMapping("/industries")
     public ResponseResult industryList() {
-        List<Industry> list = industryService.list();
+        List<Industry> list = industryService.getIndustryWithoutStop();
         return ResponseResult.buildSuccess(list);
     }
 
@@ -241,8 +241,15 @@ public class SocietyController {
     @ApiOperation("获取学会列表")
     @GetMapping("/institutes/list")
     public ResponseResult instituteList() {
-        List<String> list = instituteService.getInstList();
-        return ResponseResult.buildSuccess(list);
+        List<Institute> list = instituteService.getInstitutes();
+        JSONArray jsonArray = new JSONArray();
+        for (Institute institute : list) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("instId",institute.getInstId().toString());
+            jsonObject.put("instName",institute.getInstName());
+            jsonArray.add(jsonObject);
+        }
+        return ResponseResult.buildSuccess(jsonArray);
     }
 
     @ApiOperation("获取所有学会信息")
@@ -254,10 +261,10 @@ public class SocietyController {
 
     @ApiOperation("获取学会信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "instId",value = "学会id",required = true,dataType = "String")
+            @ApiImplicitParam(name = "instId",value = "学会id",required = true,dataType = "Long")
     })
     @GetMapping("/institutes/{instId}")
-    public ResponseResult instituteInfo(@PathVariable String instId) {
+    public ResponseResult instituteInfo(@PathVariable Long instId) {
         Institute institute = instituteService.getInstById(instId);
         return ResponseResult.buildSuccess(institute);
     }

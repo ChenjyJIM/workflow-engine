@@ -16,4 +16,6 @@ public interface PersonRoleMapperMapper extends BaseMapper<PersonRoleMapper> {
      * 根据角色ID返回该角色的所有userId
      */
     List<Long> selectAllUserIds(Long[] roleIds);
+
+    PersonRoleMapper selectByPersonId(Long personId);
 }

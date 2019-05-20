@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.PersonMemberApplicationDetailsMapper">
+    <select id="selectByApplicationId" resultType="com.graduate.engine.model.PersonMemberApplicationDetails">
+        select * from person_member_application_details where application_id = #{applicationId}
+    </select>
+</mapper>

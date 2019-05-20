@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.PersonMemberApplicationMapper">
+    <resultMap id="ReviewResultMap" type="com.graduate.engine.model.PersonMemberApplication">
+        <id column="application_id" jdbcType="INTEGER" property="applicationId" />
+        <result column="add_time" jdbcType="INTEGER" property="addTime" />
+        <result column="name" jdbcType="VARCHAR" property="personName" />
+    </resultMap>
+
+    <select id="selectByLoginId" resultType="com.graduate.engine.model.PersonMemberApplication">
+        select * from person_member_application where login_id = #{loginId}
+    </select>
+
+    <select id="selectReviewApplication" resultMap="ReviewResultMap">
+        select person_member_application.application_id,add_time,name from person_member_application
+        left join person_member_application_details
+        on person_member_application.application_id = person_member_application_details.application_id
+        where inst_id = #{instId} and `status` = 0
+    </select>
+</mapper>
