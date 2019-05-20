@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.ActivityStatusMapper">
+  <resultMap id="BaseResultMap" type="com.graduate.engine.model.ActivityStatus">
+    <id column="act_status_id" jdbcType="INTEGER" property="actStatusId" />
+    <result column="act_status_name" jdbcType="VARCHAR" property="actStatusName" />
+    <result column="act_status_order" jdbcType="TINYINT" property="actStatusOrder" />
+    <result column="act_status_special" jdbcType="BIT" property="actStatusSpecial" />
+    <result column="stop" jdbcType="BIT" property="stop" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    act_status_id, act_status_name, act_status_order, act_status_special, stop
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from activity_status
+    where act_status_id = #{actStatusId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from activity_status
+    where act_status_id = #{actStatusId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.graduate.engine.model.ActivityStatus">
+    insert into activity_status (act_status_id, act_status_name, act_status_order,
+      act_status_special, stop)
+    values (#{actStatusId,jdbcType=INTEGER}, #{actStatusName,jdbcType=VARCHAR}, #{actStatusOrder,jdbcType=TINYINT},
+      #{actStatusSpecial,jdbcType=BIT}, #{stop,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.graduate.engine.model.ActivityStatus">
+    insert into activity_status
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="actStatusId != null">
+        act_status_id,
+      </if>
+      <if test="actStatusName != null">
+        act_status_name,
+      </if>
+      <if test="actStatusOrder != null">
+        act_status_order,
+      </if>
+      <if test="actStatusSpecial != null">
+        act_status_special,
+      </if>
+      <if test="stop != null">
+        stop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="actStatusId != null">
+        #{actStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="actStatusName != null">
+        #{actStatusName,jdbcType=VARCHAR},
+      </if>
+      <if test="actStatusOrder != null">
+        #{actStatusOrder,jdbcType=TINYINT},
+      </if>
+      <if test="actStatusSpecial != null">
+        #{actStatusSpecial,jdbcType=BIT},
+      </if>
+      <if test="stop != null">
+        #{stop,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.ActivityStatus">
+    update activity_status
+    <set>
+      <if test="actStatusName != null">
+        act_status_name = #{actStatusName,jdbcType=VARCHAR},
+      </if>
+      <if test="actStatusOrder != null">
+        act_status_order = #{actStatusOrder,jdbcType=TINYINT},
+      </if>
+      <if test="actStatusSpecial != null">
+        act_status_special = #{actStatusSpecial,jdbcType=BIT},
+      </if>
+      <if test="stop != null">
+        stop = #{stop,jdbcType=BIT},
+      </if>
+    </set>
+    where act_status_id = #{actStatusId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.ActivityStatus">
+    update activity_status
+    set act_status_name = #{actStatusName,jdbcType=VARCHAR},
+      act_status_order = #{actStatusOrder,jdbcType=TINYINT},
+      act_status_special = #{actStatusSpecial,jdbcType=BIT},
+      stop = #{stop,jdbcType=BIT}
+    where act_status_id = #{actStatusId,jdbcType=INTEGER}
+  </update>
+</mapper>

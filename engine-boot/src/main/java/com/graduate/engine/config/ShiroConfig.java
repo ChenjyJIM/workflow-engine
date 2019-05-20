@@ -44,6 +44,9 @@ public class ShiroConfig {
         filterMap.put("/upload/test", "anon");
         filterMap.put("/upload/download", "anon");
         filterMap.put("/upload/down", "anon");
+//        filterMap.put("/activity/getActivityById", "anon");
+//        filterMap.put("/activity/getTreeData", "anon");
+
 
         filterMap.put("/authentication/login", "anon");
         filterMap.put("/authentication/guest/register", "anon");

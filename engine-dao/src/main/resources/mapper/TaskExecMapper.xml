@@ -13,26 +13,31 @@
     <result column="task_exec_date" jdbcType="INTEGER" property="taskExecDate" />
   </resultMap>
   <sql id="Base_Column_List">
-    task_exec_id, task_id, task_exec_name, task_exec_status, task_exec_report, task_exec_monitor, 
+    task_exec_id, task_id, task_exec_name, task_exec_status, task_exec_report, task_exec_monitor,
     task_exec_docs, task_exec_rate, task_exec_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from task_exec
     where task_exec_id = #{taskExecId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="getByTaskId" resultType="com.graduate.engine.model.TaskExec">
+    select <include refid="Base_Column_List"/>
+    from task_exec
+    where task_id = #{taskId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from task_exec
     where task_exec_id = #{taskExecId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.TaskExec">
-    insert into task_exec (task_exec_id, task_id, task_exec_name, 
-      task_exec_status, task_exec_report, task_exec_monitor, 
+    insert into task_exec (task_exec_id, task_id, task_exec_name,
+      task_exec_status, task_exec_report, task_exec_monitor,
       task_exec_docs, task_exec_rate, task_exec_date
       )
-    values (#{taskExecId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{taskExecName,jdbcType=VARCHAR}, 
-      #{taskExecStatus,jdbcType=TINYINT}, #{taskExecReport,jdbcType=VARCHAR}, #{taskExecMonitor,jdbcType=VARCHAR}, 
+    values (#{taskExecId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{taskExecName,jdbcType=VARCHAR},
+      #{taskExecStatus,jdbcType=TINYINT}, #{taskExecReport,jdbcType=VARCHAR}, #{taskExecMonitor,jdbcType=VARCHAR},
       #{taskExecDocs,jdbcType=VARCHAR}, #{taskExecRate,jdbcType=DOUBLE}, #{taskExecDate,jdbcType=INTEGER}
       )
   </insert>

@@ -12,7 +12,7 @@ public class TaskExec {
 
     private String taskExecName;
 
-    private Integer taskExecStatus;
+    private Long taskExecStatus;
 
     private String taskExecReport;
 

@@ -1,0 +1,31 @@
+tomorrow
+
+
+
+//axios 请求API
+https://www.kancloud.cn/yunye/axios/234845#handling-errors
+
+// iView API
+https://www.iviewui.com/components/date-picker
+
+
+//dhtmlxgantt API
+https://docs.dhtmlx.com/gantt/desktop__configuring_time_scale.html#customtimeunits
+//gojs
+demo: https://www.cnblogs.com/helloluckworld/p/9597426.html
+module:http://www.cnblogs.com/landeanfen/p/7910530.html
+https://blog.csdn.net/sinat_31231955/article/details/81904922
+https://gojs.net/latest/learn/index.html
+
+//权限控制思路
+https://juejin.im/post/591aa14f570c35006961acac
+
+
+学会信息页面
+
+分会信息页面
+与学会雷同
+
+分会当前届 --> 查看历史届{第几届，负责人，开始结束时间}
+
+

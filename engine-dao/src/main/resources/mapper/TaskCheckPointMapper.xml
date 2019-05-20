@@ -11,20 +11,27 @@
   <sql id="Base_Column_List">
     task_check_point_id, task_id, task_check_point_name, task_check_point_memo, task_check_point_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from task_check_point
     where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getByTaskId" resultType="com.graduate.engine.model.TaskCheckPoint">
+      select
+      <include refid="Base_Column_List"/>
+      from task_check_point
+      where task_id = #{taskId};
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from task_check_point
     where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.TaskCheckPoint">
-    insert into task_check_point (task_check_point_id, task_id, task_check_point_name, 
+    insert into task_check_point (task_check_point_id, task_id, task_check_point_name,
       task_check_point_memo, task_check_point_date)
-    values (#{taskCheckPointId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{taskCheckPointName,jdbcType=VARCHAR}, 
+    values (#{taskCheckPointId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{taskCheckPointName,jdbcType=VARCHAR},
       #{taskCheckPointMemo,jdbcType=VARCHAR}, #{taskCheckPointDate,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.TaskCheckPoint">

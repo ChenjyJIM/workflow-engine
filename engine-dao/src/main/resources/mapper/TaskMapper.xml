@@ -20,14 +20,25 @@
     task_id, act_sub_id, act_id, task_name, task_short, task_eng_name, task_date_from,
     task_date_to, task_priority, task_status_id, task_memo, task_restart_memo, stop
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from task
     where task_id = #{taskId,jdbcType=INTEGER}
-    and `stop` = 1
+    and `stop` = 0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getByActId" resultType="com.graduate.engine.model.Task">
+      select <include refid="Base_Column_List" />
+      from task
+      where act_id = #{actId} and act_sub_id is null
+    </select>
+  <select id="getByActSubId" resultType="com.graduate.engine.model.Task">
+    select
+    <include refid="Base_Column_List"/>
+    from task
+    where act_sub_id = #{actSubId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from task
     where task_id = #{taskId,jdbcType=INTEGER}
   </delete>

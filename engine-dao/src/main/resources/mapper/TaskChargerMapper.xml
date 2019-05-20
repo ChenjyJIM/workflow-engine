@@ -21,6 +21,23 @@
     from task_charger
     where task_charger_id = #{taskChargerId,jdbcType=INTEGER}
   </select>
+    <select id="getMainTaskCharger" resultType="com.graduate.engine.model.TaskCharger">
+      select <include refid="Base_Column_List"/>
+      from task_charger
+      where task_id = #{taskId}
+      order by task_charger_order asc
+      limit 1
+    </select>
+  <select id="getByPersonId" resultType="com.graduate.engine.model.TaskCharger">
+    select <include refid="Base_Column_List"/>
+    from task_charger
+    where person_id = #{personId}
+  </select>
+  <select id="count" resultType="java.lang.Long">
+    select count(*)
+    from task_charger
+    where person_id = #{personId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from task_charger
     where task_charger_id = #{taskChargerId,jdbcType=INTEGER}

@@ -67,10 +67,10 @@ public class CommonController extends AbstractController {
      * @return
      */
     @GetMapping("/getInstByPersonId")
-    public ResponseResult getInstByPersonId(Long personId) {
+    public ResponseResult getInstByPersonId() {
         try {
             List<InstInfoSimple> instSimples = new ArrayList<>();
-            instituteMapper.getByPersonId(personId).forEach( institute -> {
+            instituteMapper.getByPersonId(getPersonId()).forEach( institute -> {
                 InstInfoSimple instInfoSimple = new InstInfoSimple();
                 instInfoSimple.setInstName(institute.getInstName());
                 instInfoSimple.setInstId(institute.getInstId());

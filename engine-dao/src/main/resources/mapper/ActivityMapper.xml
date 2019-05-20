@@ -17,14 +17,47 @@
     <result column="act_priority" jdbcType="TINYINT" property="actPriority" />
     <result column="act_status_id" jdbcType="TINYINT" property="actStatusId" />
     <result column="act_memo" jdbcType="VARCHAR" property="actMemo" />
+    <result column="publish" jdbcType="BIT" property="publish" />
     <result column="stop" jdbcType="BIT" property="stop" />
   </resultMap>
   <sql id="Base_Column_List">
     act_id, inst_id, inst_sub_id, person_id, act_name, act_short, act_eng_name, industry_id,
-    act_date, act_date_from, act_date_to, act_address, act_priority, act_status_id, act_memo,
+    act_date, act_date_from, act_date_to, act_address, act_priority, act_status_id, act_memo,publish,
     stop
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+  <sql id="query">
+    <where>
+      <if test="actName!=null">
+        act_name like concat('%',#{actName},'%')
+      </if>
+      <if test="instId!=null">
+        and inst_id=#{instId}
+      </if>
+      <if test="instSubId!=null">
+        and inst_sub_id=#{instSubId}
+      </if>
+      <if test="publish!=null">
+        and publish=#{publish}
+      </if>
+      <if test="actStatusId!=null">
+        and act_status_id =#{actStatusId}
+      </if>
+      <if test="personId != null">
+        and person_id = #{personId}
+      </if>
+      <if test="stop != null">
+        and stop = 1
+      </if>
+      <if test="stop == null">
+        and stop = 0
+      </if>
+    </where>
+  </sql>
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from activity
@@ -32,7 +65,31 @@
     and `stop` = 0
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+    <select id="count" resultType="java.lang.Integer">
+      select count(*)
+      from activity
+      <include refid="query"/>
+    </select>
+
+  <select id="queryActivity" resultType="com.graduate.engine.model.Activity">
+    select
+    <include refid="Base_Column_List"/>
+    from activity
+    <include refid="query"/>
+    ORDER BY
+    <choose>
+      <when test="sortByPriority !=null">
+        act_priority desc, act_date desc
+      </when>
+      <otherwise>
+        act_date desc
+      </otherwise>
+    </choose>
+    limit #{start}, #{size}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from activity
     where act_id = #{actId,jdbcType=INTEGER}
   </delete>
@@ -42,14 +99,14 @@
       person_id, act_name, act_short,
       act_eng_name, industry_id, act_date,
       act_date_from, act_date_to, act_address,
-      act_priority, act_status_id, act_memo,
+      act_priority, act_status_id, act_memo, publish,
       stop)
     values (#{actId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instSubId,jdbcType=INTEGER},
       #{personId,jdbcType=INTEGER}, #{actName,jdbcType=VARCHAR}, #{actShort,jdbcType=VARCHAR},
       #{actEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=TINYINT}, #{actDate,jdbcType=INTEGER},
       #{actDateFrom,jdbcType=INTEGER}, #{actDateTo,jdbcType=INTEGER}, #{actAddress,jdbcType=VARCHAR},
       #{actPriority,jdbcType=TINYINT}, #{actStatusId,jdbcType=TINYINT}, #{actMemo,jdbcType=VARCHAR},
-      #{stop,jdbcType=BIT})
+      #{publish,jdbcType=BIT},#{stop,jdbcType=BIT})
   </insert>
   <insert id="insertSelective"   useGeneratedKeys="true" keyProperty="actId"  parameterType="com.graduate.engine.model.Activity">
     insert into activity
@@ -98,6 +155,9 @@
       </if>
       <if test="actMemo != null">
         act_memo,
+      </if>
+      <if test="publish != null">
+        publish,
       </if>
       <if test="stop != null">
         stop,
@@ -149,6 +209,9 @@
       <if test="actMemo != null">
         #{actMemo,jdbcType=VARCHAR},
       </if>
+      <if test="publish != null">
+        #{publish,jdbcType=BIT},
+      </if>
       <if test="stop != null">
         #{stop,jdbcType=BIT},
       </if>
@@ -199,6 +262,9 @@
       <if test="actMemo != null">
         act_memo = #{actMemo,jdbcType=VARCHAR},
       </if>
+      <if test="publish != null">
+        publish= #{publish,jdbcType=BIT},
+      </if>
       <if test="stop != null">
         stop = #{stop,jdbcType=BIT},
       </if>
@@ -221,6 +287,7 @@
       act_priority = #{actPriority,jdbcType=TINYINT},
       act_status_id = #{actStatusId,jdbcType=TINYINT},
       act_memo = #{actMemo,jdbcType=VARCHAR},
+      publish = #{publish,jdbcType=BIT},
       stop = #{stop,jdbcType=BIT}
     where act_id = #{actId,jdbcType=INTEGER}
   </update>

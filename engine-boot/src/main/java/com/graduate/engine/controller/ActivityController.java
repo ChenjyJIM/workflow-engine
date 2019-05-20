@@ -1,10 +1,14 @@
 package com.graduate.engine.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.graduate.engine.model.viewobject.ActivityVo;
+import com.graduate.engine.request.ActivityQuery;
 import com.graduate.engine.request.ActivityRequest;
 import com.graduate.engine.request.ActivitySubRequest;
+import com.graduate.engine.response.PagedResult;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.ActivityService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,6 +22,42 @@ import javax.annotation.Resource;
 public class ActivityController {
     @Resource
     private ActivityService activityService;
+
+    @PostMapping("/queryActivity")
+    public ResponseResult queryActivity(@RequestBody ActivityQuery query) {
+        try {
+            if (query == null) {
+                return ResponseResult.buildError("参数不能为空！");
+            }
+            PagedResult<ActivityVo> instituteResults = activityService.queryActivity(query);
+            return ResponseResult.buildSuccess(instituteResults);
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
+    }
+    @GetMapping("/getTreeData")
+    public ResponseResult getTreeData(Long actId) {
+        if (actId == null) {
+            return ResponseResult.buildError("参数不为空！");
+        }
+        try {
+            return ResponseResult.buildSuccess(activityService.getTreeData(actId));
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
+    }
+
+    @GetMapping("/getActivityById")
+    public ResponseResult getActivityById(Long actId) {
+        if (actId == null) {
+            return ResponseResult.buildError("参数不为空！");
+        }
+        try {
+            return ResponseResult.buildSuccess(activityService.getActivityById(actId));
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
+    }
 
     @PostMapping("/addActivity")
     public ResponseResult addActivity(@RequestBody ActivityRequest request) {
@@ -53,6 +93,20 @@ public class ActivityController {
         return ResponseResult.build(1 == activityService.deleteActivity(actId));
     }
 
+    @GetMapping("/publishActivity")
+    public ResponseResult publishActivity(Long actId) {
+        if (actId == null) {
+            return ResponseResult.buildError("参数错误！");
+        }
+
+        try {
+            return ResponseResult.build(activityService.publishActivity(actId));
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
+    }
+
+
     @PostMapping("/addSubActivity")
     public ResponseResult addSubActivity(@RequestBody ActivitySubRequest request) {
         if (request == null) {
@@ -85,6 +139,23 @@ public class ActivityController {
             return ResponseResult.buildError("参数错误！");
         }
         return ResponseResult.build(1 == activityService.deleteActivitySub(actSubId));
+    }
+
+    /**
+     * 发布活动
+     * @param actSubId
+     * @return
+     */
+    @GetMapping("/publishActivitySub")
+    public ResponseResult publishActivitySub(Long actSubId) {
+        if (actSubId == null) {
+            return ResponseResult.buildError("参数错误！");
+        }
+        try {
+            return ResponseResult.build(activityService.publishActivitySub(actSubId));
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
     }
 
 }

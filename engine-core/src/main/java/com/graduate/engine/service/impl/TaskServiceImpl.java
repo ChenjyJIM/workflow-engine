@@ -1,20 +1,29 @@
 package com.graduate.engine.service.impl;
 
+import com.graduate.engine.enums.PriorityEnum;
 import com.graduate.engine.exception.BusinessException;
-import com.graduate.engine.mapper.PersonMemberMapper;
-import com.graduate.engine.mapper.TaskChargerMapper;
-import com.graduate.engine.mapper.TaskMapper;
-import com.graduate.engine.model.Task;
-import com.graduate.engine.model.TaskCharger;
+import com.graduate.engine.mapper.*;
+import com.graduate.engine.model.*;
 import com.graduate.engine.model.viewobject.TaskChargerDto;
+import com.graduate.engine.model.viewobject.TaskCheckPointVo;
+import com.graduate.engine.model.viewobject.TaskExecVo;
+import com.graduate.engine.model.viewobject.TaskVo;
+import com.graduate.engine.request.TaskCheckPointRequest;
+import com.graduate.engine.request.TaskExecRequest;
+import com.graduate.engine.request.TaskQuery;
 import com.graduate.engine.request.TaskRequest;
+import com.graduate.engine.response.PagedResult;
 import com.graduate.engine.service.TaskService;
 import com.graduate.engine.utils.BeanUtils;
 import com.graduate.engine.utils.DateUtils;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +32,15 @@ import java.util.stream.Collectors;
  * @author jimmy
  */
 @Service
-public class TaskServiceImpl implements TaskService {
+public class TaskServiceImpl implements TaskService{
+
+    static TaskVo convertTaskToVo(Task e, ActivityStatusMapper activityStatusMapper) {
+        TaskVo taskVo = BeanUtils.copyBean(e, TaskVo.class);
+        taskVo.setTaskDateFrom(DateUtils.getDateStrByTimestamp(e.getTaskDateFrom()));
+        taskVo.setTaskDateTo(DateUtils.getDateStrByTimestamp(e.getTaskDateTo()));
+        taskVo.setTaskStatusName(activityStatusMapper.selectByPrimaryKey(e.getTaskStatusId()).getActStatusName());
+        return taskVo;
+    }
 
     @Resource
     private TaskMapper taskMapper;
@@ -34,10 +51,22 @@ public class TaskServiceImpl implements TaskService {
     @Resource
     private PersonMemberMapper personMemberMapper;
 
+    @Resource
+    private TaskCheckPointMapper taskCheckPointMapper;
+
+    @Resource
+    private TaskExecMapper taskExecMapper;
+
+    @Resource
+    private ActivityStatusMapper activityStatusMapper;
+
+    @Resource
+    private ActivityMapper activityMapper;
+
     @Override
     public Long addTask(TaskRequest request) {
         Task task = BeanUtils.copyBean(request, Task.class);
-        task.setTaskStatusId(0);
+        task.setTaskStatusId(0L);
         try {
             task.setTaskDateTo(DateUtils.getTimeStampByUTC(request.getTaskDateTo()));
             task.setTaskDateFrom(DateUtils.getTimeStampByUTC(request.getTaskDateFrom()));
@@ -73,6 +102,7 @@ public class TaskServiceImpl implements TaskService {
             throw new BusinessException("日期转化解析失败！");
         }
         TaskCharger taskCharger = new TaskCharger();
+        taskCharger.setTaskChargerId(taskChargerMapper.getMainTaskCharger(request.getTaskId()).getTaskChargerId());
         taskCharger.setTaskId(request.getTaskId());
         taskCharger.setPersonId(request.getPersonId());
         taskCharger.setTaskChargerDuty(request.getDuty());
@@ -91,4 +121,109 @@ public class TaskServiceImpl implements TaskService {
         };
         return taskMapper.updateByPrimaryKeySelective(task);
     }
+
+    @Override
+    public int addTaskCheckPoint(TaskCheckPointRequest request) {
+        TaskCheckPoint taskCheckPoint = BeanUtils.copyBean(request, TaskCheckPoint.class);
+        try {
+            taskCheckPoint.setTaskCheckPointDate(DateUtils.getTimeStampByUTC(request.getTaskCheckPointDate()));
+        } catch (ParseException e) {
+            throw new BusinessException("日期转化错误！");
+        }
+        return taskCheckPointMapper.insertSelective(taskCheckPoint);
+    }
+
+    @Override
+    public int modifyTaskCheckPoint(TaskCheckPointRequest request) {
+        TaskCheckPoint taskCheckPoint = BeanUtils.copyBean(request, TaskCheckPoint.class);
+        try {
+            if (request.getTaskCheckPointDate() != null) {
+                taskCheckPoint.setTaskCheckPointDate(DateUtils.getTimeStampByUTC(request.getTaskCheckPointDate()));
+            }
+        } catch (ParseException e) {
+            throw new BusinessException("日期转化错误！");
+        }
+        return taskCheckPointMapper.updateByPrimaryKeySelective(taskCheckPoint);
+    }
+
+    @Override
+    public int deleteTaskCheckPoint(Long taskCheckPointId) {
+        return taskCheckPointMapper.deleteByPrimaryKey(taskCheckPointId);
+    }
+
+    @Override
+    public List<TaskCheckPointVo> getTaskCheckPoint(Long taskId) {
+        return taskCheckPointMapper.getByTaskId(taskId).stream()
+                .map(e -> BeanUtils.copyBean(e, TaskCheckPointVo.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public PagedResult<TaskVo> getOwnerTask(TaskQuery query, Long personId) {
+        query.setPersonId(personId);
+        PagedResult<TaskVo> pagedResult = new PagedResult<>();
+        pagedResult.setPage(query.getPage());
+        pagedResult.setSize(query.getSize());
+        long count = taskChargerMapper.count(query);
+        pagedResult.setTotal(count);
+        if (count > 0) {
+            pagedResult.setItems(taskChargerMapper.getByPersonId(query).stream()
+                    .map(taskCharger -> {
+                        Task task = taskMapper.selectByPrimaryKey(taskCharger.getTaskId());
+                        TaskVo taskVo = setTaskInfo(task);
+                        taskVo.setDuty(taskCharger.getTaskChargerDuty());
+                        taskVo.setPersonName(personMemberMapper.selectByPrimaryKey(taskChargerMapper.getMainTaskCharger(task.getTaskId()).getPersonId()).getName());
+                        taskVo.setPriorityName(PriorityEnum.getByCode(task.getTaskPriority()).desc());
+                        taskVo.setEditable(true);
+                        Activity activity = activityMapper.selectByPrimaryKey(task.getActId());
+                        taskVo.setActName(activity != null? activity.getActName() : "");
+                        return taskVo;
+                    })
+                    .collect(Collectors.toList()));
+        } else {
+            pagedResult.setItems(Collections.emptyList());
+        }
+        return pagedResult;
+    }
+
+    @Override
+    public boolean addTaskExec(TaskExecRequest request) {
+        TaskExec taskExec = BeanUtils.copyBean(request, TaskExec.class);
+        if (taskExec.getTaskExecStatus() == null) {
+            taskExec.setTaskExecStatus(1L);
+        }
+        try {
+            taskExec.setTaskExecDate(DateUtils.getTimeStampByUTC(request.getTaskExecDate()));
+        } catch (ParseException e) {
+            throw new BusinessException("日期转化错误！");
+        }
+        return 1 == taskExecMapper.insertSelective(taskExec);
+    }
+
+    @Override
+    public boolean modifyTaskExec(TaskExecRequest request) {
+        TaskExec taskExec = BeanUtils.copyBean(request, TaskExec.class);
+        try {
+            taskExec.setTaskExecDate(DateUtils.getTimeStampByUTC(request.getTaskExecDate()));
+        } catch (ParseException e) {
+            throw new BusinessException("日期转化错误！");
+        }
+        return 1 == taskExecMapper.updateByPrimaryKeySelective(taskExec);
+    }
+
+    @Override
+    public List<TaskExecVo> getTaskExec(Long taskId) {
+
+        return taskExecMapper.getByTaskId(taskId).stream().map(e -> {
+            TaskExecVo taskExecVo = BeanUtils.copyBean(e, TaskExecVo.class);
+            taskExecVo.setTaskExecDate(DateUtils.getDateStrByTimestamp(e.getTaskExecDate()));
+            taskExecVo.setTaskExecStatusName(activityStatusMapper.selectByPrimaryKey(e.getTaskExecStatus()).getActStatusName());
+            return taskExecVo;
+        }).collect(Collectors.toList());
+    }
+
+    private TaskVo setTaskInfo(Task task) {
+        return convertTaskToVo(task, activityStatusMapper);
+    }
+
+
 }

@@ -12,26 +12,32 @@
     <result column="sub_milestone_monitor" jdbcType="VARCHAR" property="subMilestoneMonitor" />
   </resultMap>
   <sql id="Base_Column_List">
-    sub_milestone_id, act_sub_id, sub_milestone_name, sub_milestone_memo, sub_milestone_from, 
+    sub_milestone_id, act_sub_id, sub_milestone_name, sub_milestone_memo, sub_milestone_from,
     sub_milestone_to, sub_milestone_report, sub_milestone_monitor
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from act_sub_milestone
     where sub_milestone_id = #{subMilestoneId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="getById" resultType="com.graduate.engine.model.ActSubMilestone">
+    select
+    <include refid="Base_Column_List"/>
+    from act_sub_milestone
+    where act_sub_id = #{actSubId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from act_sub_milestone
     where sub_milestone_id = #{subMilestoneId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.ActSubMilestone">
-    insert into act_sub_milestone (sub_milestone_id, act_sub_id, sub_milestone_name, 
-      sub_milestone_memo, sub_milestone_from, sub_milestone_to, 
+    insert into act_sub_milestone (sub_milestone_id, act_sub_id, sub_milestone_name,
+      sub_milestone_memo, sub_milestone_from, sub_milestone_to,
       sub_milestone_report, sub_milestone_monitor
       )
-    values (#{subMilestoneId,jdbcType=INTEGER}, #{actSubId,jdbcType=INTEGER}, #{subMilestoneName,jdbcType=VARCHAR}, 
-      #{subMilestoneMemo,jdbcType=VARCHAR}, #{subMilestoneFrom,jdbcType=INTEGER}, #{subMilestoneTo,jdbcType=INTEGER}, 
+    values (#{subMilestoneId,jdbcType=INTEGER}, #{actSubId,jdbcType=INTEGER}, #{subMilestoneName,jdbcType=VARCHAR},
+      #{subMilestoneMemo,jdbcType=VARCHAR}, #{subMilestoneFrom,jdbcType=INTEGER}, #{subMilestoneTo,jdbcType=INTEGER},
       #{subMilestoneReport,jdbcType=VARCHAR}, #{subMilestoneMonitor,jdbcType=VARCHAR}
       )
   </insert>

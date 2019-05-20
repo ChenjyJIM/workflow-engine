@@ -1,5 +1,6 @@
 package com.graduate.engine.model;
 
+import com.graduate.engine.model.viewobject.TreeData;
 import lombok.Data;
 
 @Data
@@ -22,7 +23,7 @@ public class Task {
 
     private Integer taskPriority;
 
-    private Integer taskStatusId;
+    private Long taskStatusId;
 
     private String taskMemo;
 

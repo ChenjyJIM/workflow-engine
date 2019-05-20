@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Activity {
+
     private Long actId;
 
     private Long instId;
@@ -30,9 +31,13 @@ public class Activity {
 
     private Integer actPriority;
 
-    private Integer actStatusId;
+    private Long actStatusId;
 
     private String actMemo;
 
+    private Boolean publish;
+
     private Boolean stop;
+
+
 }

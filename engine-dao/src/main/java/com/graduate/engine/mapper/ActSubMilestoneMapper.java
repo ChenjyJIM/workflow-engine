@@ -3,17 +3,21 @@ package com.graduate.engine.mapper;
 import com.graduate.engine.model.ActSubMilestone;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ActSubMilestoneMapper {
-    int deleteByPrimaryKey(Integer subMilestoneId);
+    int deleteByPrimaryKey(Long subMilestoneId);
 
     int insert(ActSubMilestone record);
 
     int insertSelective(ActSubMilestone record);
 
-    ActSubMilestone selectByPrimaryKey(Integer subMilestoneId);
+    ActSubMilestone selectByPrimaryKey(Long subMilestoneId);
 
     int updateByPrimaryKeySelective(ActSubMilestone record);
 
     int updateByPrimaryKey(ActSubMilestone record);
+
+    List<ActSubMilestone> getById(Long actSubId);
 }

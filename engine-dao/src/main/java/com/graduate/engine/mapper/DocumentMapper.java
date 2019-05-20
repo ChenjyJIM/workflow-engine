@@ -1,6 +1,7 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.Document;
+import org.apache.ibatis.annotations.Param;
 
 public interface DocumentMapper {
     int deleteByPrimaryKey(Long documentId);
@@ -15,6 +16,20 @@ public interface DocumentMapper {
 
     int updateByPrimaryKey(Document record);
 
-    Document getByTaskExecId(String taskExecId);
+    Document getByTaskExecId(Long taskExecId);
 
+    /**
+     * 通过execId拿到当前执行阶段最新的version
+     * @param taskExecId
+     * @return
+     */
+    Long getVersionByTaskExecId(Long taskExecId);
+
+    /**
+     * 根据版本号拿到主键用于更新
+     * @param taskExecId
+     * @param versionInFile
+     * @return
+     */
+    Document getIdByExecIdAndVersion(@Param("taskExecId") Long taskExecId, @Param("versionInFile") Long versionInFile);
 }

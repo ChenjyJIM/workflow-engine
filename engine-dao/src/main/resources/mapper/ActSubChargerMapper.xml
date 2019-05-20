@@ -21,7 +21,14 @@
     from act_sub_charger
     where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getMainSubCharger" resultType="com.graduate.engine.model.ActSubCharger">
+      select <include refid="Base_Column_List"/>
+      from act_sub_charger
+      where act_sub_id = #{actSubId}
+      order by act_sub_charger_order asc
+      limit 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from act_sub_charger
     where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
   </delete>

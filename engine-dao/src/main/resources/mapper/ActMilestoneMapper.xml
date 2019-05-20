@@ -12,25 +12,32 @@
     <result column="milestone_monitor" jdbcType="VARCHAR" property="milestoneMonitor" />
   </resultMap>
   <sql id="Base_Column_List">
-    milestone_id, act_id, milestone_name, milestone_memo, milestone_from, milestone_to, 
+    milestone_id, act_id, milestone_name, milestone_memo, milestone_from, milestone_to,
     milestone_report, milestone_monitor
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from act_milestone
     where milestone_id = #{milestoneId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="getById" resultType="com.graduate.engine.model.ActMilestone">
+    select
+    <include refid="Base_Column_List"/>
+    from act_milestone
+    where act_id = #{actId}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from act_milestone
     where milestone_id = #{milestoneId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.graduate.engine.model.ActMilestone">
-    insert into act_milestone (milestone_id, act_id, milestone_name, 
-      milestone_memo, milestone_from, milestone_to, 
+    insert into act_milestone (milestone_id, act_id, milestone_name,
+      milestone_memo, milestone_from, milestone_to,
       milestone_report, milestone_monitor)
-    values (#{milestoneId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{milestoneName,jdbcType=VARCHAR}, 
-      #{milestoneMemo,jdbcType=VARCHAR}, #{milestoneFrom,jdbcType=INTEGER}, #{milestoneTo,jdbcType=INTEGER}, 
+    values (#{milestoneId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{milestoneName,jdbcType=VARCHAR},
+      #{milestoneMemo,jdbcType=VARCHAR}, #{milestoneFrom,jdbcType=INTEGER}, #{milestoneTo,jdbcType=INTEGER},
       #{milestoneReport,jdbcType=VARCHAR}, #{milestoneMonitor,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.ActMilestone">

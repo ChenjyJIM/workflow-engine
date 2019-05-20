@@ -8,10 +8,14 @@
     <result column="doc_unique_name" jdbcType="VARCHAR" property="docUniqueName" />
     <result column="doc_class" jdbcType="VARCHAR" property="docClass" />
     <result column="doc_catagory" jdbcType="VARCHAR" property="docCatagory" />
-    <result column="doc_name" jdbcType="VARCHAR" property="docName" />
+    <result column="doc_name" jdbcType="VARCHAR" property="docName"/>
+    <result column="person_id" jdbcType="INTEGER" property="personId"/>
+    <result column="version" jdbcType="INTEGER" property="version"/>
+    <result column="gmt_modified" jdbcType="INTEGER" property="gmtModified"/>
+
   </resultMap>
   <sql id="Base_Column_List">
-    document_id, task_exec_id, doc_path, doc_unique_name, doc_class, doc_catagory, doc_name
+    document_id, task_exec_id, doc_path, doc_unique_name, doc_class, doc_catagory, doc_name, person_id, version,gmt_modified
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
@@ -27,6 +31,18 @@
     order by document_id desc
     limit 1
   </select>
+  <select id="getVersionByTaskExecId" resultType="java.lang.Long">
+    select version from
+    document
+    where task_exec_id = #{taskExecId}
+    order by version desc
+    limit 1
+  </select>
+  <select id="getIdByExecIdAndVersion" resultType="com.graduate.engine.model.Document">
+    select <include refid="Base_Column_List"/>
+    from document
+    where task_exec_id = #{taskExecId} and version = #{versionInFIle}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from document
     where document_id = #{documentId,jdbcType=INTEGER}
@@ -34,10 +50,10 @@
   <insert id="insert" parameterType="com.graduate.engine.model.Document">
     insert into document (document_id, task_exec_id, doc_path,
       doc_unique_name, doc_class, doc_catagory,
-      doc_name)
+      doc_name, person_id, version,gmt_modified)
     values (#{documentId,jdbcType=INTEGER}, #{taskExecId,jdbcType=INTEGER}, #{docPath,jdbcType=VARCHAR},
       #{docUniqueName,jdbcType=VARCHAR}, #{docClass,jdbcType=VARCHAR}, #{docCatagory,jdbcType=VARCHAR},
-      #{docName,jdbcType=VARCHAR})
+      #{docName,jdbcType=VARCHAR},#{personId,jdbcType=INTEGER},#{version,jdbcType=INTEGER}, #{gmtModified, jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.engine.model.Document">
     insert into document
@@ -63,6 +79,15 @@
       <if test="docName != null">
         doc_name,
       </if>
+      <if test="personId != null">
+        person_id,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="documentId != null">
@@ -85,6 +110,15 @@
       </if>
       <if test="docName != null">
         #{docName,jdbcType=VARCHAR},
+      </if>
+      <if test="personId != null">
+        #{personId,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -109,6 +143,16 @@
       <if test="docName != null">
         doc_name = #{docName,jdbcType=VARCHAR},
       </if>
+      <if test="personId != null">
+        person_id = #{personId,jdbcType=INTEGER},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=INTEGER},
+      </if>
+
     </set>
     where document_id = #{documentId,jdbcType=INTEGER}
   </update>
@@ -119,7 +163,10 @@
       doc_unique_name = #{docUniqueName,jdbcType=VARCHAR},
       doc_class = #{docClass,jdbcType=VARCHAR},
       doc_catagory = #{docCatagory,jdbcType=VARCHAR},
-      doc_name = #{docName,jdbcType=VARCHAR}
+      doc_name = #{docName,jdbcType=VARCHAR},
+      person_id = #{personId,jdbcType=INTEGER},
+      version = #{version,jdbcType=INTEGER},
+      gmt_modified = #{gmtModified,jdbcType=INTEGER}
     where document_id = #{documentId,jdbcType=INTEGER}
   </update>
 </mapper>

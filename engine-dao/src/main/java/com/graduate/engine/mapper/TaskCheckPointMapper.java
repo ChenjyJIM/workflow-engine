@@ -3,17 +3,26 @@ package com.graduate.engine.mapper;
 import com.graduate.engine.model.TaskCheckPoint;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface TaskCheckPointMapper {
-    int deleteByPrimaryKey(Integer taskCheckPointId);
+    int deleteByPrimaryKey(Long taskCheckPointId);
 
     int insert(TaskCheckPoint record);
 
     int insertSelective(TaskCheckPoint record);
 
-    TaskCheckPoint selectByPrimaryKey(Integer taskCheckPointId);
+    TaskCheckPoint selectByPrimaryKey(Long taskCheckPointId);
 
     int updateByPrimaryKeySelective(TaskCheckPoint record);
 
     int updateByPrimaryKey(TaskCheckPoint record);
+
+    /**
+     * 根据任务id拿到所有检查点
+     * @param taskId
+     * @return
+     */
+    List<TaskCheckPoint> getByTaskId(Long taskId);
 }

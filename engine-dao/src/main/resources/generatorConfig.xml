@@ -41,7 +41,7 @@
         <!--enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 
         <!--配置生成所有表的映射-->
-        <table tableName="%" enableCountByExample="false"
+        <table tableName="activity_status" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>

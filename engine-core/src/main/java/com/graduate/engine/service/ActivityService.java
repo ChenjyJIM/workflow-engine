@@ -1,7 +1,15 @@
 package com.graduate.engine.service;
 
+import com.graduate.engine.model.viewobject.ActivityTree;
+import com.graduate.engine.model.viewobject.ActivityVo;
+import com.graduate.engine.model.viewobject.MilestoneVo;
+import com.graduate.engine.model.viewobject.TreeData;
+import com.graduate.engine.request.ActivityQuery;
 import com.graduate.engine.request.ActivityRequest;
 import com.graduate.engine.request.ActivitySubRequest;
+import com.graduate.engine.response.PagedResult;
+
+import java.util.List;
 
 public interface ActivityService {
 
@@ -27,6 +35,11 @@ public interface ActivityService {
     int deleteActivity(Long actId);
 
     /**
+     * 根据活动id 发布活动
+     */
+    boolean publishActivity(Long actId);
+
+    /**
      * 新增一个子活动
      * @param request
      * @return
@@ -46,4 +59,32 @@ public interface ActivityService {
      * @return
      */
     int deleteActivitySub(Long actSubId);
+
+    /**
+     * 根据子活动id 发布子活动
+     */
+    boolean publishActivitySub(Long actId);
+
+
+    /**
+     * 根据查询条件查询出活动基本信息
+     * @param query
+     * @return
+     */
+    PagedResult<ActivityVo> queryActivity(ActivityQuery query);
+
+    /**
+     * 返回单个活动信息
+     * @param actId
+     * @return
+     */
+    ActivityTree getActivityById(Long actId);
+
+    /**
+     * 返回树形结构的数据
+     * @param actId
+     * @return
+     */
+    TreeData getTreeData(Long actId);
 }
+

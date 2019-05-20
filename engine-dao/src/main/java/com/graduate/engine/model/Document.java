@@ -18,4 +18,9 @@ public class Document {
 
     private String docName;
 
+    private Long personId;
+
+    private Long version;
+
+    private Long gmtModified;
 }

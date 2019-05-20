@@ -16,4 +16,11 @@ public interface ActSubChargerMapper {
     int updateByPrimaryKeySelective(ActSubCharger record);
 
     int updateByPrimaryKey(ActSubCharger record);
+
+    /**
+     * 获取到该子活动的核心负责人
+     * @param actSubId
+     * @return
+     */
+    ActSubCharger getMainSubCharger(Long actSubId);
 }

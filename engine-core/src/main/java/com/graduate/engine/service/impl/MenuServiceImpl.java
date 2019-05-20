@@ -102,6 +102,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         if (menu.getIcon() != null) {
             meta.put("icon", menu.getIcon());
         }
+        meta.put("notCache", "true");
         meta.put("title", menu.getTitle());
         menuVo.setMeta(meta);
         menuVo.setComponent(menu.getComponent());
