@@ -118,7 +118,7 @@ public class PersonMessageServiceImpl extends ServiceImpl<PersonMessageMapper, P
         MessageSummary messageSummary = new MessageSummary();
         messageSummary.setMessageId(message.getMessageId());
         messageSummary.setMessageTitle(message.getMessageTitle());
-        messageSummary.setCreateTime(DateUtils.format(message.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
+        messageSummary.setCreateTime(DateUtils.format(message.getCreateTime(),"yyyy-MM-dd"));
         messageSummary.setCreateUserId(message.getCreateUserId());
         messageSummary.setCreateUserName(baseService.getByPersonId(message.getCreateUserId()).getName());
         return messageSummary;

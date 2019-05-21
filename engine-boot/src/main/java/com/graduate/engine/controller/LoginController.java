@@ -210,7 +210,7 @@ public class LoginController extends AbstractController {
         //将账号信息发送给申请会员
         messageService
                 .sendMessageToUsers("加入学会成功",
-                        "<divcourier new',=\"\" monospace;font-weight:=\"\" normal;font-size:=\"\" 12px;line-height:=\"\" 18px;white-space:=\"\" pre;\"=\"\"><div>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>恭喜您，申请号：" + applicationId + "的入会申请通过，欢迎您加入！请使用新账号登录。</span></div><ol><li>账号：" + loginName + "</li><li>密码：" + Constant.INIT_PASSWORD + "</li></ol></divcourier>",
+                        "<div>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>恭喜您，申请号：" + applicationId + "的入会申请通过，欢迎您加入！请使用新账号登录。</span></div><ol><li>账号：" + loginName + "</li><li>密码：" + Constant.INIT_PASSWORD + "</li></ol>",
                         new Long[]{application.getLoginId()});
         return ResponseResult.buildSuccess("审核成功");
     }

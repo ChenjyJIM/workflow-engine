@@ -3,12 +3,15 @@ package com.graduate.engine.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.graduate.engine.mapper.*;
+import com.graduate.engine.model.Institute;
 import com.graduate.engine.model.InstituteSub;
 import com.graduate.engine.model.Role;
 import com.graduate.engine.model.viewobject.InstInfoSimple;
 import com.graduate.engine.response.ResponseResult;
+import com.graduate.engine.service.InstituteService;
 import com.graduate.engine.service.RoleService;
 import com.graduate.engine.utils.Constant;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,6 +50,9 @@ public class CommonController extends AbstractController {
 
     @Resource
     private RoleService roleService;
+
+    @Resource
+    private InstituteService instituteService;
 
     /**
      * 查询学会所有成员接口
@@ -111,6 +117,20 @@ public class CommonController extends AbstractController {
             return ResponseResult.buildError("系统异常！");
         }
 
+    }
+
+    @ApiOperation("获取学会列表")
+    @GetMapping("/institutes")
+    public ResponseResult instituteList() {
+        List<Institute> list = instituteService.getInstitutes();
+        JSONArray jsonArray = new JSONArray();
+        for (Institute institute : list) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("instId",institute.getInstId());
+            jsonObject.put("instName",institute.getInstName());
+            jsonArray.add(jsonObject);
+        }
+        return ResponseResult.buildSuccess(jsonArray);
     }
 
     /**

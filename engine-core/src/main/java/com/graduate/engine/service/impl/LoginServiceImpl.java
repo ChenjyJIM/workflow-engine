@@ -136,7 +136,7 @@ public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements
         if (login.getPersonId()!=null) {
             PersonMember personMember = personMemberMapper.selectByPrimaryKey(login.getPersonId());
             userInfoVo = BeanUtils.copyBean(personMember,UserInfoVo.class);
-            userInfoVo.setFormatBirthday(DateUtils.getDateStrByTimestamp(userInfoVo.getBirthday()));
+            userInfoVo.setFormatBirthday(DateUtils.getDateStrByTimestamp(userInfoVo.getBirthday(),"yyyy-MM-dd"));
         } else if (login.getGuestId()!=null) {
             Guest guest = guestMapper.selectByPrimaryKey(login.getGuestId());
             userInfoVo.setMail(guest.getGuestEmail());
