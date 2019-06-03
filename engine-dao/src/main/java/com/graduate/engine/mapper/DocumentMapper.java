@@ -3,6 +3,8 @@ package com.graduate.engine.mapper;
 import com.graduate.engine.model.Document;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface DocumentMapper {
     int deleteByPrimaryKey(Long documentId);
 
@@ -16,7 +18,7 @@ public interface DocumentMapper {
 
     int updateByPrimaryKey(Document record);
 
-    Document getByTaskExecId(Long taskExecId);
+    List<Document> getByTaskExecId(Long taskExecId);
 
     /**
      * 通过execId拿到当前执行阶段最新的version

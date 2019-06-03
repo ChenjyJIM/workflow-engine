@@ -25,4 +25,8 @@ public class DocumentVo {
     private Long version;
 
     private String personName;
+
+    private Long gmtModified;
+
+    private String modifyDate;
 }

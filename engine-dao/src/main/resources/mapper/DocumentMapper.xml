@@ -28,8 +28,7 @@
     <include refid="Base_Column_List"/>
     from document
     where task_exec_id = #{taskExecId}
-    order by document_id desc
-    limit 1
+    order by version desc
   </select>
   <select id="getVersionByTaskExecId" resultType="java.lang.Long">
     select version from
@@ -41,7 +40,7 @@
   <select id="getIdByExecIdAndVersion" resultType="com.graduate.engine.model.Document">
     select <include refid="Base_Column_List"/>
     from document
-    where task_exec_id = #{taskExecId} and version = #{versionInFIle}
+    where task_exec_id = #{taskExecId} and version = #{versionInFile}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from document

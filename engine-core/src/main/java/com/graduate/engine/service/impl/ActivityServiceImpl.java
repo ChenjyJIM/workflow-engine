@@ -249,6 +249,7 @@ public class ActivityServiceImpl implements ActivityService {
         ActivityTree rootNode = BeanUtils.copyBean(activity, ActivityTree.class);
         rootNode.setId(activity.getActId());
         setExtraParam(rootNode);
+        List<Task> tasks = taskMapper.getByActId(actId);
         // 设置总活动下的任务
         rootNode.setTasks(taskMapper.getByActId(actId).stream()
                 .map(e -> setTaskInfo(e))

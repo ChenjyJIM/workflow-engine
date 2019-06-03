@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 /**
- * Created by 杨柳 on 2016/8/5 0005.
- * email:yangliu@buestc.com
- * tel:18523437817
+ * 反射相关工具类
  */
 public class ReflectUtils {
 

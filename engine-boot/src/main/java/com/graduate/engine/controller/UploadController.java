@@ -77,8 +77,10 @@ public class UploadController extends AbstractController{
     @GetMapping("/download")
     public void download(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //设置文件名
-        String taskExecId = request.getParameter("taskExecId");
-        Document document = documentMapper.getByTaskExecId(Long.parseLong(taskExecId));
+        String documentId = request.getParameter("documentId");
+
+        // todo 换成主键
+        Document document = documentMapper.selectByPrimaryKey(Long.parseLong(documentId));
         if (document == null) {
             return;
         }
@@ -87,7 +89,7 @@ public class UploadController extends AbstractController{
         response.setContentType("application/octet-stream");
         FileInputStream fis = null;
         try {
-            Task task = taskMapper.selectByPrimaryKey(taskExecMapper.selectByPrimaryKey(Long.parseLong(taskExecId)).getTaskId());
+            Task task = taskMapper.selectByPrimaryKey(taskExecMapper.selectByPrimaryKey(document.getTaskExecId()).getTaskId());
             String filePath = "files/" + activityMapper.selectByPrimaryKey(task.getActId()).getActName() + "/" + task.getTaskName() + "/";
 
             File file = new File(filePath +document.getDocUniqueName() + "." + document.getDocClass());

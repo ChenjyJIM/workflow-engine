@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 作者 杨柳
- * 创建时间 2017-07-05 16:54
+ * 封装树结构工具类
  */
 public class TreeUtils {
 

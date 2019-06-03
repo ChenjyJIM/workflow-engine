@@ -1,14 +1,13 @@
 package com.graduate.engine.service.impl;
 
 import com.graduate.engine.exception.BusinessException;
-import com.graduate.engine.mapper.ActivityMapper;
-import com.graduate.engine.mapper.DocumentMapper;
-import com.graduate.engine.mapper.TaskExecMapper;
-import com.graduate.engine.mapper.TaskMapper;
+import com.graduate.engine.mapper.*;
 import com.graduate.engine.model.Document;
 import com.graduate.engine.model.Task;
 import com.graduate.engine.model.viewobject.DocumentVo;
 import com.graduate.engine.service.FileService;
+import com.graduate.engine.utils.BeanUtils;
+import com.graduate.engine.utils.DateUtils;
 import com.graduate.engine.utils.FileUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
@@ -40,6 +39,9 @@ public class FileServiceImpl implements FileService {
     @Resource
     private ActivityMapper activityMapper;
 
+    @Resource
+    private PersonMemberMapper personMemberMapper;
+
     public static void main(String[] args) {
         String testString = "开题报告-docv1.txt";
         Long versionInFile = 0L;
@@ -53,39 +55,37 @@ public class FileServiceImpl implements FileService {
     @Override
     public Boolean test(MultipartFile file, Long taskExecId, String docCatagory, Boolean discover, Long personId) {
         String originalFilename = file.getOriginalFilename();
-
         Document document = new Document();
         Long versionInDatabase = documentMapper.getVersionByTaskExecId(taskExecId);
         if (discover) {
-            Long versionInFile = 0L;
+            Long versionInFile;
             Matcher matcher = DOT_VERSION_PATTERN.matcher(originalFilename);
             if (matcher.find()) {
                 versionInFile = Long.parseLong(matcher.group(1));
+                Document originalDocument = documentMapper.getIdByExecIdAndVersion(taskExecId, versionInFile);
+                String uniqueName = UUID.randomUUID().toString().replace("-", "");
+                Task task = taskMapper.selectByPrimaryKey(taskExecMapper.selectByPrimaryKey(taskExecId).getTaskId());
+                String filePath = "files/" + activityMapper.selectByPrimaryKey(task.getActId()).getActName() + "/" + task.getTaskName() + "/";
+                try {
+                    FileUtil.uploadFile(file.getBytes(), filePath, uniqueName + originalFilename.substring(originalFilename.lastIndexOf(".")));
+                } catch (Exception e) {
+                    throw new BusinessException("文件写入失败！");
+                }
+                document.setGmtModified(DateUtils.getCurrentSecondTimestamp());
+                document.setDocumentId(originalDocument.getDocumentId());
+                document.setTaskExecId(taskExecId);
+                document.setDocName(originalFilename.replace(PREFIX_NAME.concat(versionInFile.toString()),"").trim());
+                document.setDocClass(originalFilename.substring(originalFilename.lastIndexOf(".") + 1));
+                document.setDocCatagory(docCatagory);
+                document.setDocPath(filePath);
+                document.setDocUniqueName(uniqueName);
+                document.setPersonId(personId);
+                documentMapper.updateByPrimaryKeySelective(document);
+                return true;
+            } else {
+                throw new BusinessException("文件格式错误！");
             }
-            Document originalDocument = documentMapper.getIdByExecIdAndVersion(taskExecId, versionInFile);
-
-
-            String uniqueName = UUID.randomUUID().toString().replace("-", "");
-            Task task = taskMapper.selectByPrimaryKey(taskExecMapper.selectByPrimaryKey(taskExecId).getTaskId());
-            String filePath = "files/" + activityMapper.selectByPrimaryKey(task.getActId()).getActName() + "/" + task.getTaskName() + "/";
-            try {
-                FileUtil.uploadFile(file.getBytes(), filePath, uniqueName + originalFilename.substring(originalFilename.lastIndexOf(".")));
-            } catch (Exception e) {
-                throw new BusinessException("文件写入失败！");
-            }
-
-            document.setDocumentId(originalDocument.getDocumentId());
-            document.setTaskExecId(taskExecId);
-            document.setDocName(originalFilename.replace(PREFIX_NAME.concat(versionInFile.toString()),"").trim());
-            document.setDocClass(originalFilename.substring(originalFilename.lastIndexOf(".") + 1));
-            document.setDocCatagory(docCatagory);
-            document.setDocPath(filePath);
-            document.setDocUniqueName(uniqueName);
-            document.setPersonId(personId);
-            documentMapper.updateByPrimaryKeySelective(document);
-            return false;
         } else {
-
             String uniqueName = UUID.randomUUID().toString().replace("-", "");
             Task task = taskMapper.selectByPrimaryKey(taskExecMapper.selectByPrimaryKey(taskExecId).getTaskId());
             String filePath = "files/" + activityMapper.selectByPrimaryKey(task.getActId()).getActName() + "/" + task.getTaskName() + "/";
@@ -106,6 +106,7 @@ public class FileServiceImpl implements FileService {
             } else {
                 document.setDocName(originalFilename);
             }
+            document.setGmtModified(DateUtils.getCurrentSecondTimestamp());
             document.setDocClass(originalFilename.substring(originalFilename.lastIndexOf(".") + 1));
             document.setDocCatagory(docCatagory);
             document.setDocPath(filePath);
@@ -119,8 +120,13 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<DocumentVo> getDocuments(Long taskExecId) {
-
-        return Collections.emptyList();
+        List<Document> documents = documentMapper.getByTaskExecId(taskExecId);
+        List<DocumentVo> results = BeanUtils.copyListWithBeans(documents, DocumentVo.class);
+        results.forEach(result -> {
+            result.setPersonName(personMemberMapper.selectByPrimaryKey(result.getPersonId()).getName());
+            result.setModifyDate(DateUtils.getDateStrByTimestamp(result.getGmtModified()));
+        });
+        return results;
     }
 
 
