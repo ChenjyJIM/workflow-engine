@@ -5,10 +5,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.graduate.engine.mapper.*;
 import com.graduate.engine.model.Institute;
 import com.graduate.engine.model.InstituteSub;
+import com.graduate.engine.model.NewsCategory;
 import com.graduate.engine.model.Role;
 import com.graduate.engine.model.viewobject.InstInfoSimple;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.InstituteService;
+import com.graduate.engine.service.NewsCategoryService;
 import com.graduate.engine.service.RoleService;
 import com.graduate.engine.utils.Constant;
 import io.swagger.annotations.ApiOperation;
@@ -54,6 +56,9 @@ public class CommonController extends AbstractController {
     @Resource
     private InstituteService instituteService;
 
+    @Resource
+    private NewsCategoryService categoryService;
+
     /**
      * 查询学会所有成员接口
      * @param instId 为空时查询所有成员
@@ -93,6 +98,7 @@ public class CommonController extends AbstractController {
     }
 
 
+
     /**
      * 查询所有行业分类接口
      */
@@ -117,6 +123,25 @@ public class CommonController extends AbstractController {
             return ResponseResult.buildError("系统异常！");
         }
 
+    }
+
+    @GetMapping("/category")
+    public ResponseResult getAllCategory() {
+        try {
+            List<NewsCategory> categoryList = categoryService.list();
+            JSONArray jsonArray = new JSONArray();
+            for (NewsCategory category : categoryList) {
+                if (!category.getStop()) {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("categoryId",category.getCategoryId());
+                    jsonObject.put("categoryName",category.getCategoryName());
+                    jsonArray.add(jsonObject);
+                }
+            }
+            return ResponseResult.buildSuccess(jsonArray);
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
     }
 
     @ApiOperation("获取学会列表")
