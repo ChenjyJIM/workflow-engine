@@ -8,13 +8,13 @@ import java.util.List;
 
 @Repository
 public interface ActivitySubMapper {
-    int deleteByPrimaryKey(Integer actSubId);
+    int deleteByPrimaryKey(Long actSubId);
 
     int insert(ActivitySub record);
 
     int insertSelective(ActivitySub record);
 
-    ActivitySub selectByPrimaryKey(Integer actSubId);
+    ActivitySub selectByPrimaryKey(Long actSubId);
 
     int updateByPrimaryKeySelective(ActivitySub record);
 

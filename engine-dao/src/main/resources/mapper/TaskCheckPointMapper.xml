@@ -24,6 +24,21 @@
       where task_id = #{taskId};
 
     </select>
+    <select id="getTaskCheckPointByCondition" resultType="com.graduate.engine.model.TaskCheckPoint">
+      select
+      <include refid="Base_Column_List"/>
+      from task_check_point
+      <where>
+        <if test="type == 1">
+          task_check_point_date - #{now} <![CDATA[>]]> 86400
+        </if>
+        <if test="type == 2">
+          task_check_point_date - #{now} <![CDATA[>]]> 0
+          and
+          task_check_point_date - #{now} <![CDATA[<]]> 86400
+        </if>
+      </where>
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from task_check_point
     where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}

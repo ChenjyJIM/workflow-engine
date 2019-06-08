@@ -1,6 +1,7 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.ActMilestone;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,4 +22,10 @@ public interface ActMilestoneMapper {
 
     List<ActMilestone> getById(Long actId);
 
+    /**
+     * 根据时间获取里程碑
+     * type为1 > 86400 type为2 < 86400
+     * @return
+     */
+    List<ActMilestone> getActMilestoneByCondition(@Param("now") Long now, @Param("type") Integer type);
 }

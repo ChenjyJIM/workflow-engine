@@ -1,6 +1,7 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.TaskCheckPoint;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface TaskCheckPointMapper {
      * @return
      */
     List<TaskCheckPoint> getByTaskId(Long taskId);
+
+    List<TaskCheckPoint> getTaskCheckPointByCondition(@Param("now") Long now, @Param("type") Integer type);
 }

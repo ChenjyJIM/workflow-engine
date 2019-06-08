@@ -24,6 +24,7 @@ import javax.annotation.Resource;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -166,7 +167,7 @@ public class TaskServiceImpl implements TaskService{
         long count = taskChargerMapper.count(query);
         pagedResult.setTotal(count);
         if (count > 0) {
-            pagedResult.setItems(taskChargerMapper.getByPersonId(query).stream()
+            List<TaskVo> taskVos = taskChargerMapper.getByPersonId(query).stream()
                     .map(taskCharger -> {
                         Task task = taskMapper.selectByPrimaryKey(taskCharger.getTaskId());
                         TaskVo taskVo = setTaskInfo(task);
@@ -175,10 +176,47 @@ public class TaskServiceImpl implements TaskService{
                         taskVo.setPriorityName(PriorityEnum.getByCode(task.getTaskPriority()).desc());
                         taskVo.setEditable(true);
                         Activity activity = activityMapper.selectByPrimaryKey(task.getActId());
-                        taskVo.setActName(activity != null? activity.getActName() : "");
+                        taskVo.setActName(activity != null ? activity.getActName() : "");
                         return taskVo;
                     })
-                    .collect(Collectors.toList()));
+                    .collect(Collectors.toList());
+            if (query.getSortByPriority() != null && query.getSortByPriority()) {
+                List<TaskVo> results = taskVos.stream()
+                        .sorted((p1, p2) -> p2.getTaskPriority().compareTo(p1.getTaskPriority()))
+                        .collect(Collectors.toList());
+                pagedResult.setItems(results);
+            } else {
+                pagedResult.setItems(taskVos);
+            }
+        } else {
+            pagedResult.setItems(Collections.emptyList());
+        }
+        return pagedResult;
+    }
+
+    @Override
+    public PagedResult<TaskVo> getAllTask(TaskQuery query) {
+        PagedResult<TaskVo> pagedResult = new PagedResult<>();
+        pagedResult.setPage(query.getPage());
+        pagedResult.setSize(query.getSize());
+        long count = taskMapper.countAllTasks(query);
+        pagedResult.setTotal(count);
+        if (count > 0) {
+            List<TaskVo> results = new ArrayList<>();
+            taskMapper.getAllTasks(query).forEach( task -> {
+                TaskVo taskVo = setTaskInfo(task);
+                TaskCharger mainTaskCharger = taskChargerMapper.getMainTaskCharger(task.getTaskId());
+                if (mainTaskCharger != null) {
+                    taskVo.setDuty(mainTaskCharger.getTaskChargerDuty());
+                    taskVo.setPersonName(personMemberMapper.selectByPrimaryKey(mainTaskCharger.getPersonId()).getName());
+                }
+                taskVo.setPriorityName(PriorityEnum.getByCode(task.getTaskPriority()).desc());
+                taskVo.setEditable(false);
+                Activity activity = activityMapper.selectByPrimaryKey(task.getActId());
+                taskVo.setActName(activity != null? activity.getActName() : "");
+                results.add(taskVo);
+            });
+            pagedResult.setItems(results);
         } else {
             pagedResult.setItems(Collections.emptyList());
         }

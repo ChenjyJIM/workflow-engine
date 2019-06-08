@@ -38,6 +38,29 @@
     from task
     where act_sub_id = #{actSubId}
   </select>
+    <select id="getAllTasks" resultType="com.graduate.engine.model.Task">
+      select
+      <include refid="Base_Column_List"/>
+      from task
+      <where>
+        <if test="taskName != null">
+          task_name like concat('%',#{taskName},'%')
+        </if>
+        and `stop` = 0
+      </where>
+      order by task_id desc
+      limit #{start}, #{size}
+    </select>
+  <select id="countAllTasks" resultType="java.lang.Long">
+    select count(1)
+    from task
+    <where>
+      <if test="taskName != null">
+        task_name like concat('%',#{taskName},'%')
+      </if>
+      and `stop` = 0
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from task
     where task_id = #{taskId,jdbcType=INTEGER}

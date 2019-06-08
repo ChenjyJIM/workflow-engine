@@ -55,10 +55,17 @@ public interface TaskService {
     PagedResult<TaskVo> getOwnerTask(TaskQuery query, Long personId);
 
     /**
-     * 新增任务执行阶段
-     * @param request
+     * 根据条件获取到所有任务
+     * @param query
      * @return
      */
+    PagedResult<TaskVo> getAllTask(TaskQuery query);
+
+        /**
+         * 新增任务执行阶段
+         * @param request
+         * @return
+         */
     boolean addTaskExec(TaskExecRequest request);
 
     /**

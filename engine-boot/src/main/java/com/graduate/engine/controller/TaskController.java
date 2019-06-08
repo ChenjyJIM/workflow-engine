@@ -119,6 +119,18 @@ public class TaskController extends AbstractController{
         }
     }
 
+    @PostMapping("/getAllTask")
+    public ResponseResult getAllTask(@RequestBody TaskQuery query) {
+        if (query == null) {
+            return ResponseResult.buildError("参数错误！");
+        }
+        try {
+            return ResponseResult.buildSuccess(taskService.getAllTask(query));
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
+    }
+
     @PostMapping("/addTaskExec")
     public ResponseResult addTaskExec(@RequestBody TaskExecRequest request) {
         if (request == null) {

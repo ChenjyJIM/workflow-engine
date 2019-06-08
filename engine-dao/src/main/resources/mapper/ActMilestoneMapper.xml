@@ -27,8 +27,24 @@
     from act_milestone
     where act_id = #{actId}
   </select>
+    <select id="getActMilestoneByCondition" resultType="com.graduate.engine.model.ActMilestone">
+    select
+      <include refid="Base_Column_List"/>
+      from act_milestone
+      <where>
+        <if test="type == 1">
+          milestone_to - #{now} <![CDATA[>]]> 86400
+        </if>
+        <if test="type == 2">
+          milestone_to - #{now} <![CDATA[>]]> 0
+          and
+          milestone_to - #{now} <![CDATA[<]]> 86400
+        </if>
+        and milestone_report is null
+      </where>
+    </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from act_milestone
     where milestone_id = #{milestoneId,jdbcType=INTEGER}
   </delete>

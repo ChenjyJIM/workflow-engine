@@ -36,8 +36,16 @@ public interface LoginMapper extends BaseMapper<Login> {
      */
     List<Long> queryAllMenu(Long userId);
 
+
     /**
      * 批量停用账户
      */
     void stopBatch(Long[] userIds);
+
+    /**
+     * 通过人员id获取到对应账号
+     * @param personId
+     * @return
+     */
+    Login getLoginIdByPersonId(Long personId);
 }

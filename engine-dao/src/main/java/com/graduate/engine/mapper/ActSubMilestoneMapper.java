@@ -1,6 +1,7 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.ActSubMilestone;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface ActSubMilestoneMapper {
     int updateByPrimaryKey(ActSubMilestone record);
 
     List<ActSubMilestone> getById(Long actSubId);
+
+
+    List<ActSubMilestone> getActSubMilestoneByCondition(@Param("now") Long now, @Param("type") Integer type);
+
 }

@@ -6,6 +6,7 @@ import com.graduate.engine.model.viewobject.InstPeriodVo;
 import com.graduate.engine.model.viewobject.InstSubsVo;
 import com.graduate.engine.model.viewobject.InstituteVo;
 import com.graduate.engine.request.InstituteQuery;
+import com.graduate.engine.request.InstituteRequest;
 import com.graduate.engine.response.PagedResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.graduate.engine.model.Institute;
@@ -57,4 +58,11 @@ public interface InstituteService extends IService<Institute>{
     InfoListVo getInfoList(Long instId);
 
     List<Institute> getInstListBuInstIds(Long[] instIds);
+
+    /**
+     * 修改学会信息
+     * @param request
+     * @return
+     */
+    boolean instModify(InstituteRequest request);
 }

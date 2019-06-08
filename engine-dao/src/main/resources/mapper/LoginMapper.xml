@@ -49,6 +49,10 @@
         select login_id from login
         where `stop` = 0
     </select>
+    <select id="getLoginIdByPersonId" resultType="com.graduate.engine.model.Login">
+        select * from login
+        where person_id = #{personId}
+    </select>
     <!--批量停用用户 -->
     <update id="stopBatch">
         update login

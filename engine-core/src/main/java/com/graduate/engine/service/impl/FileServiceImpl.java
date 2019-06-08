@@ -42,15 +42,6 @@ public class FileServiceImpl implements FileService {
     @Resource
     private PersonMemberMapper personMemberMapper;
 
-    public static void main(String[] args) {
-        String testString = "开题报告-docv1.txt";
-        Long versionInFile = 0L;
-        Matcher matcher = DOT_VERSION_PATTERN.matcher(testString);
-        if (matcher.find()) {
-            versionInFile = Long.parseLong(matcher.group(1));
-        }
-        System.out.println(testString.replace(PREFIX_NAME.concat(versionInFile.toString()),"").trim());
-    }
     // 开题报告-docv1.txt
     @Override
     public Boolean test(MultipartFile file, Long taskExecId, String docCatagory, Boolean discover, Long personId) {

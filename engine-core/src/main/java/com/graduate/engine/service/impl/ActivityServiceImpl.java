@@ -31,6 +31,12 @@ import static com.graduate.engine.service.impl.TaskServiceImpl.convertTaskToVo;
 @Service
 public class ActivityServiceImpl implements ActivityService {
 
+    private static final String PUBLISH_MSG_TITLE = "活动发布通知";
+
+    private static final String PUBLISH_CONTENT = "有新的活动已发布，请前往活动管理--> 所有活动中查看:";
+    @Resource
+    private LoginMapper loginMapper;
+
     @Resource
     private ActivityMapper activityMapper;
 
@@ -116,9 +122,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean publishActivity(Long actId) {
-
-
+        Activity activity = activityMapper.selectByPrimaryKey(actId);
+        Login login = loginMapper.getLoginIdByPersonId(activity.getPersonId());
+        Long[] loginIds = {login.getLoginId()};
+        messageService.sendMessageToUsers(PUBLISH_MSG_TITLE, PUBLISH_CONTENT + "活动名：" + activity.getActName() + "    活动id：" + actId, loginIds);
         return 1 == activityMapper.updateByPrimaryKeySelective(new Activity(){
             {
                 setActId(actId);
@@ -193,8 +202,16 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean publishActivitySub(Long actSubId) {
-        // todo 发布成功推送通知
+        List<Long> loginIds = new ArrayList<>();
+        ActivitySub activitySub = activitySubMapper.selectByPrimaryKey(actSubId);
+        actSubChargerMapper.getSubChargers(actSubId).forEach( actSubCharger ->
+                loginIds.add(loginMapper.getLoginIdByPersonId(actSubCharger.getPersonId()).getLoginId()));
+        messageService.sendMessageToUsers(PUBLISH_MSG_TITLE, PUBLISH_CONTENT + "子活动名：" + activitySub.getActSubName() + "    总活动id：" + actSubId ,
+                loginIds.toArray(new Long[loginIds.size()]));
+
+
         return 1 == activitySubMapper.updateByPrimaryKeySelective(new ActivitySub(){
             {
                 setActSubId(actSubId);

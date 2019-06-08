@@ -6,6 +6,7 @@ import com.graduate.engine.model.viewobject.InstPeriodVo;
 import com.graduate.engine.model.viewobject.InstSubsVo;
 import com.graduate.engine.model.viewobject.InstituteVo;
 import com.graduate.engine.request.InstituteQuery;
+import com.graduate.engine.request.InstituteRequest;
 import com.graduate.engine.response.PagedResult;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.InstituteService;
@@ -33,6 +34,19 @@ public class InstituteController {
             }
             PagedResult<InstituteVo> instituteResults = instituteService.getAllInstitute(query);
             return ResponseResult.buildSuccess(instituteResults);
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
+    }
+
+
+    @PostMapping("/instModify")
+    public ResponseResult instModify(@RequestBody InstituteRequest request) {
+        try {
+            if (request.getInstId() == null) {
+                return ResponseResult.buildError("参数不能为空！");
+            }
+            return ResponseResult.build(instituteService.instModify(request));
         } catch (Exception e) {
             return ResponseResult.buildError("系统异常！");
         }

@@ -5,6 +5,7 @@ import com.graduate.engine.mapper.*;
 import com.graduate.engine.model.*;
 import com.graduate.engine.model.viewobject.*;
 import com.graduate.engine.request.InstituteQuery;
+import com.graduate.engine.request.InstituteRequest;
 import com.graduate.engine.response.PagedResult;
 import com.graduate.engine.service.InstituteService;
 import com.graduate.engine.utils.BeanUtils;
@@ -221,4 +222,9 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
         return instituteMapper.queryInstByInstIds(instIds);
     }
 
+    @Override
+    public boolean instModify(InstituteRequest request) {
+        Institute institute = BeanUtils.copyBean(request, Institute.class);
+        return 1 == instituteMapper.updateByPrimaryKeySelective(institute);
+    }
 }
