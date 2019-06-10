@@ -52,6 +52,16 @@ public class InstituteController {
         }
     }
 
+    @PostMapping("/instAdd")
+    public ResponseResult instAdd(@RequestBody InstituteRequest request) {
+        try {
+            return ResponseResult.build(instituteService.instAdd(request));
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
+    }
+
+
     @GetMapping("/getInstituteByInstId")
     public ResponseResult getInstituteByInstId(Long instId) {
         try {

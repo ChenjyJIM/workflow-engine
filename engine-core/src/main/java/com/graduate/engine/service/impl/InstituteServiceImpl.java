@@ -1,6 +1,7 @@
 package com.graduate.engine.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.graduate.engine.exception.BusinessException;
 import com.graduate.engine.mapper.*;
 import com.graduate.engine.model.*;
 import com.graduate.engine.model.viewobject.*;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -226,5 +228,38 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
     public boolean instModify(InstituteRequest request) {
         Institute institute = BeanUtils.copyBean(request, Institute.class);
         return 1 == instituteMapper.updateByPrimaryKeySelective(institute);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean instAdd(InstituteRequest request) {
+        Institute institute = BeanUtils.copyBean(request, Institute.class);
+        institute.setInstRegisterDate(DateUtils.getCurrentSecondTimestamp());
+        if (1 == instituteMapper.insertSelective(institute)) {
+            try {
+                InstPeriod instPeriod = new InstPeriod();
+                instPeriod.setInstMemo(request.getInstPeriodMemo());
+                instPeriod.setInstPeriodTo(DateUtils.getTimeStampByUTC(request.getInstPeriodTo()));
+                instPeriod.setInstPeriodNo(1);
+                instPeriod.setInstPeriodFrom(DateUtils.getCurrentSecondTimestamp());
+                instPeriod.setInstId(institute.getInstId());
+                if (1 == instPeriodMapper.insertSelective(instPeriod)) {
+                    InstPeriodPerson instPeriodPerson = new InstPeriodPerson();
+                    instPeriodPerson.setInstId(institute.getInstId());
+                    instPeriodPerson.setPersonId(request.getPersonId());
+                    instPeriodPerson.setInstPeriodId(instPeriod.getInstPeriodId());
+                    // todo 时间关系，目前先写死
+                    instPeriodPerson.setPersonTitleId(1);
+                    instPeriodPerson.setInstPeriodPersonOrder(1);
+                    instPeriodPerson.setInstPeriodPersonMemo("");
+                    if (1 == instPeriodPersonMapper.insertSelective(instPeriodPerson)) {
+                        return true;
+                    }
+                }
+            } catch (Exception e) {
+                throw new BusinessException("日期转化失败");
+            }
+        }
+        return false;
     }
 }

@@ -65,4 +65,11 @@ public interface InstituteService extends IService<Institute>{
      * @return
      */
     boolean instModify(InstituteRequest request);
+
+    /**
+     * 新增学会
+     * @param request
+     * @return
+     */
+    boolean instAdd(InstituteRequest request);
 }

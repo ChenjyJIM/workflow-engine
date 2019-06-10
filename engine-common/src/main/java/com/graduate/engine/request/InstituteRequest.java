@@ -35,4 +35,12 @@ public class InstituteRequest implements Serializable {
 
     private String instMemo;
 
+    private Integer industryId;
+
+    private Long personId;
+
+    private String instPeriodTo;
+
+    private String instPeriodMemo;
+
 }

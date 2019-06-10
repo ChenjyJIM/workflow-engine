@@ -40,7 +40,7 @@
         from institute
         <where>
         <if test="instName != null">
-        inst_name = #{instName}
+        inst_name like concat('%',#{instName},'%')
         </if>
         </where>
     </select>
@@ -51,7 +51,7 @@
         from institute
         <where>
             <if test="instName != null">
-                inst_name = #{instName}
+                inst_name like concat('%',#{instName},'%')
             </if>
         </where>
         limit #{start},#{size}
@@ -75,7 +75,7 @@
     <!--#{instOthers,jdbcType=VARCHAR}, #{instRegisterDate,jdbcType=INTEGER}, #{instIntroduction,jdbcType=VARCHAR},-->
     <!--#{instMemo,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})-->
     <!--</insert>-->
-    <insert id="insertSelective" parameterType="com.graduate.engine.model.Institute">
+    <insert id="insertSelective"  useGeneratedKeys="true" keyProperty="instId" parameterType="com.graduate.engine.model.Institute">
         insert into institute
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="instId != null">

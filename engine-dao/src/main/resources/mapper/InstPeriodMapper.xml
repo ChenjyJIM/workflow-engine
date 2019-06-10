@@ -44,7 +44,7 @@
       #{instPeriodFrom,jdbcType=INTEGER}, #{instPeriodTo,jdbcType=INTEGER}, #{instMemo,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.InstPeriod">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="instPeriodId" parameterType="com.graduate.engine.model.InstPeriod">
     insert into inst_period
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="instPeriodId != null">
