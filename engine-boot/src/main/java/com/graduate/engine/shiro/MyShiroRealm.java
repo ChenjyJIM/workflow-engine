@@ -40,7 +40,7 @@ public class MyShiroRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        Login login = (Login)principalCollection.getPrimaryPrincipal();
+        Login login = (Login) principalCollection.getPrimaryPrincipal();
         Long userId = login.getLoginId();
 
         //用户权限列表
@@ -70,13 +70,14 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         // 验证 token
         try {
-            JWTVerifier verifier =  JWT.require(Algorithm.HMAC256(user.getLoginPassword())).build();
+            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(user.getLoginPassword())).build();
             try {
                 verifier.verify(accessToken);
             } catch (JWTVerificationException e) {
                 throw new BusinessException("无效token，请重新登录");
             }
-        } catch (UnsupportedEncodingException ignore) {}
+        } catch (UnsupportedEncodingException ignore) {
+        }
         return new SimpleAuthenticationInfo(user, accessToken, getName());
     }
 }

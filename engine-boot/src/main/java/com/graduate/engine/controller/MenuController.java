@@ -60,17 +60,17 @@ public class MenuController extends AbstractController {
         jsonObject1.put("menuId", 0);
         jsonObject1.put("menuName", "一级菜单");
         jsonArray.add(jsonObject1);
-        return ResponseResult.buildSuccess(getSelect(menuList,jsonArray));
+        return ResponseResult.buildSuccess(getSelect(menuList, jsonArray));
     }
 
-    private JSONArray getSelect(List<MenuVo> menuList,JSONArray select) {
+    private JSONArray getSelect(List<MenuVo> menuList, JSONArray select) {
         for (MenuVo menu : menuList) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("menuId", menu.getId());
             jsonObject.put("menuName", menu.getMeta().get("title"));
             select.add(jsonObject);
             if (menu.getChildren() != null && menu.getChildren().size() != 0) {
-                select = getSelect(menu.getChildren(),select);
+                select = getSelect(menu.getChildren(), select);
             }
         }
         return select;

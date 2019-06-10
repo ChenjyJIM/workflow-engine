@@ -2,19 +2,17 @@ package com.graduate.engine.service;
 
 import com.graduate.engine.model.viewobject.ActivityTree;
 import com.graduate.engine.model.viewobject.ActivityVo;
-import com.graduate.engine.model.viewobject.MilestoneVo;
 import com.graduate.engine.model.viewobject.TreeData;
 import com.graduate.engine.request.ActivityQuery;
 import com.graduate.engine.request.ActivityRequest;
 import com.graduate.engine.request.ActivitySubRequest;
 import com.graduate.engine.response.PagedResult;
 
-import java.util.List;
-
 public interface ActivityService {
 
     /**
      * 新增一个活动
+     *
      * @param request
      * @return
      */
@@ -22,6 +20,7 @@ public interface ActivityService {
 
     /**
      * 修改活动信息
+     *
      * @param request
      * @return
      */
@@ -29,6 +28,7 @@ public interface ActivityService {
 
     /**
      * 根据活动id删除活动（非物理删除）
+     *
      * @param actId
      * @return
      */
@@ -41,6 +41,7 @@ public interface ActivityService {
 
     /**
      * 新增一个子活动
+     *
      * @param request
      * @return
      */
@@ -48,6 +49,7 @@ public interface ActivityService {
 
     /**
      * 修改子活动信息
+     *
      * @param request
      * @return
      */
@@ -55,6 +57,7 @@ public interface ActivityService {
 
     /**
      * 根据子活动id删除子活动（非物理删除）
+     *
      * @param actSubId
      * @return
      */
@@ -68,6 +71,7 @@ public interface ActivityService {
 
     /**
      * 根据查询条件查询出活动基本信息
+     *
      * @param query
      * @return
      */
@@ -75,6 +79,7 @@ public interface ActivityService {
 
     /**
      * 返回单个活动信息
+     *
      * @param actId
      * @return
      */
@@ -82,6 +87,7 @@ public interface ActivityService {
 
     /**
      * 返回树形结构的数据
+     *
      * @param actId
      * @return
      */

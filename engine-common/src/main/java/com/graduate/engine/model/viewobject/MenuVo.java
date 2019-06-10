@@ -15,7 +15,7 @@ public class MenuVo {
 
     private String name;
 
-    private HashMap<String,Object> meta;
+    private HashMap<String, Object> meta;
 
     private String component;
 

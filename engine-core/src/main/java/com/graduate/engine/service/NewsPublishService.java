@@ -20,8 +20,10 @@ public interface NewsPublishService extends IService<NewsPublish> {
     //type 新闻分类
     //newsTitle 新闻标题，支持模糊查询
     PageUtils queryPage(Map<String, Object> params);
+
     //停用发布新闻
     void stopPublishNews(Long publishId);
+
     //恢复发布新闻
     void republishNews(Long publishId);
 }

@@ -1,7 +1,5 @@
 package com.graduate.engine.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.graduate.engine.exception.BasicException;
 import com.graduate.engine.model.NewsCategory;
 import com.graduate.engine.model.NewsDetails;
@@ -9,7 +7,6 @@ import com.graduate.engine.model.NewsEdit;
 import com.graduate.engine.model.NewsPublish;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.*;
-import com.graduate.engine.utils.Constant;
 import com.graduate.engine.utils.DateUtils;
 import com.graduate.engine.utils.PageUtils;
 import io.swagger.annotations.ApiImplicitParam;
@@ -103,7 +100,7 @@ public class NewsController extends AbstractController {
             @ApiImplicitParam(name = "detailsId", value = "新闻详情ID", required = true, dataType = "Long")
     })
     @GetMapping("/edit/details/{type}/{detailsId}")
-    public ResponseResult getNewsDetails(@PathVariable("type") Long type,@PathVariable("detailsId") Long detailsId) {
+    public ResponseResult getNewsDetails(@PathVariable("type") Long type, @PathVariable("detailsId") Long detailsId) {
         NewsDetails details = newsDetailsService.getById(detailsId);
         details.setType(type);
         return ResponseResult.buildSuccess(details);
@@ -125,7 +122,7 @@ public class NewsController extends AbstractController {
         } else {
             //如果发布新闻停用、待审核或者审核未通过，则会修改原新闻，并将状态重新设为未审核
             newsEdit.setType(type);
-            newsEditService.updateNews(newsEdit,newsDetails);
+            newsEditService.updateNews(newsEdit, newsDetails);
             return ResponseResult.buildSuccess("修改成功，请等待审核！");
         }
     }
@@ -184,8 +181,8 @@ public class NewsController extends AbstractController {
             @ApiImplicitParam(name = "message", value = "新闻不通过原因", required = true, dataType = "String")
     })
     @DeleteMapping("/review/{editId}/{message}")
-    public ResponseResult disagreeNews(@PathVariable("editId") Long editId,@PathVariable("message") String message) {
-        newsReviewService.reviewNews(editId,message,getUserId());
+    public ResponseResult disagreeNews(@PathVariable("editId") Long editId, @PathVariable("message") String message) {
+        newsReviewService.reviewNews(editId, message, getUserId());
         return ResponseResult.buildSuccess("审核成功");
     }
 
@@ -195,7 +192,7 @@ public class NewsController extends AbstractController {
     })
     @PostMapping("/review/{editId}")
     public ResponseResult agreeNews(@PathVariable("editId") Long editId) {
-        newsReviewService.reviewNews(editId,getUserId());
+        newsReviewService.reviewNews(editId, getUserId());
         return ResponseResult.buildSuccess("审核成功");
     }
 

@@ -3,10 +3,9 @@ package com.graduate.engine.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.graduate.engine.model.NewsDetails;
+import com.graduate.engine.mapper.NewsPublishMapper;
 import com.graduate.engine.model.NewsEdit;
 import com.graduate.engine.model.NewsPublish;
-import com.graduate.engine.mapper.NewsPublishMapper;
 import com.graduate.engine.service.NewsDetailsService;
 import com.graduate.engine.service.NewsEditService;
 import com.graduate.engine.service.NewsPublishService;
@@ -39,19 +38,19 @@ public class NewsPublishServiceImpl extends ServiceImpl<NewsPublishMapper, NewsP
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
         boolean withoutStop = Boolean.parseBoolean((String) params.get("withoutStop"));
-        String type = (String)params.get("type");
-        String newsTitle = (String)params.get("newsTitle");
+        String type = (String) params.get("type");
+        String newsTitle = (String) params.get("newsTitle");
         List<Long> newsDetailsIds = new ArrayList<>();
         if (StringUtils.isNotBlank(newsTitle)) {
             newsDetailsIds = newsDetailsService.likeSelectByTitle(newsTitle);
         }
 
         IPage<NewsPublish> page = this.page(
-                new Query<NewsPublish>().getPage(params,"publish_time",false),
+                new Query<NewsPublish>().getPage(params, "publish_time", false),
                 new QueryWrapper<NewsPublish>()
-                        .eq(withoutStop,"stop",false)
-                        .eq(StringUtils.isNotBlank(type),"type", type)
-                        .in(StringUtils.isNotBlank(newsTitle),"details_id",newsDetailsIds)
+                        .eq(withoutStop, "stop", false)
+                        .eq(StringUtils.isNotBlank(type), "type", type)
+                        .in(StringUtils.isNotBlank(newsTitle), "details_id", newsDetailsIds)
         );
 
         return new PageUtils(page);

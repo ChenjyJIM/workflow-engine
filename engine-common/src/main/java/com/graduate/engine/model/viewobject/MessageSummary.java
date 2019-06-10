@@ -3,8 +3,6 @@ package com.graduate.engine.model.viewobject;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 /**
  * 信息简介，没有信息内容
  */

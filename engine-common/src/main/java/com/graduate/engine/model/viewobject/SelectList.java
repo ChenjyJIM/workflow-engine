@@ -4,6 +4,7 @@ import lombok.Data;
 
 /**
  * 用于前端select展示
+ *
  * @author jimmy
  */
 @Data

@@ -99,8 +99,9 @@ public class TreeUtils {
         }
         return subs;
     }
+
     //例子
-    public static void main(String[] args){
+    public static void main(String[] args) {
         TestTree testTree = new TestTree();
         testTree.setId("1001");
         testTree.setName("潍坊市");
@@ -134,7 +135,7 @@ public class TreeUtils {
         testTreeList.add(testTree3);
         testTreeList.add(testTree4);
         testTreeList.add(testTree5);
-        TreeUtils.createTree(testTreeList,testTree4,"id","pid","testTrees");
+        TreeUtils.createTree(testTreeList, testTree4, "id", "pid", "testTrees");
         //通过上边的createTree方法，根节点，即testTree4就是最全的最后的树结构。
         System.out.println(testTree4);
     }
@@ -142,7 +143,7 @@ public class TreeUtils {
 
 
 @Data
-class TestTree{
+class TestTree {
     private String id;
     private String name;
     private String pid;

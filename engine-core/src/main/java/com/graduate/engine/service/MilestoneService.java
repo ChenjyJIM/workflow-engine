@@ -9,12 +9,14 @@ public interface MilestoneService {
 
     /**
      * 新增（子）活动里程碑
+     *
      * @return
      */
     boolean addMilestone(MilestoneRequest request);
 
     /**
      * 修改里程碑
+     *
      * @param request
      * @return
      */
@@ -22,6 +24,7 @@ public interface MilestoneService {
 
     /**
      * 删除里程碑
+     *
      * @param id
      * @param type
      * @return
@@ -31,6 +34,7 @@ public interface MilestoneService {
 
     /**
      * 获取里程碑
+     *
      * @param id
      * @param type
      * @return

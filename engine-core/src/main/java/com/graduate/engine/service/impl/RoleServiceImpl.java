@@ -3,7 +3,6 @@ package com.graduate.engine.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.graduate.engine.exception.BasicException;
 import com.graduate.engine.mapper.LoginMapper;
-import com.graduate.engine.mapper.PersonRoleMapperMapper;
 import com.graduate.engine.mapper.RoleMapper;
 import com.graduate.engine.model.Role;
 import com.graduate.engine.service.PersonRoleMapperService;
@@ -34,7 +33,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         this.save(role);
 
         checkPerms(role);
-        roleMenuService.saveOrUpdate(role.getRoleId(),role.getMenuId());
+        roleMenuService.saveOrUpdate(role.getRoleId(), role.getMenuId());
     }
 
     @Override
@@ -42,7 +41,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         this.updateById(role);
 
         checkPerms(role);
-        roleMenuService.saveOrUpdate(role.getRoleId(),role.getMenuId());
+        roleMenuService.saveOrUpdate(role.getRoleId(), role.getMenuId());
     }
 
     @Override
@@ -60,7 +59,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public List<Role> getRoleList(Map<String, Object> map) {
         List<Role> roleList = (List<Role>) this.listByMap(map);
         for (Role role : roleList) {
-            role.setFormatTime(DateUtils.format(role.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
+            role.setFormatTime(DateUtils.format(role.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
         }
         return roleList;
     }
@@ -70,7 +69,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
      */
     private void checkPerms(Role role) {
         if (role.getCreateUserId() == Constant.SUPER_ADMIN) {
-            return ;
+            return;
         }
 
         //如果不是管理员，查询用户所能访问的菜单列表

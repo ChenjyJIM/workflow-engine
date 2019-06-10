@@ -10,5 +10,5 @@ public interface UnionInstMapperService extends IService<UnionInstMapper> {
 
     List<Long> getInstIdByUnionId(Long unionId);
 
-    void stopByUnionIdInstId(Long unionId,Long instId);
+    void stopByUnionIdInstId(Long unionId, Long instId);
 }

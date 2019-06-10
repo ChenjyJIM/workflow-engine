@@ -21,6 +21,6 @@ public interface PersonMessageMapper extends BaseMapper<PersonMessage> {
 
     void removeMsg(@Param("userId") Long userId, @Param("messageId") Long messageId);
 
-    int saveBatch(Map<String,Object> personMessageMap);
+    int saveBatch(Map<String, Object> personMessageMap);
 
 }

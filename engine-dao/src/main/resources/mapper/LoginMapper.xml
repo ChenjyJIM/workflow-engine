@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.LoginMapper">
     <resultMap id="BaseResultMap" type="com.graduate.engine.model.Login">
-        <id column="login_id" jdbcType="INTEGER" property="loginId" />
-        <result column="login_name" jdbcType="VARCHAR" property="loginName" />
-        <result column="login_password" jdbcType="VARCHAR" property="loginPassword" />
-        <result column="person_id" jdbcType="INTEGER" property="personId" />
-        <result column="guest_id" jdbcType="INTEGER" property="guestId" />
-        <result column="stop" jdbcType="BIT" property="stop" />
+        <id column="login_id" jdbcType="INTEGER" property="loginId"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="login_password" jdbcType="VARCHAR" property="loginPassword"/>
+        <result column="person_id" jdbcType="INTEGER" property="personId"/>
+        <result column="guest_id" jdbcType="INTEGER" property="guestId"/>
+        <result column="stop" jdbcType="BIT" property="stop"/>
     </resultMap>
     <insert id="addLoginUser">
-        insert into login(login_name, login_password, person_id, guest_id)
+        insert into login (login_name, login_password, person_id, guest_id)
         values (#{loginName}, #{loginPassword}, #{personId}, #{guestId})
     </insert>
     <update id="updatePassword">
@@ -22,35 +22,39 @@
     <select id="findLoginUser" resultMap="BaseResultMap">
         select * from login
         <where>
-        <if test="loginId != null">
-            `login_id` = #{loginId}
-        </if>
-        <if test="loginName != null">
-            and `login_name` = #{loginName}
-        </if>
+            <if test="loginId != null">
+                `login_id` = #{loginId}
+            </if>
+            <if test="loginName != null">
+                and `login_name` = #{loginName}
+            </if>
             and `stop` = 0
-       </where>
+        </where>
     </select>
     <!-- 查询用户的所有权限 -->
     <select id="queryAllPerms" resultType="string">
-        select m.perms from person_role_mapper prm
-            LEFT JOIN role_menu rm on prm.role_id = rm.role_id
-            LEFT JOIN menu m on rm.menu_id = m.menu_id
+        select m.perms
+        from person_role_mapper prm
+                 LEFT JOIN role_menu rm on prm.role_id = rm.role_id
+                 LEFT JOIN menu m on rm.menu_id = m.menu_id
         where prm.person_id = #{userId}
     </select>
     <!-- 查询用户的所有菜单 -->
     <select id="queryAllMenu" resultType="long">
-        select distinct rm.menu_id from person_role_mapper prm
-                                LEFT JOIN role_menu rm on prm.role_id = rm.role_id
+        select distinct rm.menu_id
+        from person_role_mapper prm
+                 LEFT JOIN role_menu rm on prm.role_id = rm.role_id
         where prm.person_id = #{userId}
     </select>
     <!-- 获取所有用户列表 -->
     <select id="getAllUsers" resultType="long">
-        select login_id from login
+        select login_id
+        from login
         where `stop` = 0
     </select>
     <select id="getLoginIdByPersonId" resultType="com.graduate.engine.model.Login">
-        select * from login
+        select *
+        from login
         where person_id = #{personId}
     </select>
     <!--批量停用用户 -->

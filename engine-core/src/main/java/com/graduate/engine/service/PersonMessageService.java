@@ -31,17 +31,17 @@ public interface PersonMessageService extends IService<PersonMessage> {
     /**
      * 将信息标记为已读
      */
-    void hasReadMessage(Long userId,Long messageId);
+    void hasReadMessage(Long userId, Long messageId);
 
     /**
      * 将消息标记为删除
      */
-    void removeMessage(Long userId,Long messageId);
+    void removeMessage(Long userId, Long messageId);
 
     /**
      * 将消息还原为已读
      */
-    void restoreMessage(Long userId,Long messageId);
+    void restoreMessage(Long userId, Long messageId);
 
     /**
      * 将消息发送给所有用户
@@ -51,10 +51,10 @@ public interface PersonMessageService extends IService<PersonMessage> {
     /**
      * 将消息发送给某些角色
      */
-    int messageToRoles(Long messageId,Long[] roleIds);
+    int messageToRoles(Long messageId, Long[] roleIds);
 
     /**
      * 将消息发送给某些人
      */
-    int messageToUsers(Long messageId,Long[] userIds);
+    int messageToUsers(Long messageId, Long[] userIds);
 }

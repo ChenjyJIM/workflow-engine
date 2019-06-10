@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Union", description="学联体表")
+@ApiModel(value = "Union", description = "学联体表")
 @TableName(value = "`union`")
 public class Union implements Serializable {
 
@@ -28,11 +28,11 @@ public class Union implements Serializable {
     private Long unionId;
 
     @ApiModelProperty(value = "学联体名称")
-    @NotBlank(message="学联体名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @NotBlank(message = "学联体名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String unionName;
 
     @ApiModelProperty(value = "学联体简称")
-    @NotBlank(message="学联体简称不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @NotBlank(message = "学联体简称不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String unionShort;
 
     @ApiModelProperty(value = "学联体英文名")
@@ -54,7 +54,7 @@ public class Union implements Serializable {
     /**
      * 将时间转换为String类型，方便前端显示
      */
-    @TableField(exist=false)
+    @TableField(exist = false)
     private String registerTime;
 
     @ApiModelProperty(value = "学联体简介")

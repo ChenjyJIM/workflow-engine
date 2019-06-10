@@ -1,8 +1,8 @@
 package com.graduate.engine.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.graduate.engine.model.PersonMemberApplicationRecord;
 import com.graduate.engine.mapper.PersonMemberApplicationRecordMapper;
+import com.graduate.engine.model.PersonMemberApplicationRecord;
 import com.graduate.engine.service.PersonMemberApplicationRecordService;
 import org.springframework.stereotype.Service;
 

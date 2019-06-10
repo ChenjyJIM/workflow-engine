@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Message", description="信息表")
+@ApiModel(value = "Message", description = "信息表")
 public class Message implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -4,27 +4,45 @@
 
     <!--  获取未读信息数量  -->
     <select id="getUnreadContByUserId" resultType="java.lang.Integer">
-        select count(message_id) from person_message where user_id = #{userId} and status = 0
+        select count(message_id)
+        from person_message
+        where user_id = #{userId}
+          and status = 0
     </select>
     <!--  获取未读信息  -->
     <select id="getUnreadList" resultType="long">
-        select message_id from person_message where user_id = #{userId} and status = 0
+        select message_id
+        from person_message
+        where user_id = #{userId}
+          and status = 0
     </select>
     <!--  获取已读信息  -->
     <select id="getReadList" resultType="long">
-        select message_id from person_message where user_id = #{userId} and status = 1
+        select message_id
+        from person_message
+        where user_id = #{userId}
+          and status = 1
     </select>
     <!--  获取回收站信息  -->
     <select id="getTrashList" resultType="long">
-        select message_id from person_message where user_id = #{userId} and status = 2
+        select message_id
+        from person_message
+        where user_id = #{userId}
+          and status = 2
     </select>
     <!--  标记消息为已读  -->
     <update id="hasReadMsg">
-        update person_message set status = 1 where user_id = #{userId} and message_id = #{messageId}
+        update person_message
+        set status = 1
+        where user_id = #{userId}
+          and message_id = #{messageId}
     </update>
     <!--  标记消息为删除  -->
     <update id="removeMsg">
-        update person_message set status = 2 where user_id = #{userId} and message_id = #{messageId}
+        update person_message
+        set status = 2
+        where user_id = #{userId}
+          and message_id = #{messageId}
     </update>
     <insert id="saveBatch">
         insert into person_message (user_id, message_id, status) values

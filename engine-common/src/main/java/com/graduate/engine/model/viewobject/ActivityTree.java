@@ -80,5 +80,4 @@ public class ActivityTree {
     private List<TaskVo> tasks;
 
 
-
 }

@@ -3,11 +3,8 @@
 <mapper namespace="com.graduate.engine.mapper.TestMapper">
 
     <select id="getMemberById" resultType="com.graduate.engine.model.dataobject.PersonMember">
-        select
-        *
-        from
-        person_member
-        where
-        person_id = #{personId}
+        select *
+        from person_member
+        where person_id = #{personId}
     </select>
 </mapper>

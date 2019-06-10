@@ -1,82 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.ProfessionalRankMapper">
-  <resultMap id="BaseResultMap" type="com.graduate.engine.model.ProfessionalRank">
-    <id column="prof_id" jdbcType="INTEGER" property="profId" />
-    <result column="prof_rank_name" jdbcType="VARCHAR" property="profRankName" />
-    <result column="prof_rank_grade" jdbcType="VARCHAR" property="profRankGrade" />
-    <result column="stop" jdbcType="BIT" property="stop" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    prof_id, prof_rank_name, prof_rank_grade, stop
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from professional_rank
-    where prof_id = #{profId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from professional_rank
-    where prof_id = #{profId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.graduate.engine.model.ProfessionalRank">
-    insert into professional_rank (prof_id, prof_rank_name, prof_rank_grade, 
-      stop)
-    values (#{profId,jdbcType=INTEGER}, #{profRankName,jdbcType=VARCHAR}, #{profRankGrade,jdbcType=VARCHAR}, 
-      #{stop,jdbcType=BIT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.ProfessionalRank">
-    insert into professional_rank
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="profId != null">
-        prof_id,
-      </if>
-      <if test="profRankName != null">
-        prof_rank_name,
-      </if>
-      <if test="profRankGrade != null">
-        prof_rank_grade,
-      </if>
-      <if test="stop != null">
-        stop,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="profId != null">
-        #{profId,jdbcType=INTEGER},
-      </if>
-      <if test="profRankName != null">
-        #{profRankName,jdbcType=VARCHAR},
-      </if>
-      <if test="profRankGrade != null">
-        #{profRankGrade,jdbcType=VARCHAR},
-      </if>
-      <if test="stop != null">
-        #{stop,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.ProfessionalRank">
-    update professional_rank
-    <set>
-      <if test="profRankName != null">
-        prof_rank_name = #{profRankName,jdbcType=VARCHAR},
-      </if>
-      <if test="profRankGrade != null">
-        prof_rank_grade = #{profRankGrade,jdbcType=VARCHAR},
-      </if>
-      <if test="stop != null">
-        stop = #{stop,jdbcType=BIT},
-      </if>
-    </set>
-    where prof_id = #{profId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.ProfessionalRank">
-    update professional_rank
-    set prof_rank_name = #{profRankName,jdbcType=VARCHAR},
-      prof_rank_grade = #{profRankGrade,jdbcType=VARCHAR},
-      stop = #{stop,jdbcType=BIT}
-    where prof_id = #{profId,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.ProfessionalRank">
+        <id column="prof_id" jdbcType="INTEGER" property="profId"/>
+        <result column="prof_rank_name" jdbcType="VARCHAR" property="profRankName"/>
+        <result column="prof_rank_grade" jdbcType="VARCHAR" property="profRankGrade"/>
+        <result column="stop" jdbcType="BIT" property="stop"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        prof_id, prof_rank_name, prof_rank_grade, stop
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from professional_rank
+        where prof_id = #{profId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from professional_rank
+        where prof_id = #{profId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.graduate.engine.model.ProfessionalRank">
+        insert into professional_rank (prof_id, prof_rank_name, prof_rank_grade, stop)
+        values (#{profId,jdbcType=INTEGER},
+                #{profRankName,jdbcType=VARCHAR},
+                #{profRankGrade,jdbcType=VARCHAR},
+                #{stop,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.graduate.engine.model.ProfessionalRank">
+        insert into professional_rank
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="profId != null">
+                prof_id,
+            </if>
+            <if test="profRankName != null">
+                prof_rank_name,
+            </if>
+            <if test="profRankGrade != null">
+                prof_rank_grade,
+            </if>
+            <if test="stop != null">
+                stop,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="profId != null">
+                #{profId,jdbcType=INTEGER},
+            </if>
+            <if test="profRankName != null">
+                #{profRankName,jdbcType=VARCHAR},
+            </if>
+            <if test="profRankGrade != null">
+                #{profRankGrade,jdbcType=VARCHAR},
+            </if>
+            <if test="stop != null">
+                #{stop,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.ProfessionalRank">
+        update professional_rank
+        <set>
+            <if test="profRankName != null">
+                prof_rank_name = #{profRankName,jdbcType=VARCHAR},
+            </if>
+            <if test="profRankGrade != null">
+                prof_rank_grade = #{profRankGrade,jdbcType=VARCHAR},
+            </if>
+            <if test="stop != null">
+                stop = #{stop,jdbcType=BIT},
+            </if>
+        </set>
+        where prof_id = #{profId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.ProfessionalRank">
+        update professional_rank
+        set prof_rank_name  = #{profRankName,jdbcType=VARCHAR},
+            prof_rank_grade = #{profRankGrade,jdbcType=VARCHAR},
+            stop            = #{stop,jdbcType=BIT}
+        where prof_id = #{profId,jdbcType=INTEGER}
+    </update>
 </mapper>

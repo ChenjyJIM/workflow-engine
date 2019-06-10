@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * 学会每一届学会的信息
+ *
  * @author jimmy
  */
 @Data

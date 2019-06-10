@@ -232,10 +232,10 @@ public class LoginController extends AbstractController {
             UserVo userVo = new UserVo();
             userVo.setLoginId(login.getLoginId());
             userVo.setLoginName(login.getLoginName());
-            userVo.setStop(login.getStop()?1L:0L);
-            if (login.getGuestId()!=null) {
+            userVo.setStop(login.getStop() ? 1L : 0L);
+            if (login.getGuestId() != null) {
                 userVo.setType(2L);
-            } else if (login.getPersonId()!=null){
+            } else if (login.getPersonId() != null) {
                 userVo.setType(1L);
             } else {
                 userVo.setType(0L);
@@ -248,12 +248,12 @@ public class LoginController extends AbstractController {
 
     @ApiOperation("批量停用用户")
     @DeleteMapping("/user")
-    public ResponseResult delete(@RequestBody Long[] userIds){
-        if(ArrayUtils.contains(userIds, 1L)){
+    public ResponseResult delete(@RequestBody Long[] userIds) {
+        if (ArrayUtils.contains(userIds, 1L)) {
             return ResponseResult.buildError("系统管理员不能删除");
         }
 
-        if(ArrayUtils.contains(userIds, getUserId())){
+        if (ArrayUtils.contains(userIds, getUserId())) {
             return ResponseResult.buildError("当前用户不能删除");
         }
 
@@ -275,7 +275,7 @@ public class LoginController extends AbstractController {
             //向Login表和PersonMember表中插入数据
             Login login = loginService.addUser(userInfoVo);
             //给新建的用户赋予权限
-            personRoleMapperService.addUserRole(login.getLoginId(),userInfoVo.getRoleId());
+            personRoleMapperService.addUserRole(login.getLoginId(), userInfoVo.getRoleId());
             return ResponseResult.buildSuccess("新增成功！");
         } catch (Exception e) {
             return ResponseResult.buildError("系统异常！");
@@ -295,7 +295,7 @@ public class LoginController extends AbstractController {
     public ResponseResult updateUser(@RequestBody UserInfoVo userInfoVo) {
         try {
             loginService.updateUser(userInfoVo);
-            personRoleMapperService.updateUserRole(userInfoVo.getId(),userInfoVo.getRoleId());
+            personRoleMapperService.updateUserRole(userInfoVo.getId(), userInfoVo.getRoleId());
             return ResponseResult.buildSuccess("新增成功！");
         } catch (Exception e) {
             return ResponseResult.buildError("系统异常！");

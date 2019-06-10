@@ -27,7 +27,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -102,7 +101,7 @@ public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements
         Login login = new Login();
         login.setLoginName(userInfoVo.getLoginName());
         login.setLoginPassword(passwordHash);
-        PersonMember personMember = BeanUtils.copyBean(userInfoVo,PersonMember.class);
+        PersonMember personMember = BeanUtils.copyBean(userInfoVo, PersonMember.class);
         Long memberId = createMemberId();
         personMember.setPersonMemberId(memberId);
         personMember.setBirthday(DateUtils.getTimeStampByUTC(userInfoVo.getFormatBirthday()));
@@ -123,7 +122,7 @@ public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements
         Login login = findById(userInfoVo.getId());
         login.setLoginPassword(passwordHash);
         loginMapper.updatePassword(login);
-        PersonMember personMember = BeanUtils.copyBean(userInfoVo,PersonMember.class);
+        PersonMember personMember = BeanUtils.copyBean(userInfoVo, PersonMember.class);
         personMember.setBirthday(DateUtils.getTimeStampByUTC(userInfoVo.getFormatBirthday()));
         personMemberMapper.updateByPrimaryKeySelective(personMember);
     }
@@ -133,11 +132,11 @@ public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements
         Login login = getById(userId);
         UserInfoVo userInfoVo = new UserInfoVo();
 
-        if (login.getPersonId()!=null) {
+        if (login.getPersonId() != null) {
             PersonMember personMember = personMemberMapper.selectByPrimaryKey(login.getPersonId());
-            userInfoVo = BeanUtils.copyBean(personMember,UserInfoVo.class);
-            userInfoVo.setFormatBirthday(DateUtils.getDateStrByTimestamp(userInfoVo.getBirthday(),"yyyy-MM-dd"));
-        } else if (login.getGuestId()!=null) {
+            userInfoVo = BeanUtils.copyBean(personMember, UserInfoVo.class);
+            userInfoVo.setFormatBirthday(DateUtils.getDateStrByTimestamp(userInfoVo.getBirthday(), "yyyy-MM-dd"));
+        } else if (login.getGuestId() != null) {
             Guest guest = guestMapper.selectByPrimaryKey(login.getGuestId());
             userInfoVo.setMail(guest.getGuestEmail());
             userInfoVo.setName(guest.getGuestName());
@@ -213,12 +212,12 @@ public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        String loginName = (String)params.get("loginName");
+        String loginName = (String) params.get("loginName");
 
         IPage<Login> page = this.page(
                 new Query<Login>().getPage(params),
                 new QueryWrapper<Login>()
-                        .like(StringUtils.isNotBlank(loginName),"login_name", loginName)
+                        .like(StringUtils.isNotBlank(loginName), "login_name", loginName)
         );
 
         return new PageUtils(page);

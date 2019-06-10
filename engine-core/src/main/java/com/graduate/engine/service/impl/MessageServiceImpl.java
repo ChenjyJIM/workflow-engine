@@ -40,22 +40,22 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void sendMessageToAll(String messageTitle, String messageContent) {
-        Long messageId = this.saveMessage(messageTitle,messageContent);
+        Long messageId = this.saveMessage(messageTitle, messageContent);
         personMessageService.messageToAll(messageId);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void sendMessageToRoles(String messageTitle, String messageContent, Long[] roleIds) {
-        Long messageId = this.saveMessage(messageTitle,messageContent);
-        personMessageService.messageToRoles(messageId,roleIds);
+        Long messageId = this.saveMessage(messageTitle, messageContent);
+        personMessageService.messageToRoles(messageId, roleIds);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void sendMessageToUsers(String messageTitle, String messageContent, Long[] userIds) {
-        Long messageId = this.saveMessage(messageTitle,messageContent);
-        personMessageService.messageToUsers(messageId,userIds);
+        Long messageId = this.saveMessage(messageTitle, messageContent);
+        personMessageService.messageToUsers(messageId, userIds);
     }
 
     private Long getCreateUserId() {

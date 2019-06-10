@@ -1,7 +1,6 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.Task;
-import com.graduate.engine.model.viewobject.TaskVo;
 import com.graduate.engine.request.TaskQuery;
 import org.springframework.stereotype.Repository;
 
@@ -23,6 +22,7 @@ public interface TaskMapper {
 
     /**
      * 查询出直接在总活动下的任务
+     *
      * @param actId
      * @return
      */
@@ -30,6 +30,7 @@ public interface TaskMapper {
 
     /**
      * 查询出子活动下的任务
+     *
      * @param actSubId
      * @return
      */
@@ -37,6 +38,7 @@ public interface TaskMapper {
 
     /**
      * 查询所有任务
+     *
      * @param taskQuery
      * @return
      */
@@ -44,6 +46,7 @@ public interface TaskMapper {
 
     /**
      * 所有任务数目
+     *
      * @param taskQuery
      * @return
      */

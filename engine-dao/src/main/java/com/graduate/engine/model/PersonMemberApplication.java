@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="PersonMemberApplication", description="个人会员申请表")
+@ApiModel(value = "PersonMemberApplication", description = "个人会员申请表")
 public class PersonMemberApplication implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,7 +34,7 @@ public class PersonMemberApplication implements Serializable {
     @ApiModelProperty(value = "申请用户id")
     private Long loginId;
 
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "申请用户姓名")
     private String personName;
 

@@ -49,7 +49,7 @@ public class ResponseResult implements Serializable {
     }
 
     public static ResponseResult buildError(int code, String errMsg) {
-        return new ResponseResult(false,code, errMsg, null);
+        return new ResponseResult(false, code, errMsg, null);
     }
 
     public static ResponseResult buildSuccess(Object data) {

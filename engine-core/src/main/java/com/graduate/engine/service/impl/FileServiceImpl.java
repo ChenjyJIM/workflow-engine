@@ -9,13 +9,10 @@ import com.graduate.engine.service.FileService;
 import com.graduate.engine.utils.BeanUtils;
 import com.graduate.engine.utils.DateUtils;
 import com.graduate.engine.utils.FileUtil;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -65,7 +62,7 @@ public class FileServiceImpl implements FileService {
                 document.setGmtModified(DateUtils.getCurrentSecondTimestamp());
                 document.setDocumentId(originalDocument.getDocumentId());
                 document.setTaskExecId(taskExecId);
-                document.setDocName(originalFilename.replace(PREFIX_NAME.concat(versionInFile.toString()),"").trim());
+                document.setDocName(originalFilename.replace(PREFIX_NAME.concat(versionInFile.toString()), "").trim());
                 document.setDocClass(originalFilename.substring(originalFilename.lastIndexOf(".") + 1));
                 document.setDocCatagory(docCatagory);
                 document.setDocPath(filePath);
@@ -93,7 +90,7 @@ public class FileServiceImpl implements FileService {
                 if (matcher.find()) {
                     versionCount = Long.parseLong(matcher.group(1));
                 }
-                document.setDocName(originalFilename.replace(PREFIX_NAME.concat(versionCount.toString()),"").trim());
+                document.setDocName(originalFilename.replace(PREFIX_NAME.concat(versionCount.toString()), "").trim());
             } else {
                 document.setDocName(originalFilename);
             }
@@ -103,7 +100,7 @@ public class FileServiceImpl implements FileService {
             document.setDocPath(filePath);
             document.setDocUniqueName(uniqueName);
             document.setPersonId(personId);
-            document.setVersion(versionInDatabase == null? 1 : versionInDatabase + 1L);
+            document.setVersion(versionInDatabase == null ? 1 : versionInDatabase + 1L);
             return 1 == documentMapper.insertSelective(document);
         }
 

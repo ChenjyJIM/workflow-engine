@@ -21,10 +21,10 @@ public class ShiroServiceImpl implements ShiroService {
         List<String> permsList;
 
         //系统管理员，拥有最高权限
-        if (userId == 1){
+        if (userId == 1) {
             List<Menu> menuList = menuMapper.selectList(null);
             permsList = new ArrayList<>(menuList.size());
-            for(Menu menu : menuList){
+            for (Menu menu : menuList) {
                 permsList.add(menu.getPerms());
             }
         } else {
@@ -33,8 +33,8 @@ public class ShiroServiceImpl implements ShiroService {
 
         //用户权限列表
         Set<String> permsSet = new HashSet<>();
-        for(String perms : permsList){
-            if(isBlank(perms)){
+        for (String perms : permsList) {
+            if (isBlank(perms)) {
                 continue;
             }
             permsSet.addAll(Arrays.asList(perms.trim().split(",")));
@@ -51,7 +51,7 @@ public class ShiroServiceImpl implements ShiroService {
     private boolean isBlank(String str) {
         int strLen;
         if (str != null && (strLen = str.length()) != 0) {
-            for(int i = 0; i < strLen; ++i) {
+            for (int i = 0; i < strLen; ++i) {
                 if (!Character.isWhitespace(str.charAt(i))) {
                     return false;
                 }

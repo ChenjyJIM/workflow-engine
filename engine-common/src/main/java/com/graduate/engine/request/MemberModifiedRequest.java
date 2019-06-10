@@ -5,6 +5,7 @@ import lombok.Setter;
 
 /**
  * 用户信息修改请求类
+ *
  * @author jimmy
  */
 @Getter

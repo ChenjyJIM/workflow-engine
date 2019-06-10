@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class UnionInstMapperServiceImpl extends ServiceImpl<UnionInstMapperMapper, UnionInstMapper> implements UnionInstMapperService {
@@ -18,8 +17,8 @@ public class UnionInstMapperServiceImpl extends ServiceImpl<UnionInstMapperMappe
 
     @Override
     public void saveOrUpdate(Long unionId, List<Long> instituteIdList) {
-        HashMap<String,Object> map = new HashMap<String, Object>();
-        map.put("union_id",unionId);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("union_id", unionId);
         this.removeByMap(map);
 
         for (Long instituteId : instituteIdList) {
@@ -37,7 +36,7 @@ public class UnionInstMapperServiceImpl extends ServiceImpl<UnionInstMapperMappe
     }
 
     @Override
-    public void stopByUnionIdInstId(Long unionId,Long instId) {
-        unionInstMapperMapper.stopByUnionIdInstId(unionId,instId);
+    public void stopByUnionIdInstId(Long unionId, Long instId) {
+        unionInstMapperMapper.stopByUnionIdInstId(unionId, instId);
     }
 }

@@ -21,6 +21,7 @@ public interface TaskService {
 
     /**
      * 新增任务检查点
+     *
      * @param request
      * @return
      */
@@ -28,6 +29,7 @@ public interface TaskService {
 
     /**
      * 修改检查点
+     *
      * @param request
      * @return
      */
@@ -35,6 +37,7 @@ public interface TaskService {
 
     /**
      * 根据taskCheckPointId 删除检查点
+     *
      * @param taskCheckPointId
      * @return
      */
@@ -42,6 +45,7 @@ public interface TaskService {
 
     /**
      * 根据任务id拿到所有检查点
+     *
      * @param taskId
      * @return
      */
@@ -49,6 +53,7 @@ public interface TaskService {
 
     /**
      * 拿到分配给当前用户的任务
+     *
      * @param query
      * @return
      */
@@ -56,20 +61,23 @@ public interface TaskService {
 
     /**
      * 根据条件获取到所有任务
+     *
      * @param query
      * @return
      */
     PagedResult<TaskVo> getAllTask(TaskQuery query);
 
-        /**
-         * 新增任务执行阶段
-         * @param request
-         * @return
-         */
+    /**
+     * 新增任务执行阶段
+     *
+     * @param request
+     * @return
+     */
     boolean addTaskExec(TaskExecRequest request);
 
     /**
      * 修改任务执行阶段
+     *
      * @param request
      * @return
      */

@@ -1,6 +1,5 @@
 package com.graduate.engine.controller;
 
-import com.graduate.engine.annotation.LoginRequired;
 import com.graduate.engine.model.viewobject.InfoListVo;
 import com.graduate.engine.model.viewobject.InstPeriodVo;
 import com.graduate.engine.model.viewobject.InstSubsVo;

@@ -22,6 +22,7 @@ public interface DocumentMapper {
 
     /**
      * 通过execId拿到当前执行阶段最新的version
+     *
      * @param taskExecId
      * @return
      */
@@ -29,6 +30,7 @@ public interface DocumentMapper {
 
     /**
      * 根据版本号拿到主键用于更新
+     *
      * @param taskExecId
      * @param versionInFile
      * @return

@@ -52,13 +52,13 @@ public class PagedResult<T> {
         this.items = items;
     }
 
+    public Long getTotal() {
+        return total;
+    }
+
     public void setTotal(Long total) {
         this.total = total;
         calc();
-    }
-
-    public Long getTotal() {
-        return total;
     }
 
     public Integer getPages() {

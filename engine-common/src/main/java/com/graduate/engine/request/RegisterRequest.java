@@ -1,6 +1,5 @@
 package com.graduate.engine.request;
 
-import com.graduate.engine.model.dataobject.PersonMember;
 import lombok.Getter;
 import lombok.Setter;
 

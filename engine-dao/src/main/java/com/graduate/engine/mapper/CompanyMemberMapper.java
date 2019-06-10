@@ -21,6 +21,7 @@ public interface CompanyMemberMapper {
 
     /**
      * 根据instId获取单位会员的数量
+     *
      * @param instId
      * @return
      */

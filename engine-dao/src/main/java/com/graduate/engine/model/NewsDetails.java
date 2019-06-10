@@ -37,7 +37,7 @@ public class NewsDetails implements Serializable {
     @ApiModelProperty(value = "作者名称")
     private String author;
 
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "新闻分类，外键 →NewsCategory.CategoryID")
     private Long type;
 

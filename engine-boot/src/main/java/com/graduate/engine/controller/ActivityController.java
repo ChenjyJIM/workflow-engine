@@ -8,13 +8,13 @@ import com.graduate.engine.request.ActivitySubRequest;
 import com.graduate.engine.response.PagedResult;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.ActivityService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 /**
  * 活动相关rest接口
+ *
  * @author jimmy
  */
 @RestController
@@ -35,6 +35,7 @@ public class ActivityController {
             return ResponseResult.buildError("系统异常！");
         }
     }
+
     @GetMapping("/getTreeData")
     public ResponseResult getTreeData(Long actId) {
         if (actId == null) {
@@ -67,7 +68,7 @@ public class ActivityController {
         try {
             JSONObject result = new JSONObject();
             result.put("actId", activityService.addActivity(request));
-                return ResponseResult.buildSuccess(result);
+            return ResponseResult.buildSuccess(result);
         } catch (Exception e) {
             return ResponseResult.buildError("系统异常！");
         }
@@ -143,6 +144,7 @@ public class ActivityController {
 
     /**
      * 发布活动
+     *
      * @param actSubId
      * @return
      */

@@ -62,13 +62,14 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
             // 验证 token
             try {
-                JWTVerifier verifier =  JWT.require(Algorithm.HMAC256(user.getLoginPassword())).build();
+                JWTVerifier verifier = JWT.require(Algorithm.HMAC256(user.getLoginPassword())).build();
                 try {
                     verifier.verify(token);
                 } catch (JWTVerificationException e) {
                     throw new BusinessException("token无效，请重新登录");
                 }
-            } catch (UnsupportedEncodingException ignore) {}
+            } catch (UnsupportedEncodingException ignore) {
+            }
             request.setAttribute("currentUser", user);
             return true;
         }

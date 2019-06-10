@@ -1,124 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.InstPeriodPersonMapper">
-  <resultMap id="BaseResultMap" type="com.graduate.engine.model.InstPeriodPerson">
-    <id column="inst_period_person_id" jdbcType="INTEGER" property="instPeriodPersonId" />
-    <result column="inst_id" jdbcType="INTEGER" property="instId" />
-    <result column="inst_period_id" jdbcType="INTEGER" property="instPeriodId" />
-    <result column="inst_period_person_order" jdbcType="TINYINT" property="instPeriodPersonOrder" />
-    <result column="person_id" jdbcType="INTEGER" property="personId" />
-    <result column="person_title_id" jdbcType="INTEGER" property="personTitleId" />
-    <result column="inst_period_person_memo" jdbcType="VARCHAR" property="instPeriodPersonMemo" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    inst_period_person_id, inst_id, inst_period_id, inst_period_person_order, person_id,
-    person_title_id, inst_period_person_memo
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from inst_period_person
-    where inst_period_person_id = #{instPeriodPersonId,jdbcType=INTEGER}
-  </select>
-  <select id="getByInstPeriodId" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from inst_period_person
-    where inst_period_id = #{instPeriodId}
-  </select>
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.InstPeriodPerson">
+        <id column="inst_period_person_id" jdbcType="INTEGER" property="instPeriodPersonId"/>
+        <result column="inst_id" jdbcType="INTEGER" property="instId"/>
+        <result column="inst_period_id" jdbcType="INTEGER" property="instPeriodId"/>
+        <result column="inst_period_person_order" jdbcType="TINYINT" property="instPeriodPersonOrder"/>
+        <result column="person_id" jdbcType="INTEGER" property="personId"/>
+        <result column="person_title_id" jdbcType="INTEGER" property="personTitleId"/>
+        <result column="inst_period_person_memo" jdbcType="VARCHAR" property="instPeriodPersonMemo"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        inst_period_person_id, inst_id, inst_period_id, inst_period_person_order, person_id,
+        person_title_id, inst_period_person_memo
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from inst_period_person
+        where inst_period_person_id = #{instPeriodPersonId,jdbcType=INTEGER}
+    </select>
+    <select id="getByInstPeriodId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from inst_period_person
+        where inst_period_id = #{instPeriodId}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from inst_period_person
-    where inst_period_person_id = #{instPeriodPersonId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.graduate.engine.model.InstPeriodPerson">
-    insert into inst_period_person (inst_period_person_id, inst_id, inst_period_id,
-      inst_period_person_order, person_id, person_title_id,
-      inst_period_person_memo)
-    values (#{instPeriodPersonId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{instPeriodId,jdbcType=INTEGER},
-      #{instPeriodPersonOrder,jdbcType=TINYINT}, #{personId,jdbcType=INTEGER}, #{personTitleId,jdbcType=INTEGER},
-      #{instPeriodPersonMemo,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.InstPeriodPerson">
-    insert into inst_period_person
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="instPeriodPersonId != null">
-        inst_period_person_id,
-      </if>
-      <if test="instId != null">
-        inst_id,
-      </if>
-      <if test="instPeriodId != null">
-        inst_period_id,
-      </if>
-      <if test="instPeriodPersonOrder != null">
-        inst_period_person_order,
-      </if>
-      <if test="personId != null">
-        person_id,
-      </if>
-      <if test="personTitleId != null">
-        person_title_id,
-      </if>
-      <if test="instPeriodPersonMemo != null">
-        inst_period_person_memo,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="instPeriodPersonId != null">
-        #{instPeriodPersonId,jdbcType=INTEGER},
-      </if>
-      <if test="instId != null">
-        #{instId,jdbcType=INTEGER},
-      </if>
-      <if test="instPeriodId != null">
-        #{instPeriodId,jdbcType=INTEGER},
-      </if>
-      <if test="instPeriodPersonOrder != null">
-        #{instPeriodPersonOrder,jdbcType=TINYINT},
-      </if>
-      <if test="personId != null">
-        #{personId,jdbcType=INTEGER},
-      </if>
-      <if test="personTitleId != null">
-        #{personTitleId,jdbcType=INTEGER},
-      </if>
-      <if test="instPeriodPersonMemo != null">
-        #{instPeriodPersonMemo,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.InstPeriodPerson">
-    update inst_period_person
-    <set>
-      <if test="instId != null">
-        inst_id = #{instId,jdbcType=INTEGER},
-      </if>
-      <if test="instPeriodId != null">
-        inst_period_id = #{instPeriodId,jdbcType=INTEGER},
-      </if>
-      <if test="instPeriodPersonOrder != null">
-        inst_period_person_order = #{instPeriodPersonOrder,jdbcType=TINYINT},
-      </if>
-      <if test="personId != null">
-        person_id = #{personId,jdbcType=INTEGER},
-      </if>
-      <if test="personTitleId != null">
-        person_title_id = #{personTitleId,jdbcType=INTEGER},
-      </if>
-      <if test="instPeriodPersonMemo != null">
-        inst_period_person_memo = #{instPeriodPersonMemo,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where inst_period_person_id = #{instPeriodPersonId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.InstPeriodPerson">
-    update inst_period_person
-    set inst_id = #{instId,jdbcType=INTEGER},
-      inst_period_id = #{instPeriodId,jdbcType=INTEGER},
-      inst_period_person_order = #{instPeriodPersonOrder,jdbcType=TINYINT},
-      person_id = #{personId,jdbcType=INTEGER},
-      person_title_id = #{personTitleId,jdbcType=INTEGER},
-      inst_period_person_memo = #{instPeriodPersonMemo,jdbcType=VARCHAR}
-    where inst_period_person_id = #{instPeriodPersonId,jdbcType=INTEGER}
-  </update>
+        delete
+        from inst_period_person
+        where inst_period_person_id = #{instPeriodPersonId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.graduate.engine.model.InstPeriodPerson">
+        insert into inst_period_person (inst_period_person_id,
+                                        inst_id,
+                                        inst_period_id,
+                                        inst_period_person_order,
+                                        person_id,
+                                        person_title_id,
+                                        inst_period_person_memo)
+        values (#{instPeriodPersonId,jdbcType=INTEGER},
+                #{instId,jdbcType=INTEGER},
+                #{instPeriodId,jdbcType=INTEGER},
+                #{instPeriodPersonOrder,jdbcType=TINYINT},
+                #{personId,jdbcType=INTEGER},
+                #{personTitleId,jdbcType=INTEGER},
+                #{instPeriodPersonMemo,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.graduate.engine.model.InstPeriodPerson">
+        insert into inst_period_person
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="instPeriodPersonId != null">
+                inst_period_person_id,
+            </if>
+            <if test="instId != null">
+                inst_id,
+            </if>
+            <if test="instPeriodId != null">
+                inst_period_id,
+            </if>
+            <if test="instPeriodPersonOrder != null">
+                inst_period_person_order,
+            </if>
+            <if test="personId != null">
+                person_id,
+            </if>
+            <if test="personTitleId != null">
+                person_title_id,
+            </if>
+            <if test="instPeriodPersonMemo != null">
+                inst_period_person_memo,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="instPeriodPersonId != null">
+                #{instPeriodPersonId,jdbcType=INTEGER},
+            </if>
+            <if test="instId != null">
+                #{instId,jdbcType=INTEGER},
+            </if>
+            <if test="instPeriodId != null">
+                #{instPeriodId,jdbcType=INTEGER},
+            </if>
+            <if test="instPeriodPersonOrder != null">
+                #{instPeriodPersonOrder,jdbcType=TINYINT},
+            </if>
+            <if test="personId != null">
+                #{personId,jdbcType=INTEGER},
+            </if>
+            <if test="personTitleId != null">
+                #{personTitleId,jdbcType=INTEGER},
+            </if>
+            <if test="instPeriodPersonMemo != null">
+                #{instPeriodPersonMemo,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.InstPeriodPerson">
+        update inst_period_person
+        <set>
+            <if test="instId != null">
+                inst_id = #{instId,jdbcType=INTEGER},
+            </if>
+            <if test="instPeriodId != null">
+                inst_period_id = #{instPeriodId,jdbcType=INTEGER},
+            </if>
+            <if test="instPeriodPersonOrder != null">
+                inst_period_person_order = #{instPeriodPersonOrder,jdbcType=TINYINT},
+            </if>
+            <if test="personId != null">
+                person_id = #{personId,jdbcType=INTEGER},
+            </if>
+            <if test="personTitleId != null">
+                person_title_id = #{personTitleId,jdbcType=INTEGER},
+            </if>
+            <if test="instPeriodPersonMemo != null">
+                inst_period_person_memo = #{instPeriodPersonMemo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where inst_period_person_id = #{instPeriodPersonId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.InstPeriodPerson">
+        update inst_period_person
+        set inst_id                  = #{instId,jdbcType=INTEGER},
+            inst_period_id           = #{instPeriodId,jdbcType=INTEGER},
+            inst_period_person_order = #{instPeriodPersonOrder,jdbcType=TINYINT},
+            person_id                = #{personId,jdbcType=INTEGER},
+            person_title_id          = #{personTitleId,jdbcType=INTEGER},
+            inst_period_person_memo  = #{instPeriodPersonMemo,jdbcType=VARCHAR}
+        where inst_period_person_id = #{instPeriodPersonId,jdbcType=INTEGER}
+    </update>
 </mapper>

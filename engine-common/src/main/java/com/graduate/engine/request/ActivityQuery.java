@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ActivityQuery extends PageQuery implements Serializable{
+public class ActivityQuery extends PageQuery implements Serializable {
 
     private String actName;
     private Boolean publish;

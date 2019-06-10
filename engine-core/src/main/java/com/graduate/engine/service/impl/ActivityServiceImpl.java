@@ -15,12 +15,10 @@ import com.graduate.engine.utils.BeanUtils;
 import com.graduate.engine.utils.DateUtils;
 import com.graduate.engine.utils.TreeUtils;
 import org.apache.commons.collections.CollectionUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -106,19 +104,19 @@ public class ActivityServiceImpl implements ActivityService {
         } catch (Exception e) {
             throw new BusinessException("日期转化解析失败！");
         }
-         return activityMapper.updateByPrimaryKeySelective(activity);
+        return activityMapper.updateByPrimaryKeySelective(activity);
     }
 
     @Override
     public int deleteActivity(Long actId) {
-        Activity activity = new Activity(){
+        Activity activity = new Activity() {
             {
                 setActId(actId);
                 // 逻辑删除
                 setStop(true);
             }
         };
-       return activityMapper.updateByPrimaryKeySelective(activity);
+        return activityMapper.updateByPrimaryKeySelective(activity);
     }
 
     @Override
@@ -128,7 +126,7 @@ public class ActivityServiceImpl implements ActivityService {
         Login login = loginMapper.getLoginIdByPersonId(activity.getPersonId());
         Long[] loginIds = {login.getLoginId()};
         messageService.sendMessageToUsers(PUBLISH_MSG_TITLE, PUBLISH_CONTENT + "活动名：" + activity.getActName() + "    活动id：" + actId, loginIds);
-        return 1 == activityMapper.updateByPrimaryKeySelective(new Activity(){
+        return 1 == activityMapper.updateByPrimaryKeySelective(new Activity() {
             {
                 setActId(actId);
                 setPublish(true);
@@ -171,7 +169,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean modifyActivitySub(ActivitySubRequest request){
+    public boolean modifyActivitySub(ActivitySubRequest request) {
         ActivitySub activitySub = BeanUtils.copyBean(request, ActivitySub.class);
         try {
             activitySub.setActSubDateTo(DateUtils.getTimeStampByUTC(request.getActSubDateTo()));
@@ -186,12 +184,12 @@ public class ActivityServiceImpl implements ActivityService {
         actSubCharger.setActSubChargerDuty(request.getDuty());
         activitySubMapper.updateByPrimaryKeySelective(activitySub);
         actSubChargerMapper.updateByPrimaryKeySelective(actSubCharger);
-        return true ;
+        return true;
     }
 
     @Override
     public int deleteActivitySub(Long actSubId) {
-        ActivitySub activitySub = new ActivitySub(){
+        ActivitySub activitySub = new ActivitySub() {
             {
                 setActSubId(actSubId);
                 // 逻辑删除
@@ -206,13 +204,13 @@ public class ActivityServiceImpl implements ActivityService {
     public boolean publishActivitySub(Long actSubId) {
         List<Long> loginIds = new ArrayList<>();
         ActivitySub activitySub = activitySubMapper.selectByPrimaryKey(actSubId);
-        actSubChargerMapper.getSubChargers(actSubId).forEach( actSubCharger ->
+        actSubChargerMapper.getSubChargers(actSubId).forEach(actSubCharger ->
                 loginIds.add(loginMapper.getLoginIdByPersonId(actSubCharger.getPersonId()).getLoginId()));
-        messageService.sendMessageToUsers(PUBLISH_MSG_TITLE, PUBLISH_CONTENT + "子活动名：" + activitySub.getActSubName() + "    总活动id：" + actSubId ,
+        messageService.sendMessageToUsers(PUBLISH_MSG_TITLE, PUBLISH_CONTENT + "子活动名：" + activitySub.getActSubName() + "    总活动id：" + actSubId,
                 loginIds.toArray(new Long[loginIds.size()]));
 
 
-        return 1 == activitySubMapper.updateByPrimaryKeySelective(new ActivitySub(){
+        return 1 == activitySubMapper.updateByPrimaryKeySelective(new ActivitySub() {
             {
                 setActSubId(actSubId);
                 setPublish(true);
@@ -344,7 +342,7 @@ public class ActivityServiceImpl implements ActivityService {
                 e -> e.setCharger(personMemberMapper.selectByPrimaryKey(actSubChargerMapper.getMainSubCharger(e.getId()).getPersonId()).getName())
         ).collect(Collectors.toList());
         commonData.addAll(subs);
-        subs.forEach( sub -> {
+        subs.forEach(sub -> {
             List<Task> subTasks = taskMapper.getByActSubId(sub.getId());
             convertTaskToTree(commonData, subTasks);
         });
@@ -354,7 +352,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     private void convertTaskToTree(List<TreeData> commonData, List<Task> subTasks) {
-        subTasks.forEach( task -> {
+        subTasks.forEach(task -> {
             TreeData tempData = new TreeData();
             tempData.setId(task.getTaskId());
             tempData.setName(task.getTaskName());
@@ -362,7 +360,7 @@ public class ActivityServiceImpl implements ActivityService {
             tempData.setEndTime(DateUtils.getDateStrByTimestamp(task.getTaskDateTo()).substring(0, 10));
             tempData.setCharger(personMemberMapper.selectByPrimaryKey(taskChargerMapper.getMainTaskCharger(task.getTaskId()).getPersonId()).getName());
             tempData.setType("任务");
-            tempData.setParentId(task.getActSubId() == null? task.getActId() : task.getActSubId());
+            tempData.setParentId(task.getActSubId() == null ? task.getActId() : task.getActSubId());
             tempData.setPriority(PriorityEnum.getByCode(task.getTaskPriority()).desc());
             tempData.setIntroduction("这是介绍");
             tempData.setChildren(Collections.emptyList());

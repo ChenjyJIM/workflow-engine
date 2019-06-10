@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * 新增活动请求模板
+ *
  * @author jimmy
  */
 @Data
@@ -27,7 +28,6 @@ public class ActivityRequest implements Serializable {
      * 格式：['1','2'] 第一个为学会id，第二个为分会id
      */
     private List<String> ids;
-
 
 
 }

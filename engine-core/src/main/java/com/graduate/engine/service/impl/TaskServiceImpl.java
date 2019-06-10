@@ -16,7 +16,6 @@ import com.graduate.engine.response.PagedResult;
 import com.graduate.engine.service.TaskService;
 import com.graduate.engine.utils.BeanUtils;
 import com.graduate.engine.utils.DateUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,16 +23,31 @@ import javax.annotation.Resource;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
  * 任务相关服务
+ *
  * @author jimmy
  */
 @Service
-public class TaskServiceImpl implements TaskService{
+public class TaskServiceImpl implements TaskService {
+
+    @Resource
+    private TaskMapper taskMapper;
+    @Resource
+    private TaskChargerMapper taskChargerMapper;
+    @Resource
+    private PersonMemberMapper personMemberMapper;
+    @Resource
+    private TaskCheckPointMapper taskCheckPointMapper;
+    @Resource
+    private TaskExecMapper taskExecMapper;
+    @Resource
+    private ActivityStatusMapper activityStatusMapper;
+    @Resource
+    private ActivityMapper activityMapper;
 
     static TaskVo convertTaskToVo(Task e, ActivityStatusMapper activityStatusMapper) {
         TaskVo taskVo = BeanUtils.copyBean(e, TaskVo.class);
@@ -42,27 +56,6 @@ public class TaskServiceImpl implements TaskService{
         taskVo.setTaskStatusName(activityStatusMapper.selectByPrimaryKey(e.getTaskStatusId()).getActStatusName());
         return taskVo;
     }
-
-    @Resource
-    private TaskMapper taskMapper;
-
-    @Resource
-    private TaskChargerMapper taskChargerMapper;
-
-    @Resource
-    private PersonMemberMapper personMemberMapper;
-
-    @Resource
-    private TaskCheckPointMapper taskCheckPointMapper;
-
-    @Resource
-    private TaskExecMapper taskExecMapper;
-
-    @Resource
-    private ActivityStatusMapper activityStatusMapper;
-
-    @Resource
-    private ActivityMapper activityMapper;
 
     @Override
     public Long addTask(TaskRequest request) {
@@ -109,7 +102,7 @@ public class TaskServiceImpl implements TaskService{
         taskCharger.setTaskChargerDuty(request.getDuty());
         taskMapper.updateByPrimaryKeySelective(task);
         taskChargerMapper.updateByPrimaryKeySelective(taskCharger);
-        return true ;
+        return true;
     }
 
     @Override
@@ -203,7 +196,7 @@ public class TaskServiceImpl implements TaskService{
         pagedResult.setTotal(count);
         if (count > 0) {
             List<TaskVo> results = new ArrayList<>();
-            taskMapper.getAllTasks(query).forEach( task -> {
+            taskMapper.getAllTasks(query).forEach(task -> {
                 TaskVo taskVo = setTaskInfo(task);
                 TaskCharger mainTaskCharger = taskChargerMapper.getMainTaskCharger(task.getTaskId());
                 if (mainTaskCharger != null) {
@@ -213,7 +206,7 @@ public class TaskServiceImpl implements TaskService{
                 taskVo.setPriorityName(PriorityEnum.getByCode(task.getTaskPriority()).desc());
                 taskVo.setEditable(false);
                 Activity activity = activityMapper.selectByPrimaryKey(task.getActId());
-                taskVo.setActName(activity != null? activity.getActName() : "");
+                taskVo.setActName(activity != null ? activity.getActName() : "");
                 results.add(taskVo);
             });
             pagedResult.setItems(results);

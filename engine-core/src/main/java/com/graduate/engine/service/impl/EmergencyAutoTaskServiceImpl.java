@@ -1,7 +1,9 @@
 package com.graduate.engine.service.impl;
 
 import com.graduate.engine.mapper.*;
-import com.graduate.engine.model.*;
+import com.graduate.engine.model.ActMilestone;
+import com.graduate.engine.model.ActSubMilestone;
+import com.graduate.engine.model.TaskCheckPoint;
 import com.graduate.engine.service.EmergencyAutoTaskService;
 import com.graduate.engine.service.MessageService;
 import com.graduate.engine.utils.DateUtils;
@@ -11,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Component
-public class EmergencyAutoTaskServiceImpl extends AbstractAutoTaskService  implements EmergencyAutoTaskService {
+public class EmergencyAutoTaskServiceImpl extends AbstractAutoTaskService implements EmergencyAutoTaskService {
 
     private static final String AUTO_MONITOR_TITLE = "里程碑提醒(即将过期)";
 

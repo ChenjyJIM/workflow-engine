@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="PersonMemberApplicationRecord", description="个人会员申请记录表")
+@ApiModel(value = "PersonMemberApplicationRecord", description = "个人会员申请记录表")
 public class PersonMemberApplicationRecord implements Serializable {
 
     private static final long serialVersionUID = 1L;

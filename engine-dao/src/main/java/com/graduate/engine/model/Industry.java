@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Industry", description="学会行业分类")
+@ApiModel(value = "Industry", description = "学会行业分类")
 public class Industry implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,11 +25,11 @@ public class Industry implements Serializable {
     private Long industryId;
 
     @ApiModelProperty(value = "行业名称")
-    @NotBlank(message="行业名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @NotBlank(message = "行业名称不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String indusName;
 
     @ApiModelProperty(value = "简称")
-    @NotBlank(message="行业简称不能为空", groups = {AddGroup.class, UpdateGroup.class})
+    @NotBlank(message = "行业简称不能为空", groups = {AddGroup.class, UpdateGroup.class})
     private String indusShort;
 
     private Boolean stop;

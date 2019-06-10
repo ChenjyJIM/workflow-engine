@@ -61,6 +61,7 @@ public class CommonController extends AbstractController {
 
     /**
      * 查询学会所有成员接口
+     *
      * @param instId 为空时查询所有成员
      */
     @GetMapping("/getMember")
@@ -81,7 +82,7 @@ public class CommonController extends AbstractController {
     public ResponseResult getInstByPersonId() {
         try {
             List<InstInfoSimple> instSimples = new ArrayList<>();
-            instituteMapper.getByPersonId(getPersonId()).forEach( institute -> {
+            instituteMapper.getByPersonId(getPersonId()).forEach(institute -> {
                 InstInfoSimple instInfoSimple = new InstInfoSimple();
                 instInfoSimple.setInstName(institute.getInstName());
                 instInfoSimple.setInstId(institute.getInstId());
@@ -98,7 +99,6 @@ public class CommonController extends AbstractController {
     }
 
 
-
     /**
      * 查询所有行业分类接口
      */
@@ -113,6 +113,7 @@ public class CommonController extends AbstractController {
 
     /**
      * 查询所有学历接口
+     *
      * @return
      */
     @GetMapping("/getAllEducation")
@@ -133,8 +134,8 @@ public class CommonController extends AbstractController {
             for (NewsCategory category : categoryList) {
                 if (!category.getStop()) {
                     JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("categoryId",category.getCategoryId());
-                    jsonObject.put("categoryName",category.getCategoryName());
+                    jsonObject.put("categoryId", category.getCategoryId());
+                    jsonObject.put("categoryName", category.getCategoryName());
                     jsonArray.add(jsonObject);
                 }
             }
@@ -151,8 +152,8 @@ public class CommonController extends AbstractController {
         JSONArray jsonArray = new JSONArray();
         for (Institute institute : list) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("instId",institute.getInstId());
-            jsonObject.put("instName",institute.getInstName());
+            jsonObject.put("instId", institute.getInstId());
+            jsonObject.put("instName", institute.getInstName());
             jsonArray.add(jsonObject);
         }
         return ResponseResult.buildSuccess(jsonArray);
@@ -168,14 +169,14 @@ public class CommonController extends AbstractController {
 
             //除了管理员，只能查询自己创建的角色
             if (getUserId() != Constant.SUPER_ADMIN) {
-                map.put("create_user_id",getUserId());
+                map.put("create_user_id", getUserId());
             }
             List<Role> list = roleService.getRoleList(map);
             JSONArray jsonArray = new JSONArray();
             for (Role role : list) {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("roleId",role.getRoleId());
-                jsonObject.put("roleName",role.getRoleName());
+                jsonObject.put("roleId", role.getRoleId());
+                jsonObject.put("roleName", role.getRoleName());
                 jsonArray.add(jsonObject);
             }
             return ResponseResult.buildSuccess(jsonArray);

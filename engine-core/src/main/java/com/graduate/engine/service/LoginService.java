@@ -2,7 +2,6 @@ package com.graduate.engine.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.graduate.engine.model.Login;
-import com.graduate.engine.model.PersonMember;
 import com.graduate.engine.model.PersonMemberApplicationDetails;
 import com.graduate.engine.model.viewobject.UserInfoVo;
 import com.graduate.engine.request.PasswordChangeRequest;

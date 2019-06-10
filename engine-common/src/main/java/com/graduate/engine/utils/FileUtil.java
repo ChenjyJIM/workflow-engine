@@ -1,14 +1,14 @@
 package com.graduate.engine.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.*;
 
 /**
  * 文件处理工具
  */
 public class FileUtil {
+    @SuppressWarnings("unused")
+    private static final int BUFFER_SIZE = 16 * 1024;
+
     public static void uploadFile(byte[] file, String filePath, String fileName) throws Exception {
         File targetFile = new File(filePath);
         if (!targetFile.exists()) {
@@ -19,9 +19,6 @@ public class FileUtil {
         out.flush();
         out.close();
     }
-
-    @SuppressWarnings("unused")
-    private static final int BUFFER_SIZE = 16 * 1024;
 
     /**
      * 获取对应文件夹

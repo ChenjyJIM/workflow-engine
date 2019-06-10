@@ -3,7 +3,7 @@ package com.graduate.engine.exception;
 /**
  * @author jimmy
  */
-public class BusinessException extends BasicException{
+public class BusinessException extends BasicException {
     private static final long serialVersionUID = 1L;
 
     public BusinessException(String errMsg) {

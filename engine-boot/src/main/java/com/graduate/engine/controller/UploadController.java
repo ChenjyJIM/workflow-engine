@@ -8,9 +8,6 @@ import com.graduate.engine.model.Document;
 import com.graduate.engine.model.Task;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.FileService;
-import com.graduate.engine.utils.FileUtil;
-import jdk.nashorn.internal.objects.annotations.Getter;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,16 +18,20 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URLEncoder;
 
 /**
  * 文档管理相关接口
+ *
  * @author jimmy
  */
 @RequestMapping("/upload")
 @RestController
-public class UploadController extends AbstractController{
+public class UploadController extends AbstractController {
     @Resource
     private FileService fileService;
 
@@ -48,7 +49,7 @@ public class UploadController extends AbstractController{
 
 
     @PostMapping("/test")
-    public ResponseResult test(MultipartFile file, Long taskExecId, String docCatagory,Long personId, boolean discover) {
+    public ResponseResult test(MultipartFile file, Long taskExecId, String docCatagory, Long personId, boolean discover) {
         if (file == null || taskExecId == null) {
             return ResponseResult.buildError("导入文件为空！");
         }
@@ -74,6 +75,7 @@ public class UploadController extends AbstractController{
             return ResponseResult.buildError("系统异常！");
         }
     }
+
     @GetMapping("/download")
     public void download(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //设置文件名
@@ -92,15 +94,15 @@ public class UploadController extends AbstractController{
             Task task = taskMapper.selectByPrimaryKey(taskExecMapper.selectByPrimaryKey(document.getTaskExecId()).getTaskId());
             String filePath = "files/" + activityMapper.selectByPrimaryKey(task.getActId()).getActName() + "/" + task.getTaskName() + "/";
 
-            File file = new File(filePath +document.getDocUniqueName() + "." + document.getDocClass());
+            File file = new File(filePath + document.getDocUniqueName() + "." + document.getDocClass());
 
             String docName = document.getDocName();
             StringBuilder fileName = new StringBuilder(docName.substring(0, docName.lastIndexOf(".")));
             fileName.append("-docv" + document.getVersion()).append(docName.substring(docName.lastIndexOf(".")));
             fis = new FileInputStream(file);
 
-            response.setHeader("Content-Disposition", "attachment; fileName="+  fileName  +";filename*=utf-8''"+URLEncoder.encode(fileName.toString(),"UTF-8"));
-            IOUtils.copy(fis,response.getOutputStream());
+            response.setHeader("Content-Disposition", "attachment; fileName=" + fileName + ";filename*=utf-8''" + URLEncoder.encode(fileName.toString(), "UTF-8"));
+            IOUtils.copy(fis, response.getOutputStream());
             response.flushBuffer();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

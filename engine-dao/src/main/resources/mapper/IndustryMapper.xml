@@ -2,34 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.IndustryMapper">
     <resultMap id="BaseResultMap" type="com.graduate.engine.model.Industry">
-        <id column="industry_id" jdbcType="INTEGER" property="industryId" />
-        <result column="indus_name" jdbcType="VARCHAR" property="indusName" />
-        <result column="indus_short" jdbcType="VARCHAR" property="indusShort" />
-        <result column="stop" jdbcType="BIT" property="stop" />
+        <id column="industry_id" jdbcType="INTEGER" property="industryId"/>
+        <result column="indus_name" jdbcType="VARCHAR" property="indusName"/>
+        <result column="indus_short" jdbcType="VARCHAR" property="indusShort"/>
+        <result column="stop" jdbcType="BIT" property="stop"/>
     </resultMap>
     <sql id="Base_Column_List">
-    industry_id, indus_name, indus_short, stop
-  </sql>
+        industry_id, indus_name, indus_short, stop
+    </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from industry
         where industry_id = #{id,jdbcType=INTEGER}
     </select>
     <select id="getAll" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List"/>
+        select
+        <include refid="Base_Column_List"/>
         from industry
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from industry
-    where industry_id = #{industryId,jdbcType=INTEGER}
-  </delete>
+        delete
+        from industry
+        where industry_id = #{industryId,jdbcType=INTEGER}
+    </delete>
     <!--<insert id="insert" parameterType="com.graduate.engine.model.Industry">-->
     <!--insert into industry (industry_id, indus_name, indus_short,-->
-      <!--stop)-->
+    <!--stop)-->
     <!--values (#{industryId,jdbcType=INTEGER}, #{indusName,jdbcType=VARCHAR}, #{indusShort,jdbcType=VARCHAR},-->
-      <!--#{stop,jdbcType=BIT})-->
-  <!--</insert>-->
+    <!--#{stop,jdbcType=BIT})-->
+    <!--</insert>-->
     <insert id="insertSelective" parameterType="com.graduate.engine.model.Industry">
         insert into industry
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -77,13 +79,15 @@
         where industry_id = #{industryId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.Industry">
-    update industry
-    set indus_name = #{indusName,jdbcType=VARCHAR},
-      indus_short = #{indusShort,jdbcType=VARCHAR},
-      stop = #{stop,jdbcType=BIT}
-    where industry_id = #{industryId,jdbcType=INTEGER}
-  </update>
+        update industry
+        set indus_name  = #{indusName,jdbcType=VARCHAR},
+            indus_short = #{indusShort,jdbcType=VARCHAR},
+            stop        = #{stop,jdbcType=BIT}
+        where industry_id = #{industryId,jdbcType=INTEGER}
+    </update>
     <select id="getWithoutStop" resultMap="BaseResultMap">
-        select * from industry where `stop` = 0
+        select *
+        from industry
+        where `stop` = 0
     </select>
 </mapper>

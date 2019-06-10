@@ -34,14 +34,14 @@ public class NewsPublish implements Serializable {
     @ApiModelProperty(value = "新闻内容ID，外键 →NewsDetails.DetailsID")
     private Long detailsId;
 
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "新闻标题")
     private String newsTitle;
 
     @ApiModelProperty(value = "发布时间戳")
     private Long publishTime;
 
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "发布时间")
     private String formatTime;
 
@@ -51,7 +51,7 @@ public class NewsPublish implements Serializable {
     @ApiModelProperty(value = "新闻分类，外键 →NewsCategory.CategoryID")
     private Long type;
 
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "新闻分类名称")
     private String categoryName;
 

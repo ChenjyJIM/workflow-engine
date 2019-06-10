@@ -1,141 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.ActSubChargerMapper">
-  <resultMap id="BaseResultMap" type="com.graduate.engine.model.ActSubCharger">
-    <id column="act_sub_charger_id" jdbcType="INTEGER" property="actSubChargerId" />
-    <result column="act_sub_id" jdbcType="INTEGER" property="actSubId" />
-    <result column="person_id" jdbcType="INTEGER" property="personId" />
-    <result column="act_sub_charger_order" jdbcType="INTEGER" property="actSubChargerOrder" />
-    <result column="act_sub_charger_editor" jdbcType="BIT" property="actSubChargerEditor" />
-    <result column="inst_id" jdbcType="INTEGER" property="instId" />
-    <result column="act_sub_charger_duty" jdbcType="VARCHAR" property="actSubChargerDuty" />
-    <result column="stop" jdbcType="BIT" property="stop" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    act_sub_charger_id, act_sub_id, person_id, act_sub_charger_order, act_sub_charger_editor,
-    inst_id, act_sub_charger_duty, stop
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from act_sub_charger
-    where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
-  </select>
-    <select id="getMainSubCharger" resultType="com.graduate.engine.model.ActSubCharger">
-      select <include refid="Base_Column_List"/>
-      from act_sub_charger
-      where act_sub_id = #{actSubId}
-      order by act_sub_charger_order asc
-      limit 1
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.ActSubCharger">
+        <id column="act_sub_charger_id" jdbcType="INTEGER" property="actSubChargerId"/>
+        <result column="act_sub_id" jdbcType="INTEGER" property="actSubId"/>
+        <result column="person_id" jdbcType="INTEGER" property="personId"/>
+        <result column="act_sub_charger_order" jdbcType="INTEGER" property="actSubChargerOrder"/>
+        <result column="act_sub_charger_editor" jdbcType="BIT" property="actSubChargerEditor"/>
+        <result column="inst_id" jdbcType="INTEGER" property="instId"/>
+        <result column="act_sub_charger_duty" jdbcType="VARCHAR" property="actSubChargerDuty"/>
+        <result column="stop" jdbcType="BIT" property="stop"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        act_sub_charger_id, act_sub_id, person_id, act_sub_charger_order, act_sub_charger_editor,
+        inst_id, act_sub_charger_duty, stop
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from act_sub_charger
+        where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
     </select>
-  <select id="getSubChargers" resultType="com.graduate.engine.model.ActSubCharger">
-    select <include refid="Base_Column_List"/>
-    from act_sub_charger
-    where act_sub_id = #{actSubId}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from act_sub_charger
-    where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.graduate.engine.model.ActSubCharger">
-    insert into act_sub_charger (act_sub_charger_id, act_sub_id, person_id,
-      act_sub_charger_order, act_sub_charger_editor, inst_id,
-      act_sub_charger_duty, stop)
-    values (#{actSubChargerId,jdbcType=INTEGER}, #{actSubId,jdbcType=INTEGER}, #{personId,jdbcType=INTEGER},
-      #{actSubChargerOrder,jdbcType=INTEGER}, #{actSubChargerEditor,jdbcType=BIT}, #{instId,jdbcType=INTEGER},
-      #{actSubChargerDuty,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.ActSubCharger">
-    insert into act_sub_charger
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="actSubChargerId != null">
-        act_sub_charger_id,
-      </if>
-      <if test="actSubId != null">
-        act_sub_id,
-      </if>
-      <if test="personId != null">
-        person_id,
-      </if>
-      <if test="actSubChargerOrder != null">
-        act_sub_charger_order,
-      </if>
-      <if test="actSubChargerEditor != null">
-        act_sub_charger_editor,
-      </if>
-      <if test="instId != null">
-        inst_id,
-      </if>
-      <if test="actSubChargerDuty != null">
-        act_sub_charger_duty,
-      </if>
-      <if test="stop != null">
-        stop,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="actSubChargerId != null">
-        #{actSubChargerId,jdbcType=INTEGER},
-      </if>
-      <if test="actSubId != null">
-        #{actSubId,jdbcType=INTEGER},
-      </if>
-      <if test="personId != null">
-        #{personId,jdbcType=INTEGER},
-      </if>
-      <if test="actSubChargerOrder != null">
-        #{actSubChargerOrder,jdbcType=INTEGER},
-      </if>
-      <if test="actSubChargerEditor != null">
-        #{actSubChargerEditor,jdbcType=BIT},
-      </if>
-      <if test="instId != null">
-        #{instId,jdbcType=INTEGER},
-      </if>
-      <if test="actSubChargerDuty != null">
-        #{actSubChargerDuty,jdbcType=VARCHAR},
-      </if>
-      <if test="stop != null">
-        #{stop,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.ActSubCharger">
-    update act_sub_charger
-    <set>
-      <if test="actSubId != null">
-        act_sub_id = #{actSubId,jdbcType=INTEGER},
-      </if>
-      <if test="personId != null">
-        person_id = #{personId,jdbcType=INTEGER},
-      </if>
-      <if test="actSubChargerOrder != null">
-        act_sub_charger_order = #{actSubChargerOrder,jdbcType=INTEGER},
-      </if>
-      <if test="actSubChargerEditor != null">
-        act_sub_charger_editor = #{actSubChargerEditor,jdbcType=BIT},
-      </if>
-      <if test="instId != null">
-        inst_id = #{instId,jdbcType=INTEGER},
-      </if>
-      <if test="actSubChargerDuty != null">
-        act_sub_charger_duty = #{actSubChargerDuty,jdbcType=VARCHAR},
-      </if>
-      <if test="stop != null">
-        stop = #{stop,jdbcType=BIT},
-      </if>
-    </set>
-    where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.ActSubCharger">
-    update act_sub_charger
-    set act_sub_id = #{actSubId,jdbcType=INTEGER},
-      person_id = #{personId,jdbcType=INTEGER},
-      act_sub_charger_order = #{actSubChargerOrder,jdbcType=INTEGER},
-      act_sub_charger_editor = #{actSubChargerEditor,jdbcType=BIT},
-      inst_id = #{instId,jdbcType=INTEGER},
-      act_sub_charger_duty = #{actSubChargerDuty,jdbcType=VARCHAR},
-      stop = #{stop,jdbcType=BIT}
-    where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
-  </update>
+    <select id="getMainSubCharger" resultType="com.graduate.engine.model.ActSubCharger">
+        select
+        <include refid="Base_Column_List"/>
+        from act_sub_charger
+        where act_sub_id = #{actSubId}
+        order by act_sub_charger_order asc
+        limit 1
+    </select>
+    <select id="getSubChargers" resultType="com.graduate.engine.model.ActSubCharger">
+        select
+        <include refid="Base_Column_List"/>
+        from act_sub_charger
+        where act_sub_id = #{actSubId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from act_sub_charger
+        where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.graduate.engine.model.ActSubCharger">
+        insert into act_sub_charger (act_sub_charger_id,
+                                     act_sub_id,
+                                     person_id,
+                                     act_sub_charger_order,
+                                     act_sub_charger_editor,
+                                     inst_id,
+                                     act_sub_charger_duty,
+                                     stop)
+        values (#{actSubChargerId,jdbcType=INTEGER},
+                #{actSubId,jdbcType=INTEGER},
+                #{personId,jdbcType=INTEGER},
+                #{actSubChargerOrder,jdbcType=INTEGER},
+                #{actSubChargerEditor,jdbcType=BIT},
+                #{instId,jdbcType=INTEGER},
+                #{actSubChargerDuty,jdbcType=VARCHAR},
+                #{stop,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.graduate.engine.model.ActSubCharger">
+        insert into act_sub_charger
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="actSubChargerId != null">
+                act_sub_charger_id,
+            </if>
+            <if test="actSubId != null">
+                act_sub_id,
+            </if>
+            <if test="personId != null">
+                person_id,
+            </if>
+            <if test="actSubChargerOrder != null">
+                act_sub_charger_order,
+            </if>
+            <if test="actSubChargerEditor != null">
+                act_sub_charger_editor,
+            </if>
+            <if test="instId != null">
+                inst_id,
+            </if>
+            <if test="actSubChargerDuty != null">
+                act_sub_charger_duty,
+            </if>
+            <if test="stop != null">
+                stop,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="actSubChargerId != null">
+                #{actSubChargerId,jdbcType=INTEGER},
+            </if>
+            <if test="actSubId != null">
+                #{actSubId,jdbcType=INTEGER},
+            </if>
+            <if test="personId != null">
+                #{personId,jdbcType=INTEGER},
+            </if>
+            <if test="actSubChargerOrder != null">
+                #{actSubChargerOrder,jdbcType=INTEGER},
+            </if>
+            <if test="actSubChargerEditor != null">
+                #{actSubChargerEditor,jdbcType=BIT},
+            </if>
+            <if test="instId != null">
+                #{instId,jdbcType=INTEGER},
+            </if>
+            <if test="actSubChargerDuty != null">
+                #{actSubChargerDuty,jdbcType=VARCHAR},
+            </if>
+            <if test="stop != null">
+                #{stop,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.ActSubCharger">
+        update act_sub_charger
+        <set>
+            <if test="actSubId != null">
+                act_sub_id = #{actSubId,jdbcType=INTEGER},
+            </if>
+            <if test="personId != null">
+                person_id = #{personId,jdbcType=INTEGER},
+            </if>
+            <if test="actSubChargerOrder != null">
+                act_sub_charger_order = #{actSubChargerOrder,jdbcType=INTEGER},
+            </if>
+            <if test="actSubChargerEditor != null">
+                act_sub_charger_editor = #{actSubChargerEditor,jdbcType=BIT},
+            </if>
+            <if test="instId != null">
+                inst_id = #{instId,jdbcType=INTEGER},
+            </if>
+            <if test="actSubChargerDuty != null">
+                act_sub_charger_duty = #{actSubChargerDuty,jdbcType=VARCHAR},
+            </if>
+            <if test="stop != null">
+                stop = #{stop,jdbcType=BIT},
+            </if>
+        </set>
+        where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.ActSubCharger">
+        update act_sub_charger
+        set act_sub_id             = #{actSubId,jdbcType=INTEGER},
+            person_id              = #{personId,jdbcType=INTEGER},
+            act_sub_charger_order  = #{actSubChargerOrder,jdbcType=INTEGER},
+            act_sub_charger_editor = #{actSubChargerEditor,jdbcType=BIT},
+            inst_id                = #{instId,jdbcType=INTEGER},
+            act_sub_charger_duty   = #{actSubChargerDuty,jdbcType=VARCHAR},
+            stop                   = #{stop,jdbcType=BIT}
+        where act_sub_charger_id = #{actSubChargerId,jdbcType=INTEGER}
+    </update>
 </mapper>

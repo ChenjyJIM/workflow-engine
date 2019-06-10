@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 /**
  * 后续维护可接入日志相关目前仅打印到控制台
+ *
  * @author jimmy
  */
 @Component
@@ -17,6 +18,7 @@ public class MilestoneMonitorTask {
 
     @Resource
     private MilestoneTaskServiceFactory milestoneTaskServiceFactory;
+
     /**
      * 相隔一天以外每天一次
      * 0 0 12 * * ? *

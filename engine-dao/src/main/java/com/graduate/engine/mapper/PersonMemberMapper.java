@@ -18,6 +18,7 @@ public interface PersonMemberMapper {
 
     /**
      * 通过会员证号码（非主键）查询出会员信息
+     *
      * @param personMemberId
      * @return
      */
@@ -30,6 +31,7 @@ public interface PersonMemberMapper {
 
     /**
      * 根据学会id查询出该学会的成员数量
+     *
      * @param instId
      * @return
      */

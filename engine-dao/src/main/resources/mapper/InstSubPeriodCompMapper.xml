@@ -1,118 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.InstSubPeriodCompMapper">
-  <resultMap id="BaseResultMap" type="com.graduate.engine.model.InstSubPeriodComp">
-    <id column="inst_sub_period_comp_id" jdbcType="INTEGER" property="instSubPeriodCompId" />
-    <result column="inst_sub_id" jdbcType="INTEGER" property="instSubId" />
-    <result column="inst_sub_period_id" jdbcType="INTEGER" property="instSubPeriodId" />
-    <result column="inst_sub_period_comp_order" jdbcType="TINYINT" property="instSubPeriodCompOrder" />
-    <result column="comp_id" jdbcType="INTEGER" property="compId" />
-    <result column="comp_title_id" jdbcType="INTEGER" property="compTitleId" />
-    <result column="inst_sub_period_comp_memo" jdbcType="VARCHAR" property="instSubPeriodCompMemo" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    inst_sub_period_comp_id, inst_sub_id, inst_sub_period_id, inst_sub_period_comp_order, 
-    comp_id, comp_title_id, inst_sub_period_comp_memo
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from inst_sub_period_comp
-    where inst_sub_period_comp_id = #{instSubPeriodCompId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from inst_sub_period_comp
-    where inst_sub_period_comp_id = #{instSubPeriodCompId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.graduate.engine.model.InstSubPeriodComp">
-    insert into inst_sub_period_comp (inst_sub_period_comp_id, inst_sub_id, inst_sub_period_id, 
-      inst_sub_period_comp_order, comp_id, comp_title_id, 
-      inst_sub_period_comp_memo)
-    values (#{instSubPeriodCompId,jdbcType=INTEGER}, #{instSubId,jdbcType=INTEGER}, #{instSubPeriodId,jdbcType=INTEGER}, 
-      #{instSubPeriodCompOrder,jdbcType=TINYINT}, #{compId,jdbcType=INTEGER}, #{compTitleId,jdbcType=INTEGER}, 
-      #{instSubPeriodCompMemo,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.InstSubPeriodComp">
-    insert into inst_sub_period_comp
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="instSubPeriodCompId != null">
-        inst_sub_period_comp_id,
-      </if>
-      <if test="instSubId != null">
-        inst_sub_id,
-      </if>
-      <if test="instSubPeriodId != null">
-        inst_sub_period_id,
-      </if>
-      <if test="instSubPeriodCompOrder != null">
-        inst_sub_period_comp_order,
-      </if>
-      <if test="compId != null">
-        comp_id,
-      </if>
-      <if test="compTitleId != null">
-        comp_title_id,
-      </if>
-      <if test="instSubPeriodCompMemo != null">
-        inst_sub_period_comp_memo,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="instSubPeriodCompId != null">
-        #{instSubPeriodCompId,jdbcType=INTEGER},
-      </if>
-      <if test="instSubId != null">
-        #{instSubId,jdbcType=INTEGER},
-      </if>
-      <if test="instSubPeriodId != null">
-        #{instSubPeriodId,jdbcType=INTEGER},
-      </if>
-      <if test="instSubPeriodCompOrder != null">
-        #{instSubPeriodCompOrder,jdbcType=TINYINT},
-      </if>
-      <if test="compId != null">
-        #{compId,jdbcType=INTEGER},
-      </if>
-      <if test="compTitleId != null">
-        #{compTitleId,jdbcType=INTEGER},
-      </if>
-      <if test="instSubPeriodCompMemo != null">
-        #{instSubPeriodCompMemo,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.InstSubPeriodComp">
-    update inst_sub_period_comp
-    <set>
-      <if test="instSubId != null">
-        inst_sub_id = #{instSubId,jdbcType=INTEGER},
-      </if>
-      <if test="instSubPeriodId != null">
-        inst_sub_period_id = #{instSubPeriodId,jdbcType=INTEGER},
-      </if>
-      <if test="instSubPeriodCompOrder != null">
-        inst_sub_period_comp_order = #{instSubPeriodCompOrder,jdbcType=TINYINT},
-      </if>
-      <if test="compId != null">
-        comp_id = #{compId,jdbcType=INTEGER},
-      </if>
-      <if test="compTitleId != null">
-        comp_title_id = #{compTitleId,jdbcType=INTEGER},
-      </if>
-      <if test="instSubPeriodCompMemo != null">
-        inst_sub_period_comp_memo = #{instSubPeriodCompMemo,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where inst_sub_period_comp_id = #{instSubPeriodCompId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.InstSubPeriodComp">
-    update inst_sub_period_comp
-    set inst_sub_id = #{instSubId,jdbcType=INTEGER},
-      inst_sub_period_id = #{instSubPeriodId,jdbcType=INTEGER},
-      inst_sub_period_comp_order = #{instSubPeriodCompOrder,jdbcType=TINYINT},
-      comp_id = #{compId,jdbcType=INTEGER},
-      comp_title_id = #{compTitleId,jdbcType=INTEGER},
-      inst_sub_period_comp_memo = #{instSubPeriodCompMemo,jdbcType=VARCHAR}
-    where inst_sub_period_comp_id = #{instSubPeriodCompId,jdbcType=INTEGER}
-  </update>
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.InstSubPeriodComp">
+        <id column="inst_sub_period_comp_id" jdbcType="INTEGER" property="instSubPeriodCompId"/>
+        <result column="inst_sub_id" jdbcType="INTEGER" property="instSubId"/>
+        <result column="inst_sub_period_id" jdbcType="INTEGER" property="instSubPeriodId"/>
+        <result column="inst_sub_period_comp_order" jdbcType="TINYINT" property="instSubPeriodCompOrder"/>
+        <result column="comp_id" jdbcType="INTEGER" property="compId"/>
+        <result column="comp_title_id" jdbcType="INTEGER" property="compTitleId"/>
+        <result column="inst_sub_period_comp_memo" jdbcType="VARCHAR" property="instSubPeriodCompMemo"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        inst_sub_period_comp_id, inst_sub_id, inst_sub_period_id, inst_sub_period_comp_order,
+        comp_id, comp_title_id, inst_sub_period_comp_memo
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from inst_sub_period_comp
+        where inst_sub_period_comp_id = #{instSubPeriodCompId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from inst_sub_period_comp
+        where inst_sub_period_comp_id = #{instSubPeriodCompId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.graduate.engine.model.InstSubPeriodComp">
+        insert into inst_sub_period_comp (inst_sub_period_comp_id,
+                                          inst_sub_id,
+                                          inst_sub_period_id,
+                                          inst_sub_period_comp_order,
+                                          comp_id,
+                                          comp_title_id,
+                                          inst_sub_period_comp_memo)
+        values (#{instSubPeriodCompId,jdbcType=INTEGER},
+                #{instSubId,jdbcType=INTEGER},
+                #{instSubPeriodId,jdbcType=INTEGER},
+                #{instSubPeriodCompOrder,jdbcType=TINYINT},
+                #{compId,jdbcType=INTEGER},
+                #{compTitleId,jdbcType=INTEGER},
+                #{instSubPeriodCompMemo,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.graduate.engine.model.InstSubPeriodComp">
+        insert into inst_sub_period_comp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="instSubPeriodCompId != null">
+                inst_sub_period_comp_id,
+            </if>
+            <if test="instSubId != null">
+                inst_sub_id,
+            </if>
+            <if test="instSubPeriodId != null">
+                inst_sub_period_id,
+            </if>
+            <if test="instSubPeriodCompOrder != null">
+                inst_sub_period_comp_order,
+            </if>
+            <if test="compId != null">
+                comp_id,
+            </if>
+            <if test="compTitleId != null">
+                comp_title_id,
+            </if>
+            <if test="instSubPeriodCompMemo != null">
+                inst_sub_period_comp_memo,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="instSubPeriodCompId != null">
+                #{instSubPeriodCompId,jdbcType=INTEGER},
+            </if>
+            <if test="instSubId != null">
+                #{instSubId,jdbcType=INTEGER},
+            </if>
+            <if test="instSubPeriodId != null">
+                #{instSubPeriodId,jdbcType=INTEGER},
+            </if>
+            <if test="instSubPeriodCompOrder != null">
+                #{instSubPeriodCompOrder,jdbcType=TINYINT},
+            </if>
+            <if test="compId != null">
+                #{compId,jdbcType=INTEGER},
+            </if>
+            <if test="compTitleId != null">
+                #{compTitleId,jdbcType=INTEGER},
+            </if>
+            <if test="instSubPeriodCompMemo != null">
+                #{instSubPeriodCompMemo,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.InstSubPeriodComp">
+        update inst_sub_period_comp
+        <set>
+            <if test="instSubId != null">
+                inst_sub_id = #{instSubId,jdbcType=INTEGER},
+            </if>
+            <if test="instSubPeriodId != null">
+                inst_sub_period_id = #{instSubPeriodId,jdbcType=INTEGER},
+            </if>
+            <if test="instSubPeriodCompOrder != null">
+                inst_sub_period_comp_order = #{instSubPeriodCompOrder,jdbcType=TINYINT},
+            </if>
+            <if test="compId != null">
+                comp_id = #{compId,jdbcType=INTEGER},
+            </if>
+            <if test="compTitleId != null">
+                comp_title_id = #{compTitleId,jdbcType=INTEGER},
+            </if>
+            <if test="instSubPeriodCompMemo != null">
+                inst_sub_period_comp_memo = #{instSubPeriodCompMemo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where inst_sub_period_comp_id = #{instSubPeriodCompId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.InstSubPeriodComp">
+        update inst_sub_period_comp
+        set inst_sub_id                = #{instSubId,jdbcType=INTEGER},
+            inst_sub_period_id         = #{instSubPeriodId,jdbcType=INTEGER},
+            inst_sub_period_comp_order = #{instSubPeriodCompOrder,jdbcType=TINYINT},
+            comp_id                    = #{compId,jdbcType=INTEGER},
+            comp_title_id              = #{compTitleId,jdbcType=INTEGER},
+            inst_sub_period_comp_memo  = #{instSubPeriodCompMemo,jdbcType=VARCHAR}
+        where inst_sub_period_comp_id = #{instSubPeriodCompId,jdbcType=INTEGER}
+    </update>
 </mapper>

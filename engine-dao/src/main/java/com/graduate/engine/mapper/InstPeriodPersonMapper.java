@@ -21,6 +21,7 @@ public interface InstPeriodPersonMapper {
 
     /**
      * 根据学会历届id得到历届学会的负责人
+     *
      * @param instPeriodId
      * @return
      */

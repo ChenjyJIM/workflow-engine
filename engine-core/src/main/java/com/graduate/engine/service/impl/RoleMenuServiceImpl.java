@@ -19,7 +19,7 @@ public class RoleMenuServiceImpl extends ServiceImpl<RoleMenuMapper, RoleMenu> i
         deleteBatch(new Long[]{roleId});
 
         if (menuIdList.size() == 0) {
-            return ;
+            return;
         }
 
         //保存角色与菜单关系

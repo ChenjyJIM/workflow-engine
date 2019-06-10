@@ -15,7 +15,7 @@ import java.util.List;
 
 @RequestMapping("/message")
 @RestController
-public class MessageController extends AbstractController{
+public class MessageController extends AbstractController {
     @Resource
     private MessageService messageService;
     @Resource
@@ -34,9 +34,9 @@ public class MessageController extends AbstractController{
         List<MessageSummary> readList = personMessageService.getReadList(getUserId());
         List<MessageSummary> trashList = personMessageService.getTrashList(getUserId());
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("unread",unReadList);
-        jsonObject.put("readed",readList);
-        jsonObject.put("trash",trashList);
+        jsonObject.put("unread", unReadList);
+        jsonObject.put("readed", readList);
+        jsonObject.put("trash", trashList);
         return ResponseResult.buildSuccess(jsonObject);
     }
 
@@ -56,7 +56,7 @@ public class MessageController extends AbstractController{
     })
     @PostMapping("/info/{messageId}")
     public ResponseResult HasReadMessage(@PathVariable("messageId") Long messageId) {
-        personMessageService.hasReadMessage(getUserId(),messageId);
+        personMessageService.hasReadMessage(getUserId(), messageId);
         return ResponseResult.buildSuccess();
     }
 
@@ -66,7 +66,7 @@ public class MessageController extends AbstractController{
     })
     @DeleteMapping("/info/{messageId}")
     public ResponseResult removeMessage(@PathVariable("messageId") Long messageId) {
-        personMessageService.removeMessage(getUserId(),messageId);
+        personMessageService.removeMessage(getUserId(), messageId);
         return ResponseResult.buildSuccess();
     }
 
@@ -76,7 +76,7 @@ public class MessageController extends AbstractController{
     })
     @PutMapping("/info/{messageId}")
     public ResponseResult restoreMessage(@PathVariable("messageId") Long messageId) {
-        personMessageService.restoreMessage(getUserId(),messageId);
+        personMessageService.restoreMessage(getUserId(), messageId);
         return ResponseResult.buildSuccess();
     }
 }

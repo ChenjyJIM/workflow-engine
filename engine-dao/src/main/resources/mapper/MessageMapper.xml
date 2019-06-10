@@ -4,6 +4,8 @@
 
     <!-- 根据ID获取信息 -->
     <select id="queryByMessageId" resultType="com.graduate.engine.model.Message">
-        select * from message where message_id = #{messageId}
+        select *
+        from message
+        where message_id = #{messageId}
     </select>
 </mapper>

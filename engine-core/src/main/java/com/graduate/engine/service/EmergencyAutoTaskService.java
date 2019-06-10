@@ -1,4 +1,4 @@
 package com.graduate.engine.service;
 
-public interface EmergencyAutoTaskService extends AutoTaskService{
+public interface EmergencyAutoTaskService extends AutoTaskService {
 }

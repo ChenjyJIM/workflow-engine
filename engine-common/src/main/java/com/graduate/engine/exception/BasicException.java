@@ -3,7 +3,7 @@ package com.graduate.engine.exception;
 /**
  * @author jimmy
  */
-public class BasicException extends RuntimeException{
+public class BasicException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
     private String errMsg;

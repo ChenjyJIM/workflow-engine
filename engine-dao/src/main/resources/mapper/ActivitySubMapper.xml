@@ -1,279 +1,307 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.ActivitySubMapper">
-  <resultMap id="BaseResultMap" type="com.graduate.engine.model.ActivitySub">
-    <id column="act_sub_id" jdbcType="INTEGER" property="actSubId" />
-    <result column="act_id" jdbcType="INTEGER" property="actId" />
-    <result column="inst_id" jdbcType="INTEGER" property="instId" />
-    <result column="inst_sub_id" jdbcType="INTEGER" property="instSubId" />
-    <result column="act_sub_name" jdbcType="VARCHAR" property="actSubName" />
-    <result column="act_sub_short" jdbcType="VARCHAR" property="actSubShort" />
-    <result column="act_sub_eng_name" jdbcType="VARCHAR" property="actSubEngName" />
-    <result column="industry_id" jdbcType="TINYINT" property="industryId" />
-    <result column="act_sub_date_from" jdbcType="INTEGER" property="actSubDateFrom" />
-    <result column="act_sub_date_to" jdbcType="INTEGER" property="actSubDateTo" />
-    <result column="act_sub_address" jdbcType="VARCHAR" property="actSubAddress" />
-    <result column="act_sub_priority" jdbcType="TINYINT" property="actSubPriority" />
-    <result column="act_sub_status_id" jdbcType="TINYINT" property="actSubStatusId" />
-    <result column="act_sub_memo" jdbcType="VARCHAR" property="actSubMemo" />
-    <result column="act_sub_split" jdbcType="INTEGER" property="actSubSplit" />
-    <result column="act_sub_merge" jdbcType="INTEGER" property="actSubMerge" />
-    <result column="act_sub_father_id" jdbcType="INTEGER" property="actSubFatherId" />
-    <result column="act_sub_restart_memo" jdbcType="VARCHAR" property="actSubRestartMemo" />
-    <result column="publish" jdbcType="BIT" property="publish" />
-    <result column="stop" jdbcType="BIT" property="stop" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    act_sub_id, act_id, inst_id, inst_sub_id, act_sub_name, act_sub_short, act_sub_eng_name,
-    industry_id, act_sub_date_from, act_sub_date_to, act_sub_address, act_sub_priority,
-    act_sub_status_id, act_sub_memo, act_sub_split, act_sub_merge, act_sub_father_id,
-    act_sub_restart_memo, publish, stop
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from activity_sub
-    where act_sub_id = #{actSubId,jdbcType=INTEGER}
-    and `stop` = 0
-  </select>
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.ActivitySub">
+        <id column="act_sub_id" jdbcType="INTEGER" property="actSubId"/>
+        <result column="act_id" jdbcType="INTEGER" property="actId"/>
+        <result column="inst_id" jdbcType="INTEGER" property="instId"/>
+        <result column="inst_sub_id" jdbcType="INTEGER" property="instSubId"/>
+        <result column="act_sub_name" jdbcType="VARCHAR" property="actSubName"/>
+        <result column="act_sub_short" jdbcType="VARCHAR" property="actSubShort"/>
+        <result column="act_sub_eng_name" jdbcType="VARCHAR" property="actSubEngName"/>
+        <result column="industry_id" jdbcType="TINYINT" property="industryId"/>
+        <result column="act_sub_date_from" jdbcType="INTEGER" property="actSubDateFrom"/>
+        <result column="act_sub_date_to" jdbcType="INTEGER" property="actSubDateTo"/>
+        <result column="act_sub_address" jdbcType="VARCHAR" property="actSubAddress"/>
+        <result column="act_sub_priority" jdbcType="TINYINT" property="actSubPriority"/>
+        <result column="act_sub_status_id" jdbcType="TINYINT" property="actSubStatusId"/>
+        <result column="act_sub_memo" jdbcType="VARCHAR" property="actSubMemo"/>
+        <result column="act_sub_split" jdbcType="INTEGER" property="actSubSplit"/>
+        <result column="act_sub_merge" jdbcType="INTEGER" property="actSubMerge"/>
+        <result column="act_sub_father_id" jdbcType="INTEGER" property="actSubFatherId"/>
+        <result column="act_sub_restart_memo" jdbcType="VARCHAR" property="actSubRestartMemo"/>
+        <result column="publish" jdbcType="BIT" property="publish"/>
+        <result column="stop" jdbcType="BIT" property="stop"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        act_sub_id, act_id, inst_id, inst_sub_id, act_sub_name, act_sub_short, act_sub_eng_name,
+        industry_id, act_sub_date_from, act_sub_date_to, act_sub_address, act_sub_priority,
+        act_sub_status_id, act_sub_memo, act_sub_split, act_sub_merge, act_sub_father_id,
+        act_sub_restart_memo, publish, stop
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from activity_sub
+        where act_sub_id = #{actSubId,jdbcType=INTEGER}
+        and `stop` = 0
+    </select>
     <select id="getByActId" resultType="com.graduate.engine.model.ActivitySub">
-      select
-      <include refid="Base_Column_List" />
-      from activity_sub
-      where act_id = #{actId,jdbcType=INTEGER}
-      and `stop` = 0
+        select
+        <include refid="Base_Column_List"/>
+        from activity_sub
+        where act_id = #{actId,jdbcType=INTEGER}
+        and `stop` = 0
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from activity_sub
-    where act_sub_id = #{actSubId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.graduate.engine.model.ActivitySub">
-    insert into activity_sub (act_sub_id, act_id, inst_id,
-      inst_sub_id, act_sub_name, act_sub_short,
-      act_sub_eng_name, industry_id, act_sub_date_from,
-      act_sub_date_to, act_sub_address, act_sub_priority,
-      act_sub_status_id, act_sub_memo, act_sub_split,
-      act_sub_merge, act_sub_father_id, act_sub_restart_memo,
-      publish, stop)
-    values (#{actSubId,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER},
-      #{instSubId,jdbcType=INTEGER}, #{actSubName,jdbcType=VARCHAR}, #{actSubShort,jdbcType=VARCHAR},
-      #{actSubEngName,jdbcType=VARCHAR}, #{industryId,jdbcType=TINYINT}, #{actSubDateFrom,jdbcType=INTEGER},
-      #{actSubDateTo,jdbcType=INTEGER}, #{actSubAddress,jdbcType=VARCHAR}, #{actSubPriority,jdbcType=TINYINT},
-      #{actSubStatusId,jdbcType=TINYINT}, #{actSubMemo,jdbcType=VARCHAR}, #{actSubSplit,jdbcType=INTEGER},
-      #{actSubMerge,jdbcType=INTEGER}, #{actSubFatherId,jdbcType=INTEGER}, #{actSubRestartMemo,jdbcType=VARCHAR},
-      #{publish, jdbcType=BIT},#{stop,jdbcType=BIT})
-  </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="actSubId" parameterType="com.graduate.engine.model.ActivitySub">
-    insert into activity_sub
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="actSubId != null">
-        act_sub_id,
-      </if>
-      <if test="actId != null">
-        act_id,
-      </if>
-      <if test="instId != null">
-        inst_id,
-      </if>
-      <if test="instSubId != null">
-        inst_sub_id,
-      </if>
-      <if test="actSubName != null">
-        act_sub_name,
-      </if>
-      <if test="actSubShort != null">
-        act_sub_short,
-      </if>
-      <if test="actSubEngName != null">
-        act_sub_eng_name,
-      </if>
-      <if test="industryId != null">
-        industry_id,
-      </if>
-      <if test="actSubDateFrom != null">
-        act_sub_date_from,
-      </if>
-      <if test="actSubDateTo != null">
-        act_sub_date_to,
-      </if>
-      <if test="actSubAddress != null">
-        act_sub_address,
-      </if>
-      <if test="actSubPriority != null">
-        act_sub_priority,
-      </if>
-      <if test="actSubStatusId != null">
-        act_sub_status_id,
-      </if>
-      <if test="actSubMemo != null">
-        act_sub_memo,
-      </if>
-      <if test="actSubSplit != null">
-        act_sub_split,
-      </if>
-      <if test="actSubMerge != null">
-        act_sub_merge,
-      </if>
-      <if test="actSubFatherId != null">
-        act_sub_father_id,
-      </if>
-      <if test="actSubRestartMemo != null">
-        act_sub_restart_memo,
-      </if>
-      <if test="publish != null">
-        publish,
-      </if>
-      <if test="stop != null">
-        stop,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="actSubId != null">
-        #{actSubId,jdbcType=INTEGER},
-      </if>
-      <if test="actId != null">
-        #{actId,jdbcType=INTEGER},
-      </if>
-      <if test="instId != null">
-        #{instId,jdbcType=INTEGER},
-      </if>
-      <if test="instSubId != null">
-        #{instSubId,jdbcType=INTEGER},
-      </if>
-      <if test="actSubName != null">
-        #{actSubName,jdbcType=VARCHAR},
-      </if>
-      <if test="actSubShort != null">
-        #{actSubShort,jdbcType=VARCHAR},
-      </if>
-      <if test="actSubEngName != null">
-        #{actSubEngName,jdbcType=VARCHAR},
-      </if>
-      <if test="industryId != null">
-        #{industryId,jdbcType=TINYINT},
-      </if>
-      <if test="actSubDateFrom != null">
-        #{actSubDateFrom,jdbcType=INTEGER},
-      </if>
-      <if test="actSubDateTo != null">
-        #{actSubDateTo,jdbcType=INTEGER},
-      </if>
-      <if test="actSubAddress != null">
-        #{actSubAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="actSubPriority != null">
-        #{actSubPriority,jdbcType=TINYINT},
-      </if>
-      <if test="actSubStatusId != null">
-        #{actSubStatusId,jdbcType=TINYINT},
-      </if>
-      <if test="actSubMemo != null">
-        #{actSubMemo,jdbcType=VARCHAR},
-      </if>
-      <if test="actSubSplit != null">
-        #{actSubSplit,jdbcType=INTEGER},
-      </if>
-      <if test="actSubMerge != null">
-        #{actSubMerge,jdbcType=INTEGER},
-      </if>
-      <if test="actSubFatherId != null">
-        #{actSubFatherId,jdbcType=INTEGER},
-      </if>
-      <if test="actSubRestartMemo != null">
-        #{actSubRestartMemo,jdbcType=VARCHAR},
-      </if>
-      <if test="publish != null">
-        #{publish,jdbcType=BIT},
-      </if>
-      <if test="stop != null">
-        #{stop,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.ActivitySub">
-    update activity_sub
-    <set>
-      <if test="actId != null">
-        act_id = #{actId,jdbcType=INTEGER},
-      </if>
-      <if test="instId != null">
-        inst_id = #{instId,jdbcType=INTEGER},
-      </if>
-      <if test="instSubId != null">
-        inst_sub_id = #{instSubId,jdbcType=INTEGER},
-      </if>
-      <if test="actSubName != null">
-        act_sub_name = #{actSubName,jdbcType=VARCHAR},
-      </if>
-      <if test="actSubShort != null">
-        act_sub_short = #{actSubShort,jdbcType=VARCHAR},
-      </if>
-      <if test="actSubEngName != null">
-        act_sub_eng_name = #{actSubEngName,jdbcType=VARCHAR},
-      </if>
-      <if test="industryId != null">
-        industry_id = #{industryId,jdbcType=TINYINT},
-      </if>
-      <if test="actSubDateFrom != null">
-        act_sub_date_from = #{actSubDateFrom,jdbcType=INTEGER},
-      </if>
-      <if test="actSubDateTo != null">
-        act_sub_date_to = #{actSubDateTo,jdbcType=INTEGER},
-      </if>
-      <if test="actSubAddress != null">
-        act_sub_address = #{actSubAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="actSubPriority != null">
-        act_sub_priority = #{actSubPriority,jdbcType=TINYINT},
-      </if>
-      <if test="actSubStatusId != null">
-        act_sub_status_id = #{actSubStatusId,jdbcType=TINYINT},
-      </if>
-      <if test="actSubMemo != null">
-        act_sub_memo = #{actSubMemo,jdbcType=VARCHAR},
-      </if>
-      <if test="actSubSplit != null">
-        act_sub_split = #{actSubSplit,jdbcType=INTEGER},
-      </if>
-      <if test="actSubMerge != null">
-        act_sub_merge = #{actSubMerge,jdbcType=INTEGER},
-      </if>
-      <if test="actSubFatherId != null">
-        act_sub_father_id = #{actSubFatherId,jdbcType=INTEGER},
-      </if>
-      <if test="actSubRestartMemo != null">
-        act_sub_restart_memo = #{actSubRestartMemo,jdbcType=VARCHAR},
-      </if>
-      <if test="publish != null">
-        publish = #{publish,jdbcType=BIT},
-      </if>
-      <if test="stop != null">
-        stop = #{stop,jdbcType=BIT},
-      </if>
-    </set>
-    where act_sub_id = #{actSubId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.ActivitySub">
-    update activity_sub
-    set act_id = #{actId,jdbcType=INTEGER},
-      inst_id = #{instId,jdbcType=INTEGER},
-      inst_sub_id = #{instSubId,jdbcType=INTEGER},
-      act_sub_name = #{actSubName,jdbcType=VARCHAR},
-      act_sub_short = #{actSubShort,jdbcType=VARCHAR},
-      act_sub_eng_name = #{actSubEngName,jdbcType=VARCHAR},
-      industry_id = #{industryId,jdbcType=TINYINT},
-      act_sub_date_from = #{actSubDateFrom,jdbcType=INTEGER},
-      act_sub_date_to = #{actSubDateTo,jdbcType=INTEGER},
-      act_sub_address = #{actSubAddress,jdbcType=VARCHAR},
-      act_sub_priority = #{actSubPriority,jdbcType=TINYINT},
-      act_sub_status_id = #{actSubStatusId,jdbcType=TINYINT},
-      act_sub_memo = #{actSubMemo,jdbcType=VARCHAR},
-      act_sub_split = #{actSubSplit,jdbcType=INTEGER},
-      act_sub_merge = #{actSubMerge,jdbcType=INTEGER},
-      act_sub_father_id = #{actSubFatherId,jdbcType=INTEGER},
-      act_sub_restart_memo = #{actSubRestartMemo,jdbcType=VARCHAR},
-      publish = #{publish, jdbcType=BIT}
-      stop = #{stop,jdbcType=BIT}
-    where act_sub_id = #{actSubId,jdbcType=INTEGER}
-  </update>
+        delete
+        from activity_sub
+        where act_sub_id = #{actSubId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.graduate.engine.model.ActivitySub">
+        insert into activity_sub (act_sub_id,
+                                  act_id,
+                                  inst_id,
+                                  inst_sub_id,
+                                  act_sub_name,
+                                  act_sub_short,
+                                  act_sub_eng_name,
+                                  industry_id,
+                                  act_sub_date_from,
+                                  act_sub_date_to,
+                                  act_sub_address,
+                                  act_sub_priority,
+                                  act_sub_status_id,
+                                  act_sub_memo,
+                                  act_sub_split,
+                                  act_sub_merge,
+                                  act_sub_father_id,
+                                  act_sub_restart_memo,
+                                  publish,
+                                  stop)
+        values (#{actSubId,jdbcType=INTEGER},
+                #{actId,jdbcType=INTEGER},
+                #{instId,jdbcType=INTEGER},
+                #{instSubId,jdbcType=INTEGER},
+                #{actSubName,jdbcType=VARCHAR},
+                #{actSubShort,jdbcType=VARCHAR},
+                #{actSubEngName,jdbcType=VARCHAR},
+                #{industryId,jdbcType=TINYINT},
+                #{actSubDateFrom,jdbcType=INTEGER},
+                #{actSubDateTo,jdbcType=INTEGER},
+                #{actSubAddress,jdbcType=VARCHAR},
+                #{actSubPriority,jdbcType=TINYINT},
+                #{actSubStatusId,jdbcType=TINYINT},
+                #{actSubMemo,jdbcType=VARCHAR},
+                #{actSubSplit,jdbcType=INTEGER},
+                #{actSubMerge,jdbcType=INTEGER},
+                #{actSubFatherId,jdbcType=INTEGER},
+                #{actSubRestartMemo,jdbcType=VARCHAR},
+                #{publish, jdbcType=BIT},
+                #{stop,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="actSubId"
+            parameterType="com.graduate.engine.model.ActivitySub">
+        insert into activity_sub
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="actSubId != null">
+                act_sub_id,
+            </if>
+            <if test="actId != null">
+                act_id,
+            </if>
+            <if test="instId != null">
+                inst_id,
+            </if>
+            <if test="instSubId != null">
+                inst_sub_id,
+            </if>
+            <if test="actSubName != null">
+                act_sub_name,
+            </if>
+            <if test="actSubShort != null">
+                act_sub_short,
+            </if>
+            <if test="actSubEngName != null">
+                act_sub_eng_name,
+            </if>
+            <if test="industryId != null">
+                industry_id,
+            </if>
+            <if test="actSubDateFrom != null">
+                act_sub_date_from,
+            </if>
+            <if test="actSubDateTo != null">
+                act_sub_date_to,
+            </if>
+            <if test="actSubAddress != null">
+                act_sub_address,
+            </if>
+            <if test="actSubPriority != null">
+                act_sub_priority,
+            </if>
+            <if test="actSubStatusId != null">
+                act_sub_status_id,
+            </if>
+            <if test="actSubMemo != null">
+                act_sub_memo,
+            </if>
+            <if test="actSubSplit != null">
+                act_sub_split,
+            </if>
+            <if test="actSubMerge != null">
+                act_sub_merge,
+            </if>
+            <if test="actSubFatherId != null">
+                act_sub_father_id,
+            </if>
+            <if test="actSubRestartMemo != null">
+                act_sub_restart_memo,
+            </if>
+            <if test="publish != null">
+                publish,
+            </if>
+            <if test="stop != null">
+                stop,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="actSubId != null">
+                #{actSubId,jdbcType=INTEGER},
+            </if>
+            <if test="actId != null">
+                #{actId,jdbcType=INTEGER},
+            </if>
+            <if test="instId != null">
+                #{instId,jdbcType=INTEGER},
+            </if>
+            <if test="instSubId != null">
+                #{instSubId,jdbcType=INTEGER},
+            </if>
+            <if test="actSubName != null">
+                #{actSubName,jdbcType=VARCHAR},
+            </if>
+            <if test="actSubShort != null">
+                #{actSubShort,jdbcType=VARCHAR},
+            </if>
+            <if test="actSubEngName != null">
+                #{actSubEngName,jdbcType=VARCHAR},
+            </if>
+            <if test="industryId != null">
+                #{industryId,jdbcType=TINYINT},
+            </if>
+            <if test="actSubDateFrom != null">
+                #{actSubDateFrom,jdbcType=INTEGER},
+            </if>
+            <if test="actSubDateTo != null">
+                #{actSubDateTo,jdbcType=INTEGER},
+            </if>
+            <if test="actSubAddress != null">
+                #{actSubAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="actSubPriority != null">
+                #{actSubPriority,jdbcType=TINYINT},
+            </if>
+            <if test="actSubStatusId != null">
+                #{actSubStatusId,jdbcType=TINYINT},
+            </if>
+            <if test="actSubMemo != null">
+                #{actSubMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="actSubSplit != null">
+                #{actSubSplit,jdbcType=INTEGER},
+            </if>
+            <if test="actSubMerge != null">
+                #{actSubMerge,jdbcType=INTEGER},
+            </if>
+            <if test="actSubFatherId != null">
+                #{actSubFatherId,jdbcType=INTEGER},
+            </if>
+            <if test="actSubRestartMemo != null">
+                #{actSubRestartMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="publish != null">
+                #{publish,jdbcType=BIT},
+            </if>
+            <if test="stop != null">
+                #{stop,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.ActivitySub">
+        update activity_sub
+        <set>
+            <if test="actId != null">
+                act_id = #{actId,jdbcType=INTEGER},
+            </if>
+            <if test="instId != null">
+                inst_id = #{instId,jdbcType=INTEGER},
+            </if>
+            <if test="instSubId != null">
+                inst_sub_id = #{instSubId,jdbcType=INTEGER},
+            </if>
+            <if test="actSubName != null">
+                act_sub_name = #{actSubName,jdbcType=VARCHAR},
+            </if>
+            <if test="actSubShort != null">
+                act_sub_short = #{actSubShort,jdbcType=VARCHAR},
+            </if>
+            <if test="actSubEngName != null">
+                act_sub_eng_name = #{actSubEngName,jdbcType=VARCHAR},
+            </if>
+            <if test="industryId != null">
+                industry_id = #{industryId,jdbcType=TINYINT},
+            </if>
+            <if test="actSubDateFrom != null">
+                act_sub_date_from = #{actSubDateFrom,jdbcType=INTEGER},
+            </if>
+            <if test="actSubDateTo != null">
+                act_sub_date_to = #{actSubDateTo,jdbcType=INTEGER},
+            </if>
+            <if test="actSubAddress != null">
+                act_sub_address = #{actSubAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="actSubPriority != null">
+                act_sub_priority = #{actSubPriority,jdbcType=TINYINT},
+            </if>
+            <if test="actSubStatusId != null">
+                act_sub_status_id = #{actSubStatusId,jdbcType=TINYINT},
+            </if>
+            <if test="actSubMemo != null">
+                act_sub_memo = #{actSubMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="actSubSplit != null">
+                act_sub_split = #{actSubSplit,jdbcType=INTEGER},
+            </if>
+            <if test="actSubMerge != null">
+                act_sub_merge = #{actSubMerge,jdbcType=INTEGER},
+            </if>
+            <if test="actSubFatherId != null">
+                act_sub_father_id = #{actSubFatherId,jdbcType=INTEGER},
+            </if>
+            <if test="actSubRestartMemo != null">
+                act_sub_restart_memo = #{actSubRestartMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="publish != null">
+                publish = #{publish,jdbcType=BIT},
+            </if>
+            <if test="stop != null">
+                stop = #{stop,jdbcType=BIT},
+            </if>
+        </set>
+        where act_sub_id = #{actSubId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.ActivitySub">
+        update activity_sub
+        set act_id               = #{actId,jdbcType=INTEGER},
+            inst_id              = #{instId,jdbcType=INTEGER},
+            inst_sub_id          = #{instSubId,jdbcType=INTEGER},
+            act_sub_name         = #{actSubName,jdbcType=VARCHAR},
+            act_sub_short        = #{actSubShort,jdbcType=VARCHAR},
+            act_sub_eng_name     = #{actSubEngName,jdbcType=VARCHAR},
+            industry_id          = #{industryId,jdbcType=TINYINT},
+            act_sub_date_from    = #{actSubDateFrom,jdbcType=INTEGER},
+            act_sub_date_to      = #{actSubDateTo,jdbcType=INTEGER},
+            act_sub_address      = #{actSubAddress,jdbcType=VARCHAR},
+            act_sub_priority     = #{actSubPriority,jdbcType=TINYINT},
+            act_sub_status_id    = #{actSubStatusId,jdbcType=TINYINT},
+            act_sub_memo         = #{actSubMemo,jdbcType=VARCHAR},
+            act_sub_split        = #{actSubSplit,jdbcType=INTEGER},
+            act_sub_merge        = #{actSubMerge,jdbcType=INTEGER},
+            act_sub_father_id    = #{actSubFatherId,jdbcType=INTEGER},
+            act_sub_restart_memo = #{actSubRestartMemo,jdbcType=VARCHAR},
+            publish              = #{publish, jdbcType=BIT}
+        stop = #{stop,jdbcType=BIT}
+        where act_sub_id = #{actSubId,jdbcType=INTEGER}
+    </update>
 </mapper>

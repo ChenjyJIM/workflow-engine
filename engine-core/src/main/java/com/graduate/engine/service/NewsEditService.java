@@ -18,9 +18,9 @@ import java.util.Map;
  */
 public interface NewsEditService extends IService<NewsEdit> {
 
-    void editNews(NewsEdit newsEdit,NewsDetails newsDetails);
+    void editNews(NewsEdit newsEdit, NewsDetails newsDetails);
 
-    void updateNews(NewsEdit newsEdit,NewsDetails newsDetails);
+    void updateNews(NewsEdit newsEdit, NewsDetails newsDetails);
 
     NewsEdit selectEditByDetailsId(Long detailsId);
 

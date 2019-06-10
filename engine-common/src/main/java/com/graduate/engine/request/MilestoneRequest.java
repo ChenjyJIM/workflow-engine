@@ -4,13 +4,14 @@ import lombok.Data;
 
 /**
  * 里程碑相关请求模板
+ *
  * @author jimmy
  */
 @Data
 public class MilestoneRequest {
 
     /**
-     *  （子）活动id
+     * （子）活动id
      */
     private Long id;
 

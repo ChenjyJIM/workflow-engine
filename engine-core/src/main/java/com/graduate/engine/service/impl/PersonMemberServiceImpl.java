@@ -23,7 +23,7 @@ public class PersonMemberServiceImpl implements PersonMemberService {
 
     @Override
     public PersonMemberVo getByPersonId(Long personId) {
-       PersonMember personMember = personMemberMapper.selectByPersonMemberID(personId);
+        PersonMember personMember = personMemberMapper.selectByPersonMemberID(personId);
         PersonMemberVo personMemberVo = BeanUtils.copyBean(personMember, PersonMemberVo.class);
         return personMemberVo;
     }
@@ -31,7 +31,7 @@ public class PersonMemberServiceImpl implements PersonMemberService {
     @Override
     public int infoModified(MemberModifiedRequest memberModifiedRequest) {
         PersonMember personMember = BeanUtils.copyBean(memberModifiedRequest, PersonMember.class);
-        if(memberModifiedRequest.getBirthday() != null){
+        if (memberModifiedRequest.getBirthday() != null) {
             try {
                 personMember.setBirthday(DateUtils.getTimeStampByUTC(memberModifiedRequest.getBirthday()));
             } catch (ParseException e) {

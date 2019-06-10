@@ -14,6 +14,7 @@ public interface LoginMapper extends BaseMapper<Login> {
 
     /**
      * 修改密码接口
+     *
      * @param login
      * @return
      */
@@ -26,13 +27,15 @@ public interface LoginMapper extends BaseMapper<Login> {
 
     /**
      * 查询用户的所有权限
-     * @param userId  用户ID
+     *
+     * @param userId 用户ID
      */
     List<String> queryAllPerms(Long userId);
 
     /**
      * 查询用户的所有菜单
-     * @param userId  用户ID
+     *
+     * @param userId 用户ID
      */
     List<Long> queryAllMenu(Long userId);
 
@@ -44,6 +47,7 @@ public interface LoginMapper extends BaseMapper<Login> {
 
     /**
      * 通过人员id获取到对应账号
+     *
      * @param personId
      * @return
      */

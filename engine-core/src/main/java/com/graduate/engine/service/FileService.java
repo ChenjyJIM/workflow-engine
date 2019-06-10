@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * 文件相关服务
+ *
  * @author jimmy
  */
 public interface FileService {

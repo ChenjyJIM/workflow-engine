@@ -6,8 +6,6 @@ import com.graduate.engine.model.viewobject.TreeData;
 import com.graduate.engine.utils.DateUtils;
 import lombok.Data;
 
-import javax.annotation.Resource;
-
 @Data
 public class ActivitySub {
 

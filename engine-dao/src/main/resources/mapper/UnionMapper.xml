@@ -2,21 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.UnionMapper">
     <resultMap id="BaseResultMap" type="com.graduate.engine.model.Union">
-        <id column="union_id" jdbcType="INTEGER" property="unionId" />
-        <result column="union_name" jdbcType="VARCHAR" property="unionName" />
-        <result column="union_short" jdbcType="VARCHAR" property="unionShort" />
-        <result column="union_eng_name" jdbcType="VARCHAR" property="unionEngName" />
-        <result column="union_address" jdbcType="VARCHAR" property="unionAddress" />
-        <result column="union_website" jdbcType="VARCHAR" property="unionWebsite" />
-        <result column="union_wechat" jdbcType="VARCHAR" property="unionWechat" />
-        <result column="union_qq" jdbcType="VARCHAR" property="unionQq" />
-        <result column="union_others" jdbcType="VARCHAR" property="unionOthers" />
-        <result column="union_register_date" jdbcType="INTEGER" property="unionRegisterDate" />
-        <result column="union_introduction" jdbcType="VARCHAR" property="unionIntroduction" />
-        <result column="union_memo" jdbcType="VARCHAR" property="unionMemo" />
-        <result column="stop" jdbcType="BIT" property="stop" />
+        <id column="union_id" jdbcType="INTEGER" property="unionId"/>
+        <result column="union_name" jdbcType="VARCHAR" property="unionName"/>
+        <result column="union_short" jdbcType="VARCHAR" property="unionShort"/>
+        <result column="union_eng_name" jdbcType="VARCHAR" property="unionEngName"/>
+        <result column="union_address" jdbcType="VARCHAR" property="unionAddress"/>
+        <result column="union_website" jdbcType="VARCHAR" property="unionWebsite"/>
+        <result column="union_wechat" jdbcType="VARCHAR" property="unionWechat"/>
+        <result column="union_qq" jdbcType="VARCHAR" property="unionQq"/>
+        <result column="union_others" jdbcType="VARCHAR" property="unionOthers"/>
+        <result column="union_register_date" jdbcType="INTEGER" property="unionRegisterDate"/>
+        <result column="union_introduction" jdbcType="VARCHAR" property="unionIntroduction"/>
+        <result column="union_memo" jdbcType="VARCHAR" property="unionMemo"/>
+        <result column="stop" jdbcType="BIT" property="stop"/>
     </resultMap>
     <select id="getUnionList" resultMap="BaseResultMap">
-        select * from `union` where `stop` = 0
+        select *
+        from `union`
+        where `stop` = 0
     </select>
 </mapper>

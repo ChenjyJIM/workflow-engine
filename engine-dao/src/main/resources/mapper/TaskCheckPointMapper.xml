@@ -1,115 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.TaskCheckPointMapper">
-  <resultMap id="BaseResultMap" type="com.graduate.engine.model.TaskCheckPoint">
-    <id column="task_check_point_id" jdbcType="INTEGER" property="taskCheckPointId" />
-    <result column="task_id" jdbcType="INTEGER" property="taskId" />
-    <result column="task_check_point_name" jdbcType="VARCHAR" property="taskCheckPointName" />
-    <result column="task_check_point_memo" jdbcType="VARCHAR" property="taskCheckPointMemo" />
-    <result column="task_check_point_date" jdbcType="INTEGER" property="taskCheckPointDate" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    task_check_point_id, task_id, task_check_point_name, task_check_point_memo, task_check_point_date
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from task_check_point
-    where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}
-  </select>
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.TaskCheckPoint">
+        <id column="task_check_point_id" jdbcType="INTEGER" property="taskCheckPointId"/>
+        <result column="task_id" jdbcType="INTEGER" property="taskId"/>
+        <result column="task_check_point_name" jdbcType="VARCHAR" property="taskCheckPointName"/>
+        <result column="task_check_point_memo" jdbcType="VARCHAR" property="taskCheckPointMemo"/>
+        <result column="task_check_point_date" jdbcType="INTEGER" property="taskCheckPointDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        task_check_point_id, task_id, task_check_point_name, task_check_point_memo, task_check_point_date
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from task_check_point
+        where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}
+    </select>
     <select id="getByTaskId" resultType="com.graduate.engine.model.TaskCheckPoint">
-      select
-      <include refid="Base_Column_List"/>
-      from task_check_point
-      where task_id = #{taskId};
+        select
+        <include refid="Base_Column_List"/>
+        from task_check_point
+        where task_id = #{taskId};
 
     </select>
     <select id="getTaskCheckPointByCondition" resultType="com.graduate.engine.model.TaskCheckPoint">
-      select
-      <include refid="Base_Column_List"/>
-      from task_check_point
-      <where>
-        <if test="type == 1">
-          task_check_point_date - #{now} <![CDATA[>]]> 86400
-        </if>
-        <if test="type == 2">
-          task_check_point_date - #{now} <![CDATA[>]]> 0
-          and
-          task_check_point_date - #{now} <![CDATA[<]]> 86400
-        </if>
-      </where>
+        select
+        <include refid="Base_Column_List"/>
+        from task_check_point
+        <where>
+            <if test="type == 1">
+                task_check_point_date - #{now} <![CDATA[>]]> 86400
+            </if>
+            <if test="type == 2">
+                task_check_point_date - #{now} <![CDATA[>]]> 0
+                and
+                task_check_point_date - #{now} <![CDATA[<]]> 86400
+            </if>
+        </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from task_check_point
-    where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.graduate.engine.model.TaskCheckPoint">
-    insert into task_check_point (task_check_point_id, task_id, task_check_point_name,
-      task_check_point_memo, task_check_point_date)
-    values (#{taskCheckPointId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{taskCheckPointName,jdbcType=VARCHAR},
-      #{taskCheckPointMemo,jdbcType=VARCHAR}, #{taskCheckPointDate,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.TaskCheckPoint">
-    insert into task_check_point
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="taskCheckPointId != null">
-        task_check_point_id,
-      </if>
-      <if test="taskId != null">
-        task_id,
-      </if>
-      <if test="taskCheckPointName != null">
-        task_check_point_name,
-      </if>
-      <if test="taskCheckPointMemo != null">
-        task_check_point_memo,
-      </if>
-      <if test="taskCheckPointDate != null">
-        task_check_point_date,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="taskCheckPointId != null">
-        #{taskCheckPointId,jdbcType=INTEGER},
-      </if>
-      <if test="taskId != null">
-        #{taskId,jdbcType=INTEGER},
-      </if>
-      <if test="taskCheckPointName != null">
-        #{taskCheckPointName,jdbcType=VARCHAR},
-      </if>
-      <if test="taskCheckPointMemo != null">
-        #{taskCheckPointMemo,jdbcType=VARCHAR},
-      </if>
-      <if test="taskCheckPointDate != null">
-        #{taskCheckPointDate,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.TaskCheckPoint">
-    update task_check_point
-    <set>
-      <if test="taskId != null">
-        task_id = #{taskId,jdbcType=INTEGER},
-      </if>
-      <if test="taskCheckPointName != null">
-        task_check_point_name = #{taskCheckPointName,jdbcType=VARCHAR},
-      </if>
-      <if test="taskCheckPointMemo != null">
-        task_check_point_memo = #{taskCheckPointMemo,jdbcType=VARCHAR},
-      </if>
-      <if test="taskCheckPointDate != null">
-        task_check_point_date = #{taskCheckPointDate,jdbcType=INTEGER},
-      </if>
-    </set>
-    where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.TaskCheckPoint">
-    update task_check_point
-    set task_id = #{taskId,jdbcType=INTEGER},
-      task_check_point_name = #{taskCheckPointName,jdbcType=VARCHAR},
-      task_check_point_memo = #{taskCheckPointMemo,jdbcType=VARCHAR},
-      task_check_point_date = #{taskCheckPointDate,jdbcType=INTEGER}
-    where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}
-  </update>
+        delete
+        from task_check_point
+        where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.graduate.engine.model.TaskCheckPoint">
+        insert into task_check_point (task_check_point_id,
+                                      task_id,
+                                      task_check_point_name,
+                                      task_check_point_memo,
+                                      task_check_point_date)
+        values (#{taskCheckPointId,jdbcType=INTEGER},
+                #{taskId,jdbcType=INTEGER},
+                #{taskCheckPointName,jdbcType=VARCHAR},
+                #{taskCheckPointMemo,jdbcType=VARCHAR},
+                #{taskCheckPointDate,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.graduate.engine.model.TaskCheckPoint">
+        insert into task_check_point
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskCheckPointId != null">
+                task_check_point_id,
+            </if>
+            <if test="taskId != null">
+                task_id,
+            </if>
+            <if test="taskCheckPointName != null">
+                task_check_point_name,
+            </if>
+            <if test="taskCheckPointMemo != null">
+                task_check_point_memo,
+            </if>
+            <if test="taskCheckPointDate != null">
+                task_check_point_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskCheckPointId != null">
+                #{taskCheckPointId,jdbcType=INTEGER},
+            </if>
+            <if test="taskId != null">
+                #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="taskCheckPointName != null">
+                #{taskCheckPointName,jdbcType=VARCHAR},
+            </if>
+            <if test="taskCheckPointMemo != null">
+                #{taskCheckPointMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="taskCheckPointDate != null">
+                #{taskCheckPointDate,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.TaskCheckPoint">
+        update task_check_point
+        <set>
+            <if test="taskId != null">
+                task_id = #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="taskCheckPointName != null">
+                task_check_point_name = #{taskCheckPointName,jdbcType=VARCHAR},
+            </if>
+            <if test="taskCheckPointMemo != null">
+                task_check_point_memo = #{taskCheckPointMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="taskCheckPointDate != null">
+                task_check_point_date = #{taskCheckPointDate,jdbcType=INTEGER},
+            </if>
+        </set>
+        where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.TaskCheckPoint">
+        update task_check_point
+        set task_id               = #{taskId,jdbcType=INTEGER},
+            task_check_point_name = #{taskCheckPointName,jdbcType=VARCHAR},
+            task_check_point_memo = #{taskCheckPointMemo,jdbcType=VARCHAR},
+            task_check_point_date = #{taskCheckPointDate,jdbcType=INTEGER}
+        where task_check_point_id = #{taskCheckPointId,jdbcType=INTEGER}
+    </update>
 </mapper>

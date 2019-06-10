@@ -1,4 +1,5 @@
 package com.graduate.engine.utils;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +13,7 @@ public class CookieUtils {
             return;
         }
         Cookie cookie = getCookie(request, name);
-        if(null != cookie){
+        if (null != cookie) {
             cookie.setPath("/");
             cookie.setValue("");
             cookie.setMaxAge(0);
@@ -80,7 +81,7 @@ public class CookieUtils {
         response.addCookie(cookie);
     }
 
-    public static void setCookie(HttpServletResponse response, String name,String domain,
+    public static void setCookie(HttpServletResponse response, String name, String domain,
                                  String value, int maxValue) {
         if (null == name) {
             return;

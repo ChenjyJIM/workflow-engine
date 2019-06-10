@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Institute", description="学会表")
+@ApiModel(value = "Institute", description = "学会表")
 public class Institute implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,11 +31,11 @@ public class Institute implements Serializable {
     @ApiModelProperty(value = "学会行业分类")
     private Integer industryId;
 
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "学会行业分类名称")
     private String indusName;
 
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "学会行业分类简称")
     private String indusShort;
 
@@ -59,7 +59,7 @@ public class Institute implements Serializable {
     /**
      * 将时间转换为String类型，方便前端显示
      */
-    @TableField(exist=false)
+    @TableField(exist = false)
     private String registerTime;
 
     @ApiModelProperty(value = "学会介绍")

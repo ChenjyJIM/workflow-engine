@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="PersonMemberApplicationDetails", description="个人会员申请详细信息表")
+@ApiModel(value = "PersonMemberApplicationDetails", description = "个人会员申请详细信息表")
 public class PersonMemberApplicationDetails implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,7 +43,7 @@ public class PersonMemberApplicationDetails implements Serializable {
     /**
      * 将时间转换为String类型，方便前端显示
      */
-    @TableField(exist=false)
+    @TableField(exist = false)
     private String formatBirthday;
 
     @ApiModelProperty(value = "民族")

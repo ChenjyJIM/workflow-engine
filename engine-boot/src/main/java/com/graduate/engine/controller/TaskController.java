@@ -1,7 +1,6 @@
 package com.graduate.engine.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.graduate.engine.model.viewobject.TaskCheckPointVo;
 import com.graduate.engine.request.TaskCheckPointRequest;
 import com.graduate.engine.request.TaskExecRequest;
 import com.graduate.engine.request.TaskQuery;
@@ -11,11 +10,10 @@ import com.graduate.engine.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @RestController
 @RequestMapping("/task")
-public class TaskController extends AbstractController{
+public class TaskController extends AbstractController {
 
     @Resource
     private TaskService taskService;
@@ -154,6 +152,7 @@ public class TaskController extends AbstractController{
             return ResponseResult.buildError("系统异常！");
         }
     }
+
     @GetMapping("/getTaskExec")
     public ResponseResult getTaskExec(Long taskId) {
         if (taskId == null) {

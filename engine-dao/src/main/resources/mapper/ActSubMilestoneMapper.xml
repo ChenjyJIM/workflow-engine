@@ -1,153 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.ActSubMilestoneMapper">
-  <resultMap id="BaseResultMap" type="com.graduate.engine.model.ActSubMilestone">
-    <id column="sub_milestone_id" jdbcType="INTEGER" property="subMilestoneId" />
-    <result column="act_sub_id" jdbcType="INTEGER" property="actSubId" />
-    <result column="sub_milestone_name" jdbcType="VARCHAR" property="subMilestoneName" />
-    <result column="sub_milestone_memo" jdbcType="VARCHAR" property="subMilestoneMemo" />
-    <result column="sub_milestone_from" jdbcType="INTEGER" property="subMilestoneFrom" />
-    <result column="sub_milestone_to" jdbcType="INTEGER" property="subMilestoneTo" />
-    <result column="sub_milestone_report" jdbcType="VARCHAR" property="subMilestoneReport" />
-    <result column="sub_milestone_monitor" jdbcType="VARCHAR" property="subMilestoneMonitor" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    sub_milestone_id, act_sub_id, sub_milestone_name, sub_milestone_memo, sub_milestone_from,
-    sub_milestone_to, sub_milestone_report, sub_milestone_monitor
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from act_sub_milestone
-    where sub_milestone_id = #{subMilestoneId,jdbcType=INTEGER}
-  </select>
-  <select id="getById" resultType="com.graduate.engine.model.ActSubMilestone">
-    select
-    <include refid="Base_Column_List"/>
-    from act_sub_milestone
-    where act_sub_id = #{actSubId}
-  </select>
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.ActSubMilestone">
+        <id column="sub_milestone_id" jdbcType="INTEGER" property="subMilestoneId"/>
+        <result column="act_sub_id" jdbcType="INTEGER" property="actSubId"/>
+        <result column="sub_milestone_name" jdbcType="VARCHAR" property="subMilestoneName"/>
+        <result column="sub_milestone_memo" jdbcType="VARCHAR" property="subMilestoneMemo"/>
+        <result column="sub_milestone_from" jdbcType="INTEGER" property="subMilestoneFrom"/>
+        <result column="sub_milestone_to" jdbcType="INTEGER" property="subMilestoneTo"/>
+        <result column="sub_milestone_report" jdbcType="VARCHAR" property="subMilestoneReport"/>
+        <result column="sub_milestone_monitor" jdbcType="VARCHAR" property="subMilestoneMonitor"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        sub_milestone_id, act_sub_id, sub_milestone_name, sub_milestone_memo, sub_milestone_from,
+        sub_milestone_to, sub_milestone_report, sub_milestone_monitor
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from act_sub_milestone
+        where sub_milestone_id = #{subMilestoneId,jdbcType=INTEGER}
+    </select>
+    <select id="getById" resultType="com.graduate.engine.model.ActSubMilestone">
+        select
+        <include refid="Base_Column_List"/>
+        from act_sub_milestone
+        where act_sub_id = #{actSubId}
+    </select>
     <select id="getActSubMilestoneByCondition" resultType="com.graduate.engine.model.ActSubMilestone">
-      select
-      <include refid="Base_Column_List"/>
-      from act_sub_milestone
-      <where>
-        <if test="type == 1">
-          sub_milestone_to - #{now} <![CDATA[>]]> 86400
-        </if>
-        <if test="type == 2">
-          sub_milestone_to - #{now} <![CDATA[>]]> 0
-          and
-          sub_milestone_to - #{now} <![CDATA[<]]> 86400
-        </if>
-        and sub_milestone_report is null
-      </where>
+        select
+        <include refid="Base_Column_List"/>
+        from act_sub_milestone
+        <where>
+            <if test="type == 1">
+                sub_milestone_to - #{now} <![CDATA[>]]> 86400
+            </if>
+            <if test="type == 2">
+                sub_milestone_to - #{now} <![CDATA[>]]> 0
+                and
+                sub_milestone_to - #{now} <![CDATA[<]]> 86400
+            </if>
+            and sub_milestone_report is null
+        </where>
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from act_sub_milestone
-    where sub_milestone_id = #{subMilestoneId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.graduate.engine.model.ActSubMilestone">
-    insert into act_sub_milestone (sub_milestone_id, act_sub_id, sub_milestone_name,
-      sub_milestone_memo, sub_milestone_from, sub_milestone_to,
-      sub_milestone_report, sub_milestone_monitor
-      )
-    values (#{subMilestoneId,jdbcType=INTEGER}, #{actSubId,jdbcType=INTEGER}, #{subMilestoneName,jdbcType=VARCHAR},
-      #{subMilestoneMemo,jdbcType=VARCHAR}, #{subMilestoneFrom,jdbcType=INTEGER}, #{subMilestoneTo,jdbcType=INTEGER},
-      #{subMilestoneReport,jdbcType=VARCHAR}, #{subMilestoneMonitor,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.ActSubMilestone">
-    insert into act_sub_milestone
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="subMilestoneId != null">
-        sub_milestone_id,
-      </if>
-      <if test="actSubId != null">
-        act_sub_id,
-      </if>
-      <if test="subMilestoneName != null">
-        sub_milestone_name,
-      </if>
-      <if test="subMilestoneMemo != null">
-        sub_milestone_memo,
-      </if>
-      <if test="subMilestoneFrom != null">
-        sub_milestone_from,
-      </if>
-      <if test="subMilestoneTo != null">
-        sub_milestone_to,
-      </if>
-      <if test="subMilestoneReport != null">
-        sub_milestone_report,
-      </if>
-      <if test="subMilestoneMonitor != null">
-        sub_milestone_monitor,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="subMilestoneId != null">
-        #{subMilestoneId,jdbcType=INTEGER},
-      </if>
-      <if test="actSubId != null">
-        #{actSubId,jdbcType=INTEGER},
-      </if>
-      <if test="subMilestoneName != null">
-        #{subMilestoneName,jdbcType=VARCHAR},
-      </if>
-      <if test="subMilestoneMemo != null">
-        #{subMilestoneMemo,jdbcType=VARCHAR},
-      </if>
-      <if test="subMilestoneFrom != null">
-        #{subMilestoneFrom,jdbcType=INTEGER},
-      </if>
-      <if test="subMilestoneTo != null">
-        #{subMilestoneTo,jdbcType=INTEGER},
-      </if>
-      <if test="subMilestoneReport != null">
-        #{subMilestoneReport,jdbcType=VARCHAR},
-      </if>
-      <if test="subMilestoneMonitor != null">
-        #{subMilestoneMonitor,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.ActSubMilestone">
-    update act_sub_milestone
-    <set>
-      <if test="actSubId != null">
-        act_sub_id = #{actSubId,jdbcType=INTEGER},
-      </if>
-      <if test="subMilestoneName != null">
-        sub_milestone_name = #{subMilestoneName,jdbcType=VARCHAR},
-      </if>
-      <if test="subMilestoneMemo != null">
-        sub_milestone_memo = #{subMilestoneMemo,jdbcType=VARCHAR},
-      </if>
-      <if test="subMilestoneFrom != null">
-        sub_milestone_from = #{subMilestoneFrom,jdbcType=INTEGER},
-      </if>
-      <if test="subMilestoneTo != null">
-        sub_milestone_to = #{subMilestoneTo,jdbcType=INTEGER},
-      </if>
-      <if test="subMilestoneReport != null">
-        sub_milestone_report = #{subMilestoneReport,jdbcType=VARCHAR},
-      </if>
-      <if test="subMilestoneMonitor != null">
-        sub_milestone_monitor = #{subMilestoneMonitor,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where sub_milestone_id = #{subMilestoneId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.ActSubMilestone">
-    update act_sub_milestone
-    set act_sub_id = #{actSubId,jdbcType=INTEGER},
-      sub_milestone_name = #{subMilestoneName,jdbcType=VARCHAR},
-      sub_milestone_memo = #{subMilestoneMemo,jdbcType=VARCHAR},
-      sub_milestone_from = #{subMilestoneFrom,jdbcType=INTEGER},
-      sub_milestone_to = #{subMilestoneTo,jdbcType=INTEGER},
-      sub_milestone_report = #{subMilestoneReport,jdbcType=VARCHAR},
-      sub_milestone_monitor = #{subMilestoneMonitor,jdbcType=VARCHAR}
-    where sub_milestone_id = #{subMilestoneId,jdbcType=INTEGER}
-  </update>
+        delete
+        from act_sub_milestone
+        where sub_milestone_id = #{subMilestoneId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.graduate.engine.model.ActSubMilestone">
+        insert into act_sub_milestone (sub_milestone_id,
+                                       act_sub_id,
+                                       sub_milestone_name,
+                                       sub_milestone_memo,
+                                       sub_milestone_from,
+                                       sub_milestone_to,
+                                       sub_milestone_report,
+                                       sub_milestone_monitor)
+        values (#{subMilestoneId,jdbcType=INTEGER},
+                #{actSubId,jdbcType=INTEGER},
+                #{subMilestoneName,jdbcType=VARCHAR},
+                #{subMilestoneMemo,jdbcType=VARCHAR},
+                #{subMilestoneFrom,jdbcType=INTEGER},
+                #{subMilestoneTo,jdbcType=INTEGER},
+                #{subMilestoneReport,jdbcType=VARCHAR},
+                #{subMilestoneMonitor,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.graduate.engine.model.ActSubMilestone">
+        insert into act_sub_milestone
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="subMilestoneId != null">
+                sub_milestone_id,
+            </if>
+            <if test="actSubId != null">
+                act_sub_id,
+            </if>
+            <if test="subMilestoneName != null">
+                sub_milestone_name,
+            </if>
+            <if test="subMilestoneMemo != null">
+                sub_milestone_memo,
+            </if>
+            <if test="subMilestoneFrom != null">
+                sub_milestone_from,
+            </if>
+            <if test="subMilestoneTo != null">
+                sub_milestone_to,
+            </if>
+            <if test="subMilestoneReport != null">
+                sub_milestone_report,
+            </if>
+            <if test="subMilestoneMonitor != null">
+                sub_milestone_monitor,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="subMilestoneId != null">
+                #{subMilestoneId,jdbcType=INTEGER},
+            </if>
+            <if test="actSubId != null">
+                #{actSubId,jdbcType=INTEGER},
+            </if>
+            <if test="subMilestoneName != null">
+                #{subMilestoneName,jdbcType=VARCHAR},
+            </if>
+            <if test="subMilestoneMemo != null">
+                #{subMilestoneMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="subMilestoneFrom != null">
+                #{subMilestoneFrom,jdbcType=INTEGER},
+            </if>
+            <if test="subMilestoneTo != null">
+                #{subMilestoneTo,jdbcType=INTEGER},
+            </if>
+            <if test="subMilestoneReport != null">
+                #{subMilestoneReport,jdbcType=VARCHAR},
+            </if>
+            <if test="subMilestoneMonitor != null">
+                #{subMilestoneMonitor,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.ActSubMilestone">
+        update act_sub_milestone
+        <set>
+            <if test="actSubId != null">
+                act_sub_id = #{actSubId,jdbcType=INTEGER},
+            </if>
+            <if test="subMilestoneName != null">
+                sub_milestone_name = #{subMilestoneName,jdbcType=VARCHAR},
+            </if>
+            <if test="subMilestoneMemo != null">
+                sub_milestone_memo = #{subMilestoneMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="subMilestoneFrom != null">
+                sub_milestone_from = #{subMilestoneFrom,jdbcType=INTEGER},
+            </if>
+            <if test="subMilestoneTo != null">
+                sub_milestone_to = #{subMilestoneTo,jdbcType=INTEGER},
+            </if>
+            <if test="subMilestoneReport != null">
+                sub_milestone_report = #{subMilestoneReport,jdbcType=VARCHAR},
+            </if>
+            <if test="subMilestoneMonitor != null">
+                sub_milestone_monitor = #{subMilestoneMonitor,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sub_milestone_id = #{subMilestoneId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.ActSubMilestone">
+        update act_sub_milestone
+        set act_sub_id            = #{actSubId,jdbcType=INTEGER},
+            sub_milestone_name    = #{subMilestoneName,jdbcType=VARCHAR},
+            sub_milestone_memo    = #{subMilestoneMemo,jdbcType=VARCHAR},
+            sub_milestone_from    = #{subMilestoneFrom,jdbcType=INTEGER},
+            sub_milestone_to      = #{subMilestoneTo,jdbcType=INTEGER},
+            sub_milestone_report  = #{subMilestoneReport,jdbcType=VARCHAR},
+            sub_milestone_monitor = #{subMilestoneMonitor,jdbcType=VARCHAR}
+        where sub_milestone_id = #{subMilestoneId,jdbcType=INTEGER}
+    </update>
 </mapper>

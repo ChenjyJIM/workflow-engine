@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Menu", description="菜单")
+@ApiModel(value = "Menu", description = "菜单")
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -25,7 +25,7 @@ public class Menu implements Serializable {
 
     private Long parentId;
 
-    @TableField(exist=false)
+    @TableField(exist = false)
     @ApiModelProperty(value = "父菜单名称")
     private String parentName;
 

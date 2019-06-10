@@ -1,7 +1,6 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.ActivitySub;
-import com.graduate.engine.model.viewobject.ActivityVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

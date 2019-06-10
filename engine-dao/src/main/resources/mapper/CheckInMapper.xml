@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.graduate.engine.mapper.CheckInMapper">
+    <select id="getBySignId" resultType="com.graduate.engine.model.CheckIn">
+        select *
+        from sign_up
+        where sign_id = #{signId}
+    </select>
+</mapper>

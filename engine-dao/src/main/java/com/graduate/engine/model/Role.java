@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Role", description="角色表")
+@ApiModel(value = "Role", description = "角色表")
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class Role implements Serializable {
     private Long roleId;
 
     @ApiModelProperty(value = "角色名称")
-    @NotBlank(message="角色名称不能为空")
+    @NotBlank(message = "角色名称不能为空")
     private String roleName;
 
     private String memo;
@@ -35,13 +35,13 @@ public class Role implements Serializable {
 
     private Date createTime;
 
-    @TableField(exist=false)
+    @TableField(exist = false)
     private List<Long> menuId;
 
     /**
      * 将时间转换为String类型，方便前端显示
      */
-    @TableField(exist=false)
+    @TableField(exist = false)
     private String formatTime;
 
     private Boolean stop;

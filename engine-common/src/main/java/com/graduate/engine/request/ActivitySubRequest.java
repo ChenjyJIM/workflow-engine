@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 新增子活动请求模板
+ *
  * @author jimmy
  */
 @Data

@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 /**
  * 学会或分会 企业理事（负责人）信息
+ *
  * @author jimmy
  */
 @Data

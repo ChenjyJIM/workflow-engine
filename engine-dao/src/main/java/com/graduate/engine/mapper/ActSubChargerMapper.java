@@ -21,6 +21,7 @@ public interface ActSubChargerMapper {
 
     /**
      * 获取到该子活动的核心负责人
+     *
      * @param actSubId
      * @return
      */
@@ -28,6 +29,7 @@ public interface ActSubChargerMapper {
 
     /**
      * 获取到该子活动所有负责人
+     *
      * @param actSubId
      * @return
      */

@@ -16,6 +16,8 @@
         </foreach>
     </select>
     <select id="selectByPersonId" resultType="com.graduate.engine.model.PersonRoleMapper">
-        select * from person_role_mapper where person_id = #{personId}
+        select *
+        from person_role_mapper
+        where person_id = #{personId}
     </select>
 </mapper>

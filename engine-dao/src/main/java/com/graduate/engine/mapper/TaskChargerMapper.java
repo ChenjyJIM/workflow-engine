@@ -22,6 +22,7 @@ public interface TaskChargerMapper {
 
     /**
      * 根据任务id获取到主要任务负责人
+     *
      * @param taskId
      * @return
      */
@@ -29,6 +30,7 @@ public interface TaskChargerMapper {
 
     /**
      * 根据负责人id查询出所有负责的任务
+     *
      * @param query
      * @return
      */

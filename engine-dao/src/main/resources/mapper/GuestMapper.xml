@@ -1,158 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.GuestMapper">
-  <resultMap id="BaseResultMap" type="com.graduate.engine.model.Guest">
-    <id column="guest_id" jdbcType="INTEGER" property="guestId" />
-    <result column="guest_name" jdbcType="VARCHAR" property="guestName" />
-    <result column="guest_sex" jdbcType="VARCHAR" property="guestSex" />
-    <result column="guest_email" jdbcType="VARCHAR" property="guestEmail" />
-    <result column="guest_phone" jdbcType="VARCHAR" property="guestPhone" />
-    <result column="last_login" jdbcType="INTEGER" property="lastLogin" />
-    <result column="expire_period" jdbcType="INTEGER" property="expirePeriod" />
-    <result column="register_date" jdbcType="INTEGER" property="registerDate" />
-    <result column="memo" jdbcType="VARCHAR" property="memo" />
-    <result column="stop" jdbcType="BIT" property="stop" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    guest_id, guest_name, guest_sex, guest_email, guest_phone, last_login, expire_period,
-    register_date, memo, stop
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from guest
-    where guest_id = #{guestId,jdbcType=INTEGER}
-    and `stop` = 0
-  </select>
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.Guest">
+        <id column="guest_id" jdbcType="INTEGER" property="guestId"/>
+        <result column="guest_name" jdbcType="VARCHAR" property="guestName"/>
+        <result column="guest_sex" jdbcType="VARCHAR" property="guestSex"/>
+        <result column="guest_email" jdbcType="VARCHAR" property="guestEmail"/>
+        <result column="guest_phone" jdbcType="VARCHAR" property="guestPhone"/>
+        <result column="last_login" jdbcType="INTEGER" property="lastLogin"/>
+        <result column="expire_period" jdbcType="INTEGER" property="expirePeriod"/>
+        <result column="register_date" jdbcType="INTEGER" property="registerDate"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="stop" jdbcType="BIT" property="stop"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        guest_id, guest_name, guest_sex, guest_email, guest_phone, last_login, expire_period,
+        register_date, memo, stop
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from guest
+        where guest_id = #{guestId,jdbcType=INTEGER}
+        and `stop` = 0
+    </select>
     <select id="selectByGuestName" parameterType="java.lang.String" resultMap="BaseResultMap">
-      select
-      <include refid="Base_Column_List" />
-      from guest
-      where guest_name = #{guestName,jdbcType=VARCHAR}
-      and `stop` = 0
+        select
+        <include refid="Base_Column_List"/>
+        from guest
+        where guest_name = #{guestName,jdbcType=VARCHAR}
+        and `stop` = 0
     </select>
 
-  <insert id="insert" parameterType="com.graduate.engine.model.Guest">
-    insert into guest (guest_id, guest_name, guest_sex,
-      guest_email, guest_phone, last_login,
-      expire_period, register_date, memo,
-      stop)
-    values (#{guestId,jdbcType=INTEGER}, #{guestName,jdbcType=VARCHAR}, #{guestSex,jdbcType=VARCHAR},
-      #{guestEmail,jdbcType=VARCHAR}, #{guestPhone,jdbcType=VARCHAR}, #{lastLogin,jdbcType=INTEGER},
-      #{expirePeriod,jdbcType=INTEGER}, #{registerDate,jdbcType=INTEGER}, #{memo,jdbcType=VARCHAR},
-      #{stop,jdbcType=BIT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.Guest">
-    insert into guest
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="guestId != null">
-        guest_id,
-      </if>
-      <if test="guestName != null">
-        guest_name,
-      </if>
-      <if test="guestSex != null">
-        guest_sex,
-      </if>
-      <if test="guestEmail != null">
-        guest_email,
-      </if>
-      <if test="guestPhone != null">
-        guest_phone,
-      </if>
-      <if test="lastLogin != null">
-        last_login,
-      </if>
-      <if test="expirePeriod != null">
-        expire_period,
-      </if>
-      <if test="registerDate != null">
-        register_date,
-      </if>
-      <if test="memo != null">
-        memo,
-      </if>
-      <if test="stop != null">
-        stop,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="guestId != null">
-        #{guestId,jdbcType=INTEGER},
-      </if>
-      <if test="guestName != null">
-        #{guestName,jdbcType=VARCHAR},
-      </if>
-      <if test="guestSex != null">
-        #{guestSex,jdbcType=VARCHAR},
-      </if>
-      <if test="guestEmail != null">
-        #{guestEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="guestPhone != null">
-        #{guestPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="lastLogin != null">
-        #{lastLogin,jdbcType=INTEGER},
-      </if>
-      <if test="expirePeriod != null">
-        #{expirePeriod,jdbcType=INTEGER},
-      </if>
-      <if test="registerDate != null">
-        #{registerDate,jdbcType=INTEGER},
-      </if>
-      <if test="memo != null">
-        #{memo,jdbcType=VARCHAR},
-      </if>
-      <if test="stop != null">
-        #{stop,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.Guest">
-    update guest
-    <set>
-      <if test="guestName != null">
-        guest_name = #{guestName,jdbcType=VARCHAR},
-      </if>
-      <if test="guestSex != null">
-        guest_sex = #{guestSex,jdbcType=VARCHAR},
-      </if>
-      <if test="guestEmail != null">
-        guest_email = #{guestEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="guestPhone != null">
-        guest_phone = #{guestPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="lastLogin != null">
-        last_login = #{lastLogin,jdbcType=INTEGER},
-      </if>
-      <if test="expirePeriod != null">
-        expire_period = #{expirePeriod,jdbcType=INTEGER},
-      </if>
-      <if test="registerDate != null">
-        register_date = #{registerDate,jdbcType=INTEGER},
-      </if>
-      <if test="memo != null">
-        memo = #{memo,jdbcType=VARCHAR},
-      </if>
-      <if test="stop != null">
-        stop = #{stop,jdbcType=BIT},
-      </if>
-    </set>
-    where guest_id = #{guestId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.Guest">
-    update guest
-    set guest_name = #{guestName,jdbcType=VARCHAR},
-      guest_sex = #{guestSex,jdbcType=VARCHAR},
-      guest_email = #{guestEmail,jdbcType=VARCHAR},
-      guest_phone = #{guestPhone,jdbcType=VARCHAR},
-      last_login = #{lastLogin,jdbcType=INTEGER},
-      expire_period = #{expirePeriod,jdbcType=INTEGER},
-      register_date = #{registerDate,jdbcType=INTEGER},
-      memo = #{memo,jdbcType=VARCHAR},
-      stop = #{stop,jdbcType=BIT}
-    where guest_id = #{guestId,jdbcType=INTEGER}
-  </update>
+    <insert id="insert" parameterType="com.graduate.engine.model.Guest">
+        insert into guest (guest_id,
+                           guest_name,
+                           guest_sex,
+                           guest_email,
+                           guest_phone,
+                           last_login,
+                           expire_period,
+                           register_date,
+                           memo,
+                           stop)
+        values (#{guestId,jdbcType=INTEGER},
+                #{guestName,jdbcType=VARCHAR},
+                #{guestSex,jdbcType=VARCHAR},
+                #{guestEmail,jdbcType=VARCHAR},
+                #{guestPhone,jdbcType=VARCHAR},
+                #{lastLogin,jdbcType=INTEGER},
+                #{expirePeriod,jdbcType=INTEGER},
+                #{registerDate,jdbcType=INTEGER},
+                #{memo,jdbcType=VARCHAR},
+                #{stop,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.graduate.engine.model.Guest">
+        insert into guest
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="guestId != null">
+                guest_id,
+            </if>
+            <if test="guestName != null">
+                guest_name,
+            </if>
+            <if test="guestSex != null">
+                guest_sex,
+            </if>
+            <if test="guestEmail != null">
+                guest_email,
+            </if>
+            <if test="guestPhone != null">
+                guest_phone,
+            </if>
+            <if test="lastLogin != null">
+                last_login,
+            </if>
+            <if test="expirePeriod != null">
+                expire_period,
+            </if>
+            <if test="registerDate != null">
+                register_date,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="stop != null">
+                stop,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="guestId != null">
+                #{guestId,jdbcType=INTEGER},
+            </if>
+            <if test="guestName != null">
+                #{guestName,jdbcType=VARCHAR},
+            </if>
+            <if test="guestSex != null">
+                #{guestSex,jdbcType=VARCHAR},
+            </if>
+            <if test="guestEmail != null">
+                #{guestEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="guestPhone != null">
+                #{guestPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLogin != null">
+                #{lastLogin,jdbcType=INTEGER},
+            </if>
+            <if test="expirePeriod != null">
+                #{expirePeriod,jdbcType=INTEGER},
+            </if>
+            <if test="registerDate != null">
+                #{registerDate,jdbcType=INTEGER},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="stop != null">
+                #{stop,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.Guest">
+        update guest
+        <set>
+            <if test="guestName != null">
+                guest_name = #{guestName,jdbcType=VARCHAR},
+            </if>
+            <if test="guestSex != null">
+                guest_sex = #{guestSex,jdbcType=VARCHAR},
+            </if>
+            <if test="guestEmail != null">
+                guest_email = #{guestEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="guestPhone != null">
+                guest_phone = #{guestPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLogin != null">
+                last_login = #{lastLogin,jdbcType=INTEGER},
+            </if>
+            <if test="expirePeriod != null">
+                expire_period = #{expirePeriod,jdbcType=INTEGER},
+            </if>
+            <if test="registerDate != null">
+                register_date = #{registerDate,jdbcType=INTEGER},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="stop != null">
+                stop = #{stop,jdbcType=BIT},
+            </if>
+        </set>
+        where guest_id = #{guestId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.Guest">
+        update guest
+        set guest_name    = #{guestName,jdbcType=VARCHAR},
+            guest_sex     = #{guestSex,jdbcType=VARCHAR},
+            guest_email   = #{guestEmail,jdbcType=VARCHAR},
+            guest_phone   = #{guestPhone,jdbcType=VARCHAR},
+            last_login    = #{lastLogin,jdbcType=INTEGER},
+            expire_period = #{expirePeriod,jdbcType=INTEGER},
+            register_date = #{registerDate,jdbcType=INTEGER},
+            memo          = #{memo,jdbcType=VARCHAR},
+            stop          = #{stop,jdbcType=BIT}
+        where guest_id = #{guestId,jdbcType=INTEGER}
+    </update>
 </mapper>

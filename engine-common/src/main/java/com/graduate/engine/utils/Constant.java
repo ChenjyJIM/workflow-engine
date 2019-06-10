@@ -7,7 +7,7 @@ public class Constant {
     /**
      * 管理员
      */
-    public static final int SUPER_ADMIN =1;
+    public static final int SUPER_ADMIN = 1;
     /**
      * 临时用户角色ID
      */
@@ -24,6 +24,26 @@ public class Constant {
      * 会员编号字首
      */
     public static final Integer MEMBER_ID_PREFIX = 201900000;
+    /**
+     * 当前页码
+     */
+    public static final String PAGE = "page";
+    /**
+     * 每页显示记录数
+     */
+    public static final String LIMIT = "limit";
+    /**
+     * 排序字段
+     */
+    public static final String ORDER_FIELD = "sidx";
+    /**
+     * 排序方式
+     */
+    public static final String ORDER = "order";
+    /**
+     * 升序
+     */
+    public static final String ASC = "asc";
     /**
      * 菜单类型
      */
@@ -47,24 +67,4 @@ public class Constant {
             return value;
         }
     }
-    /**
-     * 当前页码
-     */
-    public static final String PAGE = "page";
-    /**
-     * 每页显示记录数
-     */
-    public static final String LIMIT = "limit";
-    /**
-     * 排序字段
-     */
-    public static final String ORDER_FIELD = "sidx";
-    /**
-     * 排序方式
-     */
-    public static final String ORDER = "order";
-    /**
-     *  升序
-     */
-    public static final String ASC = "asc";
 }

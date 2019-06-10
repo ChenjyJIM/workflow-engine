@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.graduate.engine.model.Industry;
 import com.graduate.engine.model.Institute;
 import com.graduate.engine.model.Union;
-import com.graduate.engine.model.UnionInstMapper;
 import com.graduate.engine.request.UnionRequest;
 import com.graduate.engine.response.ResponseResult;
 import com.graduate.engine.service.IndustryService;
@@ -41,7 +40,7 @@ public class SocietyController {
 
     @ApiOperation("新增学联体")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "union",value = "学联体信息",required = true,dataType = "Union")
+            @ApiImplicitParam(name = "union", value = "学联体信息", required = true, dataType = "Union")
     })
     @PostMapping("/unions")
     public ResponseResult addUnion(@RequestBody Union union) throws ParseException {
@@ -56,14 +55,14 @@ public class SocietyController {
 
     @ApiOperation("更新学联体")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "union",value = "学联体信息",required = true,dataType = "Union")
+            @ApiImplicitParam(name = "union", value = "学联体信息", required = true, dataType = "Union")
     })
     @PutMapping("/unions")
     public ResponseResult updateUnion(@RequestBody Union union) throws ParseException {
         ValidatorUtils.validateEntity(union, UpdateGroup.class);
 
         union.setUnionRegisterDate(DateUtils.getTimeStampByUTC(union.getRegisterTime()));
-        if (unionService.updateById(union)){
+        if (unionService.updateById(union)) {
             return ResponseResult.buildSuccess("修改成功！");
         }
         return ResponseResult.buildError("修改失败！");
@@ -85,14 +84,14 @@ public class SocietyController {
     public ResponseResult unionList() {
         List<Union> list = unionService.getUnionList();
         for (Union union : list) {
-            union.setRegisterTime(DateUtils.getDateStrByTimestamp(union.getUnionRegisterDate(),"yyyy-MM-dd"));
+            union.setRegisterTime(DateUtils.getDateStrByTimestamp(union.getUnionRegisterDate(), "yyyy-MM-dd"));
         }
         return ResponseResult.buildSuccess(list);
     }
 
     @ApiOperation("停用学联体")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "unionId",value = "学联体id",required = true,dataType = "String")
+            @ApiImplicitParam(name = "unionId", value = "学联体id", required = true, dataType = "String")
     })
     @DeleteMapping("/unions/{unionId}")
     public ResponseResult stopUnion(@PathVariable String unionId) {
@@ -123,14 +122,14 @@ public class SocietyController {
             instituteList = unionService.getInstList(unionId);
             list.forEach(item -> {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("instId",item.getInstId());
-                jsonObject.put("instName",item.getInstName());
+                jsonObject.put("instId", item.getInstId());
+                jsonObject.put("instName", item.getInstName());
                 for (Institute institute : instituteList) {
-                    if (item.getInstName().equals(institute.getInstName())){
-                        jsonObject.put("isInclude",true);
+                    if (item.getInstName().equals(institute.getInstName())) {
+                        jsonObject.put("isInclude", true);
                         break;
                     } else {
-                        jsonObject.put("isInclude",false);
+                        jsonObject.put("isInclude", false);
                     }
                 }
                 jsonArray.add(jsonObject);
@@ -139,39 +138,39 @@ public class SocietyController {
         } catch (RuntimeException e) {
             list.forEach(item -> {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("instId",item.getInstId());
-                jsonObject.put("instName",item.getInstName());
-                jsonObject.put("isInclude",false);
+                jsonObject.put("instId", item.getInstId());
+                jsonObject.put("instName", item.getInstName());
+                jsonObject.put("isInclude", false);
                 jsonArray.add(jsonObject);
             });
         }
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("instList",jsonArray);
-        jsonObject.put("unionInstGroup",unionInstGroup);
+        jsonObject.put("instList", jsonArray);
+        jsonObject.put("unionInstGroup", unionInstGroup);
         return ResponseResult.buildSuccess(jsonObject);
     }
 
     @ApiOperation("学联体添加学会")
     @PostMapping("/unions/institutes")
     public ResponseResult instAddInUnion(@RequestBody UnionRequest unionInst) {
-        unionInstMapperService.saveOrUpdate(unionInst.getUnionId(),unionInst.getInitId());
+        unionInstMapperService.saveOrUpdate(unionInst.getUnionId(), unionInst.getInitId());
         return ResponseResult.buildSuccess("添加成功");
     }
 
     @ApiOperation("学联体移除学会")
     @DeleteMapping("/unions/institutes/{unionId}/{instId}")
-    public ResponseResult instRemoveUnion(@PathVariable Long unionId,@PathVariable Long instId) {
-        unionInstMapperService.stopByUnionIdInstId(unionId,instId);
+    public ResponseResult instRemoveUnion(@PathVariable Long unionId, @PathVariable Long instId) {
+        unionInstMapperService.stopByUnionIdInstId(unionId, instId);
         return ResponseResult.buildSuccess("移除成功");
     }
 
     @ApiOperation("新增学会行业分类")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "industry",value = "学会行业信息",required = true,dataType = "Industry")
+            @ApiImplicitParam(name = "industry", value = "学会行业信息", required = true, dataType = "Industry")
     })
     @PostMapping("/industries")
-    public ResponseResult addIndustry(@RequestBody Industry industry){
-        ValidatorUtils.validateEntity(industry,AddGroup.class);
+    public ResponseResult addIndustry(@RequestBody Industry industry) {
+        ValidatorUtils.validateEntity(industry, AddGroup.class);
 
         if (industryService.save(industry)) {
             return ResponseResult.buildSuccess("添加成功！");
@@ -181,11 +180,11 @@ public class SocietyController {
 
     @ApiOperation("更新学会行业分类")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "industry",value = "学会行业信息",required = true,dataType = "Industry")
+            @ApiImplicitParam(name = "industry", value = "学会行业信息", required = true, dataType = "Industry")
     })
     @PutMapping("/industries")
-    public ResponseResult updateIndustry(@RequestBody Industry industry){
-        ValidatorUtils.validateEntity(industry,UpdateGroup.class);
+    public ResponseResult updateIndustry(@RequestBody Industry industry) {
+        ValidatorUtils.validateEntity(industry, UpdateGroup.class);
 
         if (industryService.updateById(industry)) {
             return ResponseResult.buildSuccess("更新成功！");
@@ -195,10 +194,10 @@ public class SocietyController {
 
     @ApiOperation("停用学会行业分类")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "industryId",value = "学会行业代号",required = true,dataType = "String")
+            @ApiImplicitParam(name = "industryId", value = "学会行业代号", required = true, dataType = "String")
     })
     @DeleteMapping("/industries/{industryId}")
-    public ResponseResult updateIndustry(@PathVariable String industryId){
+    public ResponseResult updateIndustry(@PathVariable String industryId) {
         industryService.stopByPrimaryKey(industryId);
         return ResponseResult.buildSuccess("学会行业停用成功！");
     }
@@ -212,11 +211,11 @@ public class SocietyController {
 
     @ApiOperation("新增学会")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "institute",value = "学会信息",required = true,dataType = "Institute")
+            @ApiImplicitParam(name = "institute", value = "学会信息", required = true, dataType = "Institute")
     })
     @PostMapping("/institutes")
     public ResponseResult addInstitute(@RequestBody Institute institute) {
-        ValidatorUtils.validateEntity(institute,AddGroup.class);
+        ValidatorUtils.validateEntity(institute, AddGroup.class);
 
         if (instituteService.save(institute)) {
             return ResponseResult.buildSuccess("添加成功！");
@@ -226,11 +225,11 @@ public class SocietyController {
 
     @ApiOperation("更新学会")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "institute",value = "学会信息",required = true,dataType = "Institute")
+            @ApiImplicitParam(name = "institute", value = "学会信息", required = true, dataType = "Institute")
     })
     @PutMapping("/institutes")
     public ResponseResult updateInstitute(@RequestBody Institute institute) {
-        ValidatorUtils.validateEntity(institute,UpdateGroup.class);
+        ValidatorUtils.validateEntity(institute, UpdateGroup.class);
 
         if (instituteService.updateById(institute)) {
             return ResponseResult.buildSuccess("更新成功！");
@@ -245,8 +244,8 @@ public class SocietyController {
         JSONArray jsonArray = new JSONArray();
         for (Institute institute : list) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("instId",institute.getInstId().toString());
-            jsonObject.put("instName",institute.getInstName());
+            jsonObject.put("instId", institute.getInstId().toString());
+            jsonObject.put("instName", institute.getInstName());
             jsonArray.add(jsonObject);
         }
         return ResponseResult.buildSuccess(jsonArray);
@@ -261,7 +260,7 @@ public class SocietyController {
 
     @ApiOperation("获取学会信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "instId",value = "学会id",required = true,dataType = "Long")
+            @ApiImplicitParam(name = "instId", value = "学会id", required = true, dataType = "Long")
     })
     @GetMapping("/institutes/{instId}")
     public ResponseResult instituteInfo(@PathVariable Long instId) {
@@ -271,7 +270,7 @@ public class SocietyController {
 
     @ApiOperation("停用学会")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "instId",value = "学会id",required = true,dataType = "String")
+            @ApiImplicitParam(name = "instId", value = "学会id", required = true, dataType = "String")
     })
     @DeleteMapping("/institutes/{instId}")
     public ResponseResult stopInstitute(@PathVariable String instId) {

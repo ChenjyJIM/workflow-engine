@@ -88,7 +88,7 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
     public List<InstSubsVo> getSimpleSubsByInstId(Long instId) {
         List<InstSubsVo> results = new ArrayList<>();
         List<InstituteSub> instituteSubs = instituteSubMapper.getInstSubsByInstId(instId);
-        instituteSubs.forEach( instituteSub -> {
+        instituteSubs.forEach(instituteSub -> {
             InstSubsVo instSubsVo = BeanUtils.copyBean(instituteSub, InstSubsVo.class);
             InstSubPeriod currentPeriod = instSubPeriodMapper.getCurrentPeriod(instituteSub.getInstSubId());
             instSubsVo.setInstSubPeriodFrom(DateUtils.getDateStrByTimestamp(currentPeriod.getInstSubPeriodFrom()).substring(0, 10));
@@ -171,7 +171,7 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
     public InstituteVo getInstituteByInstId(Long instId) {
         Institute institute = instituteMapper.selectByPrimaryKey(instId);
         InstituteVo result = BeanUtils.copyBean(institute, InstituteVo.class);
-        result.setCurrentPeriod("第"+instPeriodMapper.getCurrentPeriod(instId).getInstPeriodNo()+"届");
+        result.setCurrentPeriod("第" + instPeriodMapper.getCurrentPeriod(instId).getInstPeriodNo() + "届");
         result.setIndustryName(industryMapper.selectByPrimaryKey(result.getIndustryId()).getIndusName());
         result.setMemberCount(personMemberMapper.countByInstId(instId));
         result.setCompCount(companyMemberMapper.countByInstId(instId));
@@ -183,7 +183,7 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
         InfoListVo results = new InfoListVo();
         List<SelectList> subList = new ArrayList<>();
         List<InstSubsVo> subsVos = getSimpleSubsByInstId(instId);
-        subsVos.forEach( sub -> {
+        subsVos.forEach(sub -> {
             SelectList selectList = new SelectList();
             selectList.setId(sub.getInstSubId());
             selectList.setValue(sub.getInstSubName());
@@ -195,7 +195,7 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
 
         List<SelectList> memberList = new ArrayList<>();
         List<PersonMember> members = personMemberMapper.getByInstId(instId);
-        members.forEach( member -> {
+        members.forEach(member -> {
             SelectList selectList = new SelectList();
             selectList.setId(member.getPersonId());
             selectList.setLabel(member.getName());
@@ -208,7 +208,7 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
 
         List<SelectList> compList = new ArrayList<>();
         List<CompanyMember> comps = companyMemberMapper.getByInstId(instId);
-        comps.forEach( comp -> {
+        comps.forEach(comp -> {
             SelectList selectList = new SelectList();
             selectList.setId(comp.getCompId());
             selectList.setLabel(comp.getCompName());

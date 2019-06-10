@@ -1,7 +1,6 @@
 package com.graduate.engine.mapper;
 
 import com.graduate.engine.model.InstPeriodComp;
-import com.graduate.engine.model.InstPeriodPerson;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -51,7 +51,8 @@ public class MilestoneServiceImpl implements MilestoneService {
                 actSubMilestone.setSubMilestoneMemo(request.getMilestoneMemo());
                 actSubMilestone.setSubMilestoneName(request.getMilestoneName());
                 return 1 == actSubMilestoneMapper.insertSelective(actSubMilestone);
-            default: return false;
+            default:
+                return false;
         }
     }
 
@@ -84,7 +85,8 @@ public class MilestoneServiceImpl implements MilestoneService {
                 actSubMilestone.setSubMilestoneReport(request.getMilestoneReport());
                 actSubMilestone.setSubMilestoneMonitor(request.getMilestoneMonitor());
                 return 1 == actSubMilestoneMapper.updateByPrimaryKeySelective(actSubMilestone);
-            default: return false;
+            default:
+                return false;
         }
     }
 

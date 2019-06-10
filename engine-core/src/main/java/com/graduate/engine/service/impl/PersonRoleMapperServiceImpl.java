@@ -44,7 +44,7 @@ public class PersonRoleMapperServiceImpl extends ServiceImpl<PersonRoleMapperMap
         //如果角色没变无操作，角色改变则删除原记录，并添加新记录
         if (!roleId.equals(personRole.getRoleId())) {
             personRoleMapperMapper.deleteById(personRole.getPersonRoleId());
-            addUserRole(loginId,roleId);
+            addUserRole(loginId, roleId);
         }
     }
 

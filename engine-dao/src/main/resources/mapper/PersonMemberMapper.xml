@@ -1,299 +1,327 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduate.engine.mapper.PersonMemberMapper">
-  <resultMap id="BaseResultMap" type="com.graduate.engine.model.PersonMember">
-    <id column="person_id" jdbcType="INTEGER" property="personId" />
-    <result column="inst_id" jdbcType="INTEGER" property="instId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="birthday" jdbcType="INTEGER" property="birthday" />
-    <result column="ethnic" jdbcType="VARCHAR" property="ethnic" />
-    <result column="partisan" jdbcType="VARCHAR" property="partisan" />
-    <result column="mail" jdbcType="VARCHAR" property="mail" />
-    <result column="phone1" jdbcType="VARCHAR" property="phone1" />
-    <result column="phone2" jdbcType="VARCHAR" property="phone2" />
-    <result column="qq" jdbcType="VARCHAR" property="qq" />
-    <result column="wechat" jdbcType="VARCHAR" property="wechat" />
-    <result column="others" jdbcType="VARCHAR" property="others" />
-    <result column="person_public_duty" jdbcType="VARCHAR" property="personPublicDuty" />
-    <result column="person_awards" jdbcType="VARCHAR" property="personAwards" />
-    <result column="education_id" jdbcType="INTEGER" property="educationId" />
-    <result column="person_member_id" jdbcType="INTEGER" property="personMemberId" />
-    <result column="person_member_date" jdbcType="INTEGER" property="personMemberDate" />
-    <result column="memo" jdbcType="VARCHAR" property="memo" />
-    <result column="stop" jdbcType="BIT" property="stop" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    person_id, inst_id, name, sex, birthday, ethnic, partisan, mail, phone1, phone2,
-    qq, wechat, others, person_public_duty, person_awards, education_id, person_member_id,
-    person_member_date, memo, stop
-  </sql>
+    <resultMap id="BaseResultMap" type="com.graduate.engine.model.PersonMember">
+        <id column="person_id" jdbcType="INTEGER" property="personId"/>
+        <result column="inst_id" jdbcType="INTEGER" property="instId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        <result column="birthday" jdbcType="INTEGER" property="birthday"/>
+        <result column="ethnic" jdbcType="VARCHAR" property="ethnic"/>
+        <result column="partisan" jdbcType="VARCHAR" property="partisan"/>
+        <result column="mail" jdbcType="VARCHAR" property="mail"/>
+        <result column="phone1" jdbcType="VARCHAR" property="phone1"/>
+        <result column="phone2" jdbcType="VARCHAR" property="phone2"/>
+        <result column="qq" jdbcType="VARCHAR" property="qq"/>
+        <result column="wechat" jdbcType="VARCHAR" property="wechat"/>
+        <result column="others" jdbcType="VARCHAR" property="others"/>
+        <result column="person_public_duty" jdbcType="VARCHAR" property="personPublicDuty"/>
+        <result column="person_awards" jdbcType="VARCHAR" property="personAwards"/>
+        <result column="education_id" jdbcType="INTEGER" property="educationId"/>
+        <result column="person_member_id" jdbcType="INTEGER" property="personMemberId"/>
+        <result column="person_member_date" jdbcType="INTEGER" property="personMemberDate"/>
+        <result column="memo" jdbcType="VARCHAR" property="memo"/>
+        <result column="stop" jdbcType="BIT" property="stop"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        person_id, inst_id, name, sex, birthday, ethnic, partisan, mail, phone1, phone2,
+        qq, wechat, others, person_public_duty, person_awards, education_id, person_member_id,
+        person_member_date, memo, stop
+    </sql>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from person_member
-    where person_id = #{personId,jdbcType=INTEGER} and `stop` = 0
-  </select>
-
-  <select id="selectByPersonMemberID" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from person_member
-    where person_member_id = #{personMemberId,jdbcType=INTEGER} and `stop` = 0
-  </select>
-    <select id="countByInstId" resultType="java.lang.Integer">
-      select count(*)
-      from person_member
-      where inst_id = #{instId}
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from person_member
+        where person_id = #{personId,jdbcType=INTEGER} and `stop` = 0
     </select>
 
-  <sql id="query">
-      <where>
-        <if test="instId != null">
-          inst_id = #{instId}
-        </if>
-      </where>
-  </sql>
+    <select id="selectByPersonMemberID" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from person_member
+        where person_member_id = #{personMemberId,jdbcType=INTEGER} and `stop` = 0
+    </select>
+    <select id="countByInstId" resultType="java.lang.Integer">
+        select count(*)
+        from person_member
+        where inst_id = #{instId}
+    </select>
+
+    <sql id="query">
+        <where>
+            <if test="instId != null">
+                inst_id = #{instId}
+            </if>
+        </where>
+    </sql>
 
 
-  <select id="getByInstId" resultMap="BaseResultMap">
-     select <include refid="Base_Column_List" />
-    from person_member
-    <include refid="query"/>
-  </select>
+    <select id="getByInstId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from person_member
+        <include refid="query"/>
+    </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from person_member
-    where person_id = #{personId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.graduate.engine.model.PersonMember">
-    insert into person_member (person_id, inst_id, name,
-      sex, birthday, ethnic,
-      partisan, mail, phone1,
-      phone2, qq, wechat,
-      others, person_public_duty, person_awards,
-      education_id, person_member_id, person_member_date,
-      memo, stop)
-    values (#{personId,jdbcType=INTEGER}, #{instId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
-      #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=INTEGER}, #{ethnic,jdbcType=VARCHAR},
-      #{partisan,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{phone1,jdbcType=VARCHAR},
-      #{phone2,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR},
-      #{others,jdbcType=VARCHAR}, #{personPublicDuty,jdbcType=VARCHAR}, #{personAwards,jdbcType=VARCHAR},
-      #{educationId,jdbcType=INTEGER}, #{personMemberId,jdbcType=INTEGER}, #{personMemberDate,jdbcType=INTEGER},
-      #{memo,jdbcType=VARCHAR}, #{stop,jdbcType=BIT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.graduate.engine.model.PersonMember">
-    insert into person_member
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="personId != null">
-        person_id,
-      </if>
-      <if test="instId != null">
-        inst_id,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="birthday != null">
-        birthday,
-      </if>
-      <if test="ethnic != null">
-        ethnic,
-      </if>
-      <if test="partisan != null">
-        partisan,
-      </if>
-      <if test="mail != null">
-        mail,
-      </if>
-      <if test="phone1 != null">
-        phone1,
-      </if>
-      <if test="phone2 != null">
-        phone2,
-      </if>
-      <if test="qq != null">
-        qq,
-      </if>
-      <if test="wechat != null">
-        wechat,
-      </if>
-      <if test="others != null">
-        others,
-      </if>
-      <if test="personPublicDuty != null">
-        person_public_duty,
-      </if>
-      <if test="personAwards != null">
-        person_awards,
-      </if>
-      <if test="educationId != null">
-        education_id,
-      </if>
-      <if test="personMemberId != null">
-        person_member_id,
-      </if>
-      <if test="personMemberDate != null">
-        person_member_date,
-      </if>
-      <if test="memo != null">
-        memo,
-      </if>
-      <if test="stop != null">
-        stop,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="personId != null">
-        #{personId,jdbcType=INTEGER},
-      </if>
-      <if test="instId != null">
-        #{instId,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=INTEGER},
-      </if>
-      <if test="ethnic != null">
-        #{ethnic,jdbcType=VARCHAR},
-      </if>
-      <if test="partisan != null">
-        #{partisan,jdbcType=VARCHAR},
-      </if>
-      <if test="mail != null">
-        #{mail,jdbcType=VARCHAR},
-      </if>
-      <if test="phone1 != null">
-        #{phone1,jdbcType=VARCHAR},
-      </if>
-      <if test="phone2 != null">
-        #{phone2,jdbcType=VARCHAR},
-      </if>
-      <if test="qq != null">
-        #{qq,jdbcType=VARCHAR},
-      </if>
-      <if test="wechat != null">
-        #{wechat,jdbcType=VARCHAR},
-      </if>
-      <if test="others != null">
-        #{others,jdbcType=VARCHAR},
-      </if>
-      <if test="personPublicDuty != null">
-        #{personPublicDuty,jdbcType=VARCHAR},
-      </if>
-      <if test="personAwards != null">
-        #{personAwards,jdbcType=VARCHAR},
-      </if>
-      <if test="educationId != null">
-        #{educationId,jdbcType=INTEGER},
-      </if>
-      <if test="personMemberId != null">
-        #{personMemberId,jdbcType=INTEGER},
-      </if>
-      <if test="personMemberDate != null">
-        #{personMemberDate,jdbcType=INTEGER},
-      </if>
-      <if test="memo != null">
-        #{memo,jdbcType=VARCHAR},
-      </if>
-      <if test="stop != null">
-        #{stop,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.PersonMember">
-    update person_member
-    <set>
-      <if test="instId != null">
-        inst_id = #{instId,jdbcType=INTEGER},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="birthday != null">
-        birthday = #{birthday,jdbcType=INTEGER},
-      </if>
-      <if test="ethnic != null">
-        ethnic = #{ethnic,jdbcType=VARCHAR},
-      </if>
-      <if test="partisan != null">
-        partisan = #{partisan,jdbcType=VARCHAR},
-      </if>
-      <if test="mail != null">
-        mail = #{mail,jdbcType=VARCHAR},
-      </if>
-      <if test="phone1 != null">
-        phone1 = #{phone1,jdbcType=VARCHAR},
-      </if>
-      <if test="phone2 != null">
-        phone2 = #{phone2,jdbcType=VARCHAR},
-      </if>
-      <if test="qq != null">
-        qq = #{qq,jdbcType=VARCHAR},
-      </if>
-      <if test="wechat != null">
-        wechat = #{wechat,jdbcType=VARCHAR},
-      </if>
-      <if test="others != null">
-        others = #{others,jdbcType=VARCHAR},
-      </if>
-      <if test="personPublicDuty != null">
-        person_public_duty = #{personPublicDuty,jdbcType=VARCHAR},
-      </if>
-      <if test="personAwards != null">
-        person_awards = #{personAwards,jdbcType=VARCHAR},
-      </if>
-      <if test="educationId != null">
-        education_id = #{educationId,jdbcType=INTEGER},
-      </if>
-      <if test="personMemberId != null">
-        person_member_id = #{personMemberId,jdbcType=INTEGER},
-      </if>
-      <if test="personMemberDate != null">
-        person_member_date = #{personMemberDate,jdbcType=INTEGER},
-      </if>
-      <if test="memo != null">
-        memo = #{memo,jdbcType=VARCHAR},
-      </if>
-      <if test="stop != null">
-        stop = #{stop,jdbcType=BIT},
-      </if>
-    </set>
-    where person_id = #{personId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.PersonMember">
-    update person_member
-    set inst_id = #{instId,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=INTEGER},
-      ethnic = #{ethnic,jdbcType=VARCHAR},
-      partisan = #{partisan,jdbcType=VARCHAR},
-      mail = #{mail,jdbcType=VARCHAR},
-      phone1 = #{phone1,jdbcType=VARCHAR},
-      phone2 = #{phone2,jdbcType=VARCHAR},
-      qq = #{qq,jdbcType=VARCHAR},
-      wechat = #{wechat,jdbcType=VARCHAR},
-      others = #{others,jdbcType=VARCHAR},
-      person_public_duty = #{personPublicDuty,jdbcType=VARCHAR},
-      person_awards = #{personAwards,jdbcType=VARCHAR},
-      education_id = #{educationId,jdbcType=INTEGER},
-      person_member_id = #{personMemberId,jdbcType=INTEGER},
-      person_member_date = #{personMemberDate,jdbcType=INTEGER},
-      memo = #{memo,jdbcType=VARCHAR},
-      stop = #{stop,jdbcType=BIT}
-    where person_id = #{personId,jdbcType=INTEGER}
-  </update>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete
+        from person_member
+        where person_id = #{personId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.graduate.engine.model.PersonMember">
+        insert into person_member (person_id,
+                                   inst_id,
+                                   name,
+                                   sex,
+                                   birthday,
+                                   ethnic,
+                                   partisan,
+                                   mail,
+                                   phone1,
+                                   phone2,
+                                   qq,
+                                   wechat,
+                                   others,
+                                   person_public_duty,
+                                   person_awards,
+                                   education_id,
+                                   person_member_id,
+                                   person_member_date,
+                                   memo,
+                                   stop)
+        values (#{personId,jdbcType=INTEGER},
+                #{instId,jdbcType=INTEGER},
+                #{name,jdbcType=VARCHAR},
+                #{sex,jdbcType=VARCHAR},
+                #{birthday,jdbcType=INTEGER},
+                #{ethnic,jdbcType=VARCHAR},
+                #{partisan,jdbcType=VARCHAR},
+                #{mail,jdbcType=VARCHAR},
+                #{phone1,jdbcType=VARCHAR},
+                #{phone2,jdbcType=VARCHAR},
+                #{qq,jdbcType=VARCHAR},
+                #{wechat,jdbcType=VARCHAR},
+                #{others,jdbcType=VARCHAR},
+                #{personPublicDuty,jdbcType=VARCHAR},
+                #{personAwards,jdbcType=VARCHAR},
+                #{educationId,jdbcType=INTEGER},
+                #{personMemberId,jdbcType=INTEGER},
+                #{personMemberDate,jdbcType=INTEGER},
+                #{memo,jdbcType=VARCHAR},
+                #{stop,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.graduate.engine.model.PersonMember">
+        insert into person_member
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="personId != null">
+                person_id,
+            </if>
+            <if test="instId != null">
+                inst_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+            <if test="ethnic != null">
+                ethnic,
+            </if>
+            <if test="partisan != null">
+                partisan,
+            </if>
+            <if test="mail != null">
+                mail,
+            </if>
+            <if test="phone1 != null">
+                phone1,
+            </if>
+            <if test="phone2 != null">
+                phone2,
+            </if>
+            <if test="qq != null">
+                qq,
+            </if>
+            <if test="wechat != null">
+                wechat,
+            </if>
+            <if test="others != null">
+                others,
+            </if>
+            <if test="personPublicDuty != null">
+                person_public_duty,
+            </if>
+            <if test="personAwards != null">
+                person_awards,
+            </if>
+            <if test="educationId != null">
+                education_id,
+            </if>
+            <if test="personMemberId != null">
+                person_member_id,
+            </if>
+            <if test="personMemberDate != null">
+                person_member_date,
+            </if>
+            <if test="memo != null">
+                memo,
+            </if>
+            <if test="stop != null">
+                stop,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="personId != null">
+                #{personId,jdbcType=INTEGER},
+            </if>
+            <if test="instId != null">
+                #{instId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=INTEGER},
+            </if>
+            <if test="ethnic != null">
+                #{ethnic,jdbcType=VARCHAR},
+            </if>
+            <if test="partisan != null">
+                #{partisan,jdbcType=VARCHAR},
+            </if>
+            <if test="mail != null">
+                #{mail,jdbcType=VARCHAR},
+            </if>
+            <if test="phone1 != null">
+                #{phone1,jdbcType=VARCHAR},
+            </if>
+            <if test="phone2 != null">
+                #{phone2,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="wechat != null">
+                #{wechat,jdbcType=VARCHAR},
+            </if>
+            <if test="others != null">
+                #{others,jdbcType=VARCHAR},
+            </if>
+            <if test="personPublicDuty != null">
+                #{personPublicDuty,jdbcType=VARCHAR},
+            </if>
+            <if test="personAwards != null">
+                #{personAwards,jdbcType=VARCHAR},
+            </if>
+            <if test="educationId != null">
+                #{educationId,jdbcType=INTEGER},
+            </if>
+            <if test="personMemberId != null">
+                #{personMemberId,jdbcType=INTEGER},
+            </if>
+            <if test="personMemberDate != null">
+                #{personMemberDate,jdbcType=INTEGER},
+            </if>
+            <if test="memo != null">
+                #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="stop != null">
+                #{stop,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.graduate.engine.model.PersonMember">
+        update person_member
+        <set>
+            <if test="instId != null">
+                inst_id = #{instId,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=INTEGER},
+            </if>
+            <if test="ethnic != null">
+                ethnic = #{ethnic,jdbcType=VARCHAR},
+            </if>
+            <if test="partisan != null">
+                partisan = #{partisan,jdbcType=VARCHAR},
+            </if>
+            <if test="mail != null">
+                mail = #{mail,jdbcType=VARCHAR},
+            </if>
+            <if test="phone1 != null">
+                phone1 = #{phone1,jdbcType=VARCHAR},
+            </if>
+            <if test="phone2 != null">
+                phone2 = #{phone2,jdbcType=VARCHAR},
+            </if>
+            <if test="qq != null">
+                qq = #{qq,jdbcType=VARCHAR},
+            </if>
+            <if test="wechat != null">
+                wechat = #{wechat,jdbcType=VARCHAR},
+            </if>
+            <if test="others != null">
+                others = #{others,jdbcType=VARCHAR},
+            </if>
+            <if test="personPublicDuty != null">
+                person_public_duty = #{personPublicDuty,jdbcType=VARCHAR},
+            </if>
+            <if test="personAwards != null">
+                person_awards = #{personAwards,jdbcType=VARCHAR},
+            </if>
+            <if test="educationId != null">
+                education_id = #{educationId,jdbcType=INTEGER},
+            </if>
+            <if test="personMemberId != null">
+                person_member_id = #{personMemberId,jdbcType=INTEGER},
+            </if>
+            <if test="personMemberDate != null">
+                person_member_date = #{personMemberDate,jdbcType=INTEGER},
+            </if>
+            <if test="memo != null">
+                memo = #{memo,jdbcType=VARCHAR},
+            </if>
+            <if test="stop != null">
+                stop = #{stop,jdbcType=BIT},
+            </if>
+        </set>
+        where person_id = #{personId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.graduate.engine.model.PersonMember">
+        update person_member
+        set inst_id            = #{instId,jdbcType=INTEGER},
+            name               = #{name,jdbcType=VARCHAR},
+            sex                = #{sex,jdbcType=VARCHAR},
+            birthday           = #{birthday,jdbcType=INTEGER},
+            ethnic             = #{ethnic,jdbcType=VARCHAR},
+            partisan           = #{partisan,jdbcType=VARCHAR},
+            mail               = #{mail,jdbcType=VARCHAR},
+            phone1             = #{phone1,jdbcType=VARCHAR},
+            phone2             = #{phone2,jdbcType=VARCHAR},
+            qq                 = #{qq,jdbcType=VARCHAR},
+            wechat             = #{wechat,jdbcType=VARCHAR},
+            others             = #{others,jdbcType=VARCHAR},
+            person_public_duty = #{personPublicDuty,jdbcType=VARCHAR},
+            person_awards      = #{personAwards,jdbcType=VARCHAR},
+            education_id       = #{educationId,jdbcType=INTEGER},
+            person_member_id   = #{personMemberId,jdbcType=INTEGER},
+            person_member_date = #{personMemberDate,jdbcType=INTEGER},
+            memo               = #{memo,jdbcType=VARCHAR},
+            stop               = #{stop,jdbcType=BIT}
+        where person_id = #{personId,jdbcType=INTEGER}
+    </update>
 </mapper>

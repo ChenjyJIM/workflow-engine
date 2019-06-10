@@ -9,9 +9,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +47,7 @@ public class DateUtils {
 
     /**
      * 返回秒级的时间戳
+     *
      * @param dateStr
      * @return
      */
@@ -88,9 +86,10 @@ public class DateUtils {
 
     /**
      * 获取到本日结束时间（秒）
+     *
      * @return
      */
-    public static Long getSecondTimeStampBetweenCurrentAndEndOfDay(){
+    public static Long getSecondTimeStampBetweenCurrentAndEndOfDay() {
         Long currentMillSecond = getCurrentMillSecondsTimestamp();
 
         Calendar calendar = Calendar.getInstance();
@@ -100,14 +99,14 @@ public class DateUtils {
         calendar.set(Calendar.MILLISECOND, 999);
         Long endOfTodayMillSecond = calendar.getTime().getTime();
 
-        return (endOfTodayMillSecond-currentMillSecond) /1000;
+        return (endOfTodayMillSecond - currentMillSecond) / 1000;
 
     }
 
-    public static Long parseDateYMDhmsToSecondsTimestamp(String dateStr){
+    public static Long parseDateYMDhmsToSecondsTimestamp(String dateStr) {
         try {
             Date data = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss").parse(dateStr);
-            return (data.getTime()/1000);
+            return (data.getTime() / 1000);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -120,6 +119,7 @@ public class DateUtils {
 
     /**
      * 仅获取日期
+     *
      * @param timestamp
      * @return
      */
@@ -157,11 +157,12 @@ public class DateUtils {
      * 将iview组件日期格式转换成unix时间戳
      * 2018-08-05T16:00:00.000Z --> 1533484800
      * 用法：Long result = DateUtils.getTimeStampByUTC(dateString);
+     *
      * @param create_time
      * @return
      * @throws ParseException
      */
-    public static Long getTimeStampByUTC(String create_time) throws ParseException{
+    public static Long getTimeStampByUTC(String create_time) throws ParseException {
         String format = "";
         if (create_time != null && create_time != "NULL" && create_time != "") {
             if (isDate(create_time)) {
@@ -179,8 +180,7 @@ public class DateUtils {
         return DateUtils.getTimestampByDateStr(format);
     }
 
-    private static boolean isDate(String date)
-    {
+    private static boolean isDate(String date) {
         /**
          * 判断日期格式和范围
          */
