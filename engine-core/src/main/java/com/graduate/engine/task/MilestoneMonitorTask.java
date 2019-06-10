@@ -2,6 +2,8 @@ package com.graduate.engine.task;
 
 import com.graduate.engine.service.AutoTaskService;
 import com.graduate.engine.service.impl.MilestoneTaskServiceFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,7 @@ import javax.annotation.Resource;
  */
 @Component
 public class MilestoneMonitorTask {
+    private Logger logger = LoggerFactory.getLogger(MilestoneMonitorTask.class);
 
 
     @Resource
@@ -23,11 +26,11 @@ public class MilestoneMonitorTask {
      * 相隔一天以外每天一次
      * 0 0 12 * * ? *
      */
-    @Scheduled(cron = "0 0 12 * * ? *")
+    @Scheduled(cron = "0 0 12 * * ?")
     public void commonTask() {
-        System.out.println("commonTask start..");
+        logger.info("commonTask start..");
         execute(1);
-        System.out.println("commonTask end..");
+        logger.info("commonTask end..");
     }
 
     /**
@@ -36,19 +39,19 @@ public class MilestoneMonitorTask {
      */
     @Scheduled(cron = "0 0 9,12,15,18 * * ?")
     public void emergencyTask() {
-        System.out.println("emergencyTask start..");
+        logger.info("emergencyTask start..");
         execute(2);
-        System.out.println("emergencyTask end..");
+        logger.info("emergencyTask end..");
     }
 
     private void execute(Integer type) {
         AutoTaskService autoTaskService = milestoneTaskServiceFactory.getAutoTaskService(type);
         if (autoTaskService == null) {
-            System.out.println("autoTaskService is null");
+            logger.warn("autoTaskService is null");
             return;
         }
         autoTaskService.monitor();
 
-        System.out.println("auto task execute end");
+        logger.info("auto task execute end");
     }
 }
