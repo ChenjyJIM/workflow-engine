@@ -196,6 +196,22 @@ public class NewsController extends AbstractController {
         return ResponseResult.buildSuccess("审核成功");
     }
 
+    @ApiOperation("获取发布新闻列表")
+    @GetMapping("/api/list")
+    public ResponseResult getPublishNewsListApi(@RequestParam Map<String, Object> params) {
+        return this.getPublishNewsList(params);
+    }
+
+    @ApiOperation("获取我的新闻详情")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "type", value = "分类类别", required = true, dataType = "Long"),
+            @ApiImplicitParam(name = "detailsId", value = "新闻详情ID", required = true, dataType = "Long")
+    })
+    @GetMapping("/api/details/{type}/{detailsId}")
+    public ResponseResult getNewsDetailsApi(@PathVariable("type") Long type, @PathVariable("detailsId") Long detailsId) {
+        return this.getNewsDetails(type,detailsId);
+    }
+
     private void verifyForm(NewsDetails details) {
         if (StringUtils.isBlank(details.getNewsTitle())) {
             throw new BasicException("新闻标题不能为空");

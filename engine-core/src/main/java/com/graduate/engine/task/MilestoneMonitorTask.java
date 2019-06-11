@@ -21,9 +21,9 @@ public class MilestoneMonitorTask {
 
     /**
      * 相隔一天以外每天一次
-     * 0 0 12 * * ? *
+     * 0 0 12 * * ?
      */
-    @Scheduled(cron = "0 0 12 * * ? *")
+    @Scheduled(cron = "0 0 12 * * ?")
     public void commonTask() {
         System.out.println("commonTask start..");
         execute(1);

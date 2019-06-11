@@ -74,6 +74,9 @@ public class SignUp implements Serializable {
     @ApiModelProperty(value = "用户项目关系  0：未报名；1：报名未签到；2：报名已签到")
     private Long status;
 
+    @TableField(exist = false)
+    private Long checkId;
+
     @ApiModelProperty(value = "是否APP签到")
     private Boolean appCheck;
 

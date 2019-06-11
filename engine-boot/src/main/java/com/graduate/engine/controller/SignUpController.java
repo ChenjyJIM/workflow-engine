@@ -116,7 +116,12 @@ public class SignUpController extends AbstractController {
     })
     @PostMapping("/application/{signId}")
     public ResponseResult applyActSignUp(@PathVariable("signId") Long signId) {
-        checkInService.applyActSignUp(signId,getUserId());
+        try {
+            checkInService.applyActSignUp(signId,getUserId());
+        }catch (RuntimeException e) {
+            return ResponseResult.buildError(e.getMessage());
+        }
+
         return ResponseResult.buildSuccess("报名成功");
     }
 
@@ -128,12 +133,16 @@ public class SignUpController extends AbstractController {
     public ResponseResult getCheckInApplication(@PathVariable("signId") Long signId) {
         SignUp signUp = signUpService.getById(signId);
         signUp.setIndustryName(industryService.getById(signUp.getIndustryId()).getIndusName());
+        signUp.setFormatSignDateFrom(DateUtils.getDateStrByTimestamp(signUp.getSignDateFrom()));
+        signUp.setFormatSignDateTo(DateUtils.getDateStrByTimestamp(signUp.getSignDateTo()));
         CheckIn checkIn = checkInService.getBySignUpId(signId);
         if (checkIn==null){
             signUp.setStatus(0L);
         } else if (checkIn.getSignUp()){
+            signUp.setCheckId(checkIn.getCheckId());
             signUp.setStatus(2L);
         } else {
+            signUp.setCheckId(checkIn.getCheckId());
             signUp.setStatus(1L);
         }
         return ResponseResult.buildSuccess(signUp);
@@ -147,6 +156,10 @@ public class SignUpController extends AbstractController {
     public ResponseResult checkActSignUp(@PathVariable("checkId") Long checkId) {
         CheckIn checkIn = checkInService.getById(checkId);
         checkIn.setSignUp(true);
+        SignUp signUp = signUpService.getById(checkIn.getSignId());
+        signUp.setCheckInNum(signUp.getCheckInNum()+1);
+        checkInService.updateById(checkIn);
+        signUpService.updateById(signUp);
         return ResponseResult.buildSuccess("签到成功");
     }
 

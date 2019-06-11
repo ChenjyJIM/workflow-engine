@@ -3,7 +3,7 @@
 <mapper namespace="com.graduate.engine.mapper.CheckInMapper">
     <select id="getBySignId" resultType="com.graduate.engine.model.CheckIn">
         select *
-        from sign_up
+        from check_in
         where sign_id = #{signId}
     </select>
 </mapper>
