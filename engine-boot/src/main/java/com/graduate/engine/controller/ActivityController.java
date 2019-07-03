@@ -1,6 +1,7 @@
 package com.graduate.engine.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.graduate.engine.exception.BusinessException;
 import com.graduate.engine.model.viewobject.ActivityVo;
 import com.graduate.engine.request.ActivityQuery;
 import com.graduate.engine.request.ActivityRequest;
@@ -19,7 +20,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/activity")
-public class ActivityController {
+public class ActivityController extends AbstractController{
     @Resource
     private ActivityService activityService;
 
@@ -35,6 +36,17 @@ public class ActivityController {
             return ResponseResult.buildError("系统异常！");
         }
     }
+
+    @PostMapping("/backdoor_mongo_message_query")
+    public void backDoorMongoQuery(@RequestBody ActivityQuery query) {
+        templateRequest(() -> {
+            if (query == null) {
+                throw new BusinessException("参数不为空！");
+            }
+            return activityService.queryActivity(query);
+        });
+    }
+
 
     @GetMapping("/getTreeData")
     public ResponseResult getTreeData(Long actId) {
