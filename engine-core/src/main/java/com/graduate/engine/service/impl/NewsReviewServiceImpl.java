@@ -54,8 +54,8 @@ public class NewsReviewServiceImpl extends ServiceImpl<NewsReviewMapper, NewsRev
         publishService.save(newsPublish);
         //发送信息给新闻编辑者
         NewsDetails newsDetails = detailsService.getById(newsEdit.getDetailsId());
-        messageService.sendMessageToUsers("新闻发布成功",
-                "<div>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>您编辑的新闻：“" + newsDetails.getNewsTitle() + "”通过审核，发布成功！</span></div>",
+        messageService.sendMessageToUsers("资讯发布成功",
+                "<div>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>您编辑的资讯：“" + newsDetails.getNewsTitle() + "”通过审核，发布成功！</span></div>",
                 new Long[]{newsEdit.getEditPersonId()});
     }
 
@@ -75,8 +75,8 @@ public class NewsReviewServiceImpl extends ServiceImpl<NewsReviewMapper, NewsRev
         newsEditService.updateById(newsEdit);
         //发送信息给新闻编辑者
         NewsDetails newsDetails = detailsService.getById(newsEdit.getDetailsId());
-        messageService.sendMessageToUsers("新闻发布失败",
-                "<div>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>您编辑的新闻：“" + newsDetails.getNewsTitle() + "”未通过审核，请根据审核原因修改！</span><br/><span>审核不通过原因：" + message + "</span></div>",
+        messageService.sendMessageToUsers("资讯发布失败",
+                "<div>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>您编辑的资讯：“" + newsDetails.getNewsTitle() + "”未通过审核，请根据审核原因修改！</span><br/><span>审核不通过原因：" + message + "</span></div>",
                 new Long[]{newsEdit.getEditPersonId()});
     }
 }
