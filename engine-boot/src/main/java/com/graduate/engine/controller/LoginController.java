@@ -57,6 +57,7 @@ public class LoginController extends AbstractController {
     private PersonRoleMapperMapper personRoleMapperMapper;
     @Resource
     private RoleMapper roleMapper;
+
     /**
      * 用户登录接口
      */
@@ -249,9 +250,9 @@ public class LoginController extends AbstractController {
                 userVo.setType(0L);
             }
             if (login.getPersonId() == null) {
-               userVo.setRoleName("普通用户");
+                userVo.setRoleName("普通用户");
             } else {
-                PersonRoleMapper personRoleMapper = personRoleMapperMapper.selectByPersonId(login.getPersonId());
+                PersonRoleMapper personRoleMapper = personRoleMapperMapper.selectByPersonId(login.getLoginId());
                 if (personRoleMapper != null) {
                     LambdaQueryWrapper<Role> queryWrapper = new LambdaQueryWrapper<>();
                     queryWrapper.eq(Role::getRoleId, personRoleMapper.getRoleId());
@@ -261,7 +262,9 @@ public class LoginController extends AbstractController {
                     userVo.setRoleName("普通用户");
                 }
             }
-
+            if (login.getLoginId() == 1) {
+                userVo.setRoleName("系统管理员");
+            }
             userList.add(userVo);
         }
         page.setList(userList);
