@@ -7,6 +7,8 @@ import com.graduate.engine.annotation.CurrentUser;
 import com.graduate.engine.annotation.LoginRequired;
 import com.graduate.engine.mapper.GarbageDetailMapper;
 import com.graduate.engine.mapper.InstituteMapper;
+import com.graduate.engine.mapper.PersonRoleMapperMapper;
+import com.graduate.engine.mapper.RoleMapper;
 import com.graduate.engine.model.*;
 import com.graduate.engine.model.viewobject.UserInfoVo;
 import com.graduate.engine.model.viewobject.UserVo;
@@ -51,7 +53,10 @@ public class LoginController extends AbstractController {
     private InstituteMapper instituteMapper;
     @Resource
     private MessageService messageService;
-
+    @Resource
+    private PersonRoleMapperMapper personRoleMapperMapper;
+    @Resource
+    private RoleMapper roleMapper;
     /**
      * 用户登录接口
      */
@@ -235,6 +240,7 @@ public class LoginController extends AbstractController {
             userVo.setLoginId(login.getLoginId());
             userVo.setLoginName(login.getLoginName());
             userVo.setStop(login.getStop() ? 1L : 0L);
+
             if (login.getGuestId() != null) {
                 userVo.setType(2L);
             } else if (login.getPersonId() != null) {
@@ -242,6 +248,20 @@ public class LoginController extends AbstractController {
             } else {
                 userVo.setType(0L);
             }
+            if (login.getPersonId() == null) {
+               userVo.setRoleName("普通用户");
+            } else {
+                PersonRoleMapper personRoleMapper = personRoleMapperMapper.selectByPersonId(login.getPersonId());
+                if (personRoleMapper != null) {
+                    LambdaQueryWrapper<Role> queryWrapper = new LambdaQueryWrapper<>();
+                    queryWrapper.eq(Role::getRoleId, personRoleMapper.getRoleId());
+                    Role role = roleMapper.selectOne(queryWrapper);
+                    userVo.setRoleName(role.getRoleName());
+                } else {
+                    userVo.setRoleName("普通用户");
+                }
+            }
+
             userList.add(userVo);
         }
         page.setList(userList);

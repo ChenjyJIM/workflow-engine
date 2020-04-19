@@ -10,4 +10,5 @@ public class UserVo {
     private String loginName;
     private Long type;
     private Long stop;
+    private String roleName;
 }
