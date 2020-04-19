@@ -262,7 +262,7 @@ public class LoginController extends AbstractController {
                     userVo.setRoleName("普通用户");
                 }
             }
-            if (login.getLoginId() == 1) {
+            if (login.getLoginId().equals(1L)) {
                 userVo.setRoleName("系统管理员");
             }
             userList.add(userVo);
