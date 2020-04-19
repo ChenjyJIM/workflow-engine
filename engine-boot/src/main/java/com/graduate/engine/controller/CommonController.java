@@ -3,12 +3,14 @@ package com.graduate.engine.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.graduate.engine.mapper.*;
+import com.graduate.engine.model.GarbageDetail;
 import com.graduate.engine.model.Institute;
 import com.graduate.engine.model.InstituteSub;
 import com.graduate.engine.model.NewsCategory;
 import com.graduate.engine.model.Role;
 import com.graduate.engine.model.viewobject.InstInfoSimple;
 import com.graduate.engine.response.ResponseResult;
+import com.graduate.engine.service.GarbageBizService;
 import com.graduate.engine.service.InstituteService;
 import com.graduate.engine.service.NewsCategoryService;
 import com.graduate.engine.service.RoleService;
@@ -58,6 +60,9 @@ public class CommonController extends AbstractController {
 
     @Resource
     private NewsCategoryService categoryService;
+
+    @Resource
+    private GarbageBizService garbageBizService;
 
     /**
      * 查询学会所有成员接口
@@ -138,6 +143,25 @@ public class CommonController extends AbstractController {
                     jsonObject.put("categoryName", category.getCategoryName());
                     jsonArray.add(jsonObject);
                 }
+            }
+            return ResponseResult.buildSuccess(jsonArray);
+        } catch (Exception e) {
+            return ResponseResult.buildError("系统异常！");
+        }
+    }
+
+    @GetMapping("/getGarbageType")
+    public ResponseResult getGarbageType() {
+        try {
+            List<GarbageDetail> categoryList = garbageBizService.getGarbageTypeList();
+            JSONArray jsonArray = new JSONArray();
+            for (GarbageDetail garbageDetail : categoryList) {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("id", garbageDetail.getId());
+                jsonObject.put("garbageName", garbageDetail.getName());
+                jsonObject.put("garbageDetail", garbageDetail.getDetail());
+                jsonObject.put("img", garbageDetail.getImg());
+                jsonArray.add(jsonObject);
             }
             return ResponseResult.buildSuccess(jsonArray);
         } catch (Exception e) {

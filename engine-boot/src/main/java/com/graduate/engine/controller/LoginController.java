@@ -2,8 +2,10 @@ package com.graduate.engine.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.graduate.engine.annotation.CurrentUser;
 import com.graduate.engine.annotation.LoginRequired;
+import com.graduate.engine.mapper.GarbageDetailMapper;
 import com.graduate.engine.mapper.InstituteMapper;
 import com.graduate.engine.model.*;
 import com.graduate.engine.model.viewobject.UserInfoVo;
@@ -286,7 +288,10 @@ public class LoginController extends AbstractController {
     @GetMapping("/user/{userId}")
     public ResponseResult getUserInfo(@PathVariable("userId") Long userId) {
         UserInfoVo userInfoVo = loginService.getUser(userId);
-        userInfoVo.setRoleId(personRoleMapperService.selectByPersonId(userId).getRoleId());
+        PersonRoleMapper personRoleMapper = personRoleMapperService.selectByPersonId(userId);
+        if (personRoleMapper != null) {
+            userInfoVo.setRoleId(personRoleMapper.getRoleId());
+        }
         return ResponseResult.buildSuccess(userInfoVo);
     }
 
