@@ -55,7 +55,8 @@ public class NewsReviewServiceImpl extends ServiceImpl<NewsReviewMapper, NewsRev
         //发送信息给新闻编辑者
         NewsDetails newsDetails = detailsService.getById(newsEdit.getDetailsId());
         messageService.sendMessageToUsers("资讯发布成功",
-                "<div>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>您编辑的资讯：“" + newsDetails.getNewsTitle() + "”通过审核，发布成功！</span></div>",
+                "<div>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>您编辑的资讯：“" + newsDetails.getNewsTitle() +
+                        "”通过审核，发布成功！即将在app上展示。</span></div>",
                 new Long[]{newsEdit.getEditPersonId()});
     }
 
