@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 里程碑相关请求模板
  *
- * @author jimmy
+ * @author lianglili
  */
 @Data
 public class MilestoneRequest {

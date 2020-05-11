@@ -14,7 +14,7 @@
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://139.224.135.139:3306/work_flow_database" userId="root"
+                        connectionURL="jdbc:mysql://139.224.135.139:3306/garbage" userId="root"
                         password="045135127.">
         </jdbcConnection>
         <javaTypeResolver>
@@ -34,13 +34,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <!--<table tableName="wx_bb_account" domainObjectName="WxBBAccount" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <!--<table tableName="wx_info_bb_uid_map" domainObjectName="WxInfoBbUidMapDo" enableCountByExample="true"-->
-        <!--enableUpdateByExample="true" enableDeleteByExample="true"-->
-        <!--enableSelectByExample="true" selectByExampleQueryId="false" ></table>-->
-        <!--<table tableName="wx_group_sensitive_message" domainObjectName="WxGroupSensitiveMessage" enableCountByExample="false"-->
-        <!--enableUpdateByExample="false" enableDeleteByExample="false"-->
-        <!--enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+
 
         <!--配置生成所有表的映射-->
         <table tableName="activity_status" enableCountByExample="false"

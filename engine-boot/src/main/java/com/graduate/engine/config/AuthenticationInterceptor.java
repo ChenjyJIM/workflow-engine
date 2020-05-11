@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 
 
 /**
- * @author jimmy
+ * @author lianglili
  * @Description: API 的拦截器, 做相关鉴权
  */
 public class AuthenticationInterceptor implements HandlerInterceptor {

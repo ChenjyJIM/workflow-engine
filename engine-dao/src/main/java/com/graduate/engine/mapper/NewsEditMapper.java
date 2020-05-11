@@ -10,7 +10,7 @@ import java.util.List;
  * 新闻编辑表 Mapper 接口
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-24
  */
 public interface NewsEditMapper extends BaseMapper<NewsEdit> {

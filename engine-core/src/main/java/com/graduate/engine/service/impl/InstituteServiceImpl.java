@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author jimmy
+ * @author lianglili
  */
 @Service
 public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute> implements InstituteService {
@@ -117,7 +117,6 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
         Institute institute = this.getById(instId);
         int industryId = institute.getIndustryId();
         Industry industry = industryMapper.selectById(industryId);
-        //todo 如果分类没有怎么做？插入时判断/这里判断
         institute.setIndusName(industry.getIndusName());
         institute.setIndusShort(industry.getIndusShort());
         return institute;
@@ -125,7 +124,6 @@ public class InstituteServiceImpl extends ServiceImpl<InstituteMapper, Institute
 
     @Override
     public List<Institute> getInstitutes() {
-        //todo 考虑加入学会行业分类信息
         return instituteMapper.queryAllInst();
     }
 

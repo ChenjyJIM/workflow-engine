@@ -70,7 +70,7 @@ public class MessageController extends AbstractController {
         return ResponseResult.buildSuccess();
     }
 
-    @ApiOperation("还原消息")
+    @ApiOperation("回滚消息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "messageId", value = "消息id", required = true, dataType = "Long"),
     })

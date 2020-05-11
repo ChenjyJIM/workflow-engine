@@ -32,7 +32,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author jimmy
+ * @author lianglili
  */
 @RequestMapping("/authentication")
 @RestController
@@ -43,16 +43,6 @@ public class LoginController extends AbstractController {
     private ShiroService shiroService;
     @Resource
     private PersonRoleMapperService personRoleMapperService;
-    @Resource
-    private PersonMemberApplicationService personMemberApplicationService;
-    @Resource
-    private PersonMemberApplicationRecordService applicationRecordService;
-    @Resource
-    private PersonMemberApplicationDetailsService applicationDetailsService;
-    @Resource
-    private InstituteMapper instituteMapper;
-    @Resource
-    private MessageService messageService;
     @Resource
     private PersonRoleMapperMapper personRoleMapperMapper;
     @Resource
@@ -140,94 +130,6 @@ public class LoginController extends AbstractController {
         jsonObject.put("personId", getPersonId());
         jsonObject.put("avator", "https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png");
         return jsonObject;
-    }
-
-    @ApiOperation("个人会员申请")
-    @PostMapping("/guest/application")
-    public ResponseResult personMemberApplication(@RequestBody PersonMemberApplicationDetails details) throws ParseException {
-        personMemberApplicationService.applyPersonMember(details, getUserId());
-        return ResponseResult.buildSuccess("申请成功");
-    }
-
-    @ApiOperation("获取个人申请记录")
-    @GetMapping("/guest/application")
-    public ResponseResult getPersonApplication() {
-        List<PersonMemberApplication> applications = personMemberApplicationService.selectByLoginId(getUserId());
-        JSONArray jsonArray = new JSONArray();
-        for (PersonMemberApplication application : applications) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("applicationId", application.getApplicationId());
-            jsonObject.put("applicationTime", DateUtils.getDateStrByTimestamp(application.getAddTime()));
-            jsonObject.put("status", application.getStatus());
-            jsonObject.put("lastEditTime", DateUtils.getDateStrByTimestamp(application.getLastEditTime()));
-            jsonArray.add(jsonObject);
-        }
-        return ResponseResult.buildSuccess(jsonArray);
-    }
-
-    @ApiOperation("获取记录详情")
-    @GetMapping("/guest/application/record/{applicationId}")
-    public ResponseResult getPersonApplicationRecord(@PathVariable("applicationId") Long applicationId) {
-        List<PersonMemberApplicationRecord> records = applicationRecordService.selectByApplicationId(applicationId);
-        JSONArray jsonArray = new JSONArray();
-        for (PersonMemberApplicationRecord record : records) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("editTime", DateUtils.getDateStrByTimestamp(record.getEditTime()));
-            jsonObject.put("message", record.getMessage());
-            jsonArray.add(jsonObject);
-        }
-        return ResponseResult.buildSuccess(jsonArray);
-    }
-
-    @ApiOperation("获取待审核申请列表")
-    @GetMapping("/review/application")
-    public ResponseResult getReviewApplicationList() {
-        //获取审核人所在学会
-        //todo 如果审核人加入了多个学会，那其他学会的审核他也会有权限，需要改进
-        List<Institute> institutes = instituteMapper.getByPersonId(getPersonId());
-        JSONArray jsonArray = new JSONArray();
-        institutes.forEach(institute -> {
-            List<PersonMemberApplication> applications = personMemberApplicationService.selectReviewApplication(institute.getInstId());
-            for (PersonMemberApplication application : applications) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("applicationId", application.getApplicationId());
-                jsonObject.put("addTime", DateUtils.getDateStrByTimestamp(application.getAddTime()));
-                jsonObject.put("personName", application.getPersonName());
-                jsonArray.add(jsonObject);
-            }
-        });
-        return ResponseResult.buildSuccess(jsonArray);
-    }
-
-    @ApiOperation("获取待审核申请详情")
-    @GetMapping("/review/application/{applicationId}")
-    public ResponseResult getReviewApplication(@PathVariable("applicationId") Long applicationId) {
-        return ResponseResult.buildSuccess(applicationDetailsService.selectByApplicationId(applicationId));
-    }
-
-    @ApiOperation("同意个人会员申请")
-    @PutMapping("/review/application/{applicationId}")
-    public ResponseResult agreePersonApplication(@PathVariable("applicationId") Long applicationId) {
-        PersonMemberApplication application = personMemberApplicationService.getById(applicationId);
-        //创建学会账号
-        String loginName = loginService.addPersonMember(applicationDetailsService.selectByApplicationId(applicationId));
-        //绑定角色
-        personRoleMapperService.addUserRole(loginService.findByName(loginName).getLoginId(), Constant.PERSON_MEMBER_ID);
-        //更新审核及记录表
-        personMemberApplicationService.agreeApplication(applicationId, getUserId());
-        //将账号信息发送给申请会员
-        messageService
-                .sendMessageToUsers("加入学会成功",
-                        "<div>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>恭喜您，申请号：" + applicationId + "的入会申请通过，欢迎您加入！请使用新账号登录。</span></div><ol><li>账号：" + loginName + "</li><li>密码：" + Constant.INIT_PASSWORD + "</li></ol>",
-                        new Long[]{application.getLoginId()});
-        return ResponseResult.buildSuccess("审核成功");
-    }
-
-    @ApiOperation("不同意个人会员申请")
-    @PutMapping("/review/application/{applicationId}/{message}")
-    public ResponseResult disagreePersonApplication(@PathVariable("applicationId") Long applicationId, @PathVariable("message") String message) {
-        personMemberApplicationService.disagreeApplication(applicationId, message, getUserId());
-        return ResponseResult.buildSuccess("审核成功");
     }
 
     @ApiOperation("获取用户列表")

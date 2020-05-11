@@ -8,7 +8,7 @@ import com.graduate.engine.model.CheckIn;
  * 报名签到 Mapper 接口
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-06-09
  */
 public interface CheckInMapper extends BaseMapper<CheckIn> {

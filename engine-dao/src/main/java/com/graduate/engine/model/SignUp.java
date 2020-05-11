@@ -17,7 +17,7 @@ import java.math.BigDecimal;
  * 报名管理
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-06-09
  */
 @Data

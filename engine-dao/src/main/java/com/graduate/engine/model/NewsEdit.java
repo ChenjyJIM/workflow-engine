@@ -16,7 +16,7 @@ import java.io.Serializable;
  * 新闻编辑表
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-24
  */
 @Data

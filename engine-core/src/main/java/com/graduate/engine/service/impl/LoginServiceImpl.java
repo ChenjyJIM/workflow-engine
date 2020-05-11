@@ -34,7 +34,7 @@ import java.util.Random;
 /**
  * 注册登录相关service
  *
- * @author jimmy
+ * @author lianglili
  */
 @Service
 public class LoginServiceImpl extends ServiceImpl<LoginMapper, Login> implements LoginService {

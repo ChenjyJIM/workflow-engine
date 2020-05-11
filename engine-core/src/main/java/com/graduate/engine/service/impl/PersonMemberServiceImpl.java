@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.text.ParseException;
 
 /**
- * @author jimmy
+ * @author lianglili
  */
 @Service
 public class PersonMemberServiceImpl implements PersonMemberService {

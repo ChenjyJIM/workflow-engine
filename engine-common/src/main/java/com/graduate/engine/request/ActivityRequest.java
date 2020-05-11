@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 新增活动请求模板
  *
- * @author jimmy
+ * @author lianglili
  */
 @Data
 public class ActivityRequest implements Serializable {

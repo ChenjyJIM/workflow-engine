@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * 学会或分会 负责人信息
  *
- * @author jimmy
+ * @author lianglili
  */
 @Data
 public class PersonCharger {

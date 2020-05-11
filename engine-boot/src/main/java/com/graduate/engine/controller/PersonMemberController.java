@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 
 
 /**
- * @author jimmy
+ * @author lianglili
  */
 @RequestMapping("/member")
 @RestController

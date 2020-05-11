@@ -10,7 +10,7 @@ import java.util.List;
  * 个人会员申请记录表 Mapper 接口
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-09
  */
 public interface PersonMemberApplicationRecordMapper extends BaseMapper<PersonMemberApplicationRecord> {

@@ -11,7 +11,7 @@ import java.util.Map;
  * 新闻发布表 服务类
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-24
  */
 public interface NewsPublishService extends IService<NewsPublish> {

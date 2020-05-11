@@ -14,7 +14,7 @@ import java.util.List;
  * 新闻内容表 服务实现类
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-24
  */
 @Service

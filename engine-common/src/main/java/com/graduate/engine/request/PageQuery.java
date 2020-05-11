@@ -3,7 +3,7 @@ package com.graduate.engine.request;
 import java.io.Serializable;
 
 /**
- * @author jimmy
+ * @author lianglili
  */
 public class PageQuery implements Serializable {
     private Integer page = 1; // 页码

@@ -16,7 +16,7 @@ import java.io.Serializable;
  * 个人会员申请详细信息表
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-09
  */
 @Data

@@ -3,7 +3,7 @@ package com.graduate.engine.model.dataobject;
 import lombok.Data;
 
 /**
- * @author jimmy
+ * @author lianglili
  */
 @Data
 public class PersonMember {

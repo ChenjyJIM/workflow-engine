@@ -8,7 +8,7 @@ import com.graduate.engine.model.NewsCategory;
  * 新闻类别表 服务类
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-24
  */
 public interface NewsCategoryService extends IService<NewsCategory> {

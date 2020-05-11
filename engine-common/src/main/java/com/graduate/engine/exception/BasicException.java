@@ -1,7 +1,7 @@
 package com.graduate.engine.exception;
 
 /**
- * @author jimmy
+ * @author lianglili
  */
 public class BasicException extends RuntimeException {
     private static final long serialVersionUID = 1L;

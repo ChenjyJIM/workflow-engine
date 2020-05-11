@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "Industry", description = "学会行业分类")
+@ApiModel(value = "Industry", description = "行业分类")
 public class Industry implements Serializable {
 
     private static final long serialVersionUID = 1L;

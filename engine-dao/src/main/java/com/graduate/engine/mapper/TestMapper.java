@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author jimmy
+ * @author lianglilimmy
  */
 @Repository
 public interface TestMapper {

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * 新闻类别表 服务实现类
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-24
  */
 @Service

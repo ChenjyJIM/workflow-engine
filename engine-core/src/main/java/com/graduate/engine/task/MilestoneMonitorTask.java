@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
+ * 定时任务模块
  * 后续维护可接入日志相关目前仅打印到控制台
- *
- * @author jimmy
+ * @author lianglili
  */
 @Component
 public class MilestoneMonitorTask {

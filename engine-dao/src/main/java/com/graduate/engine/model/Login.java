@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * @author jimmy
+ * @author lianglili
  */
 @Data
 @Accessors(chain = true)

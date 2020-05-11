@@ -8,7 +8,7 @@ import com.graduate.engine.model.PersonMemberApplicationDetails;
  * 个人会员申请详细信息表 Mapper 接口
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-09
  */
 public interface PersonMemberApplicationDetailsMapper extends BaseMapper<PersonMemberApplicationDetails> {

@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * 新闻审核表 服务实现类
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-24
  */
 @Service

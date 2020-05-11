@@ -8,7 +8,7 @@ import com.graduate.engine.model.SignUp;
  * 报名管理 Mapper 接口
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-06-09
  */
 public interface SignUpMapper extends BaseMapper<SignUp> {

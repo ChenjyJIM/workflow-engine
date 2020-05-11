@@ -14,7 +14,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
  * 增加方法注入，将含有 @CurrentUser 注解的方法参数注入当前登录用户
  * 注意请在使用前使用@LoginRequired注解
  *
- * @author jimmy
+ * @author lianglili
  */
 public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
     @Override

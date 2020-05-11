@@ -8,7 +8,7 @@ import com.graduate.engine.model.NewsCategory;
  * 新闻类别表 Mapper 接口
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-24
  */
 public interface NewsCategoryMapper extends BaseMapper<NewsCategory> {

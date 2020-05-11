@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 学会前端返回对象VO
  *
- * @author jimmy
+ * @author lianglili
  */
 @Data
 public class InstituteVo {

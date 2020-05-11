@@ -13,7 +13,7 @@ import java.util.Map;
  * 新闻编辑表 服务类
  * </p>
  *
- * @author silicon
+ * @author lianglili
  * @since 2019-05-24
  */
 public interface NewsEditService extends IService<NewsEdit> {

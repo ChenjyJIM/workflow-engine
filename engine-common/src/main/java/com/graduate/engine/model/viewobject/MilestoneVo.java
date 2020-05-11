@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 前端里程碑展示vo
  *
- * @author jimmy
+ * @author lianglili
  */
 @Getter
 @Setter

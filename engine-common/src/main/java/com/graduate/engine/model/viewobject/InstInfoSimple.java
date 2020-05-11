@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 简单学会信息
  *
- * @author jimmy
+ * @author lianglili
  */
 @Data
 public class InstInfoSimple {

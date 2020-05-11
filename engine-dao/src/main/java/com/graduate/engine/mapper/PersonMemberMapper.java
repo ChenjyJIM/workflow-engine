@@ -30,7 +30,7 @@ public interface PersonMemberMapper {
     int updateByPrimaryKey(PersonMember record);
 
     /**
-     * 根据学会id查询出该学会的成员数量
+     * 根据id查询出该学会的成员数量
      *
      * @param instId
      * @return

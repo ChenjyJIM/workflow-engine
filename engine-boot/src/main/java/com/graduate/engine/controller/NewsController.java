@@ -33,33 +33,33 @@ public class NewsController extends AbstractController {
     @Resource
     NewsCategoryService newsCategoryService;
 
-    @ApiOperation("新增新闻分类")
+    @ApiOperation("新增资讯分类")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "category", value = "分类名称", required = true, dataType = "NewsCategory")
     })
     @PostMapping("/category")
     public ResponseResult addNewsCategory(@RequestBody NewsCategory category) {
         newsCategoryService.save(category);
-        return ResponseResult.buildSuccess("新增新闻分类成功");
+        return ResponseResult.buildSuccess("新增资讯分类成功");
     }
 
-    @ApiOperation("更新新闻分类")
+    @ApiOperation("更新资讯分类")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "category", value = "分类名称", required = true, dataType = "NewsCategory")
     })
     @PutMapping("/category")
     public ResponseResult updateNewsCategory(@RequestBody NewsCategory category) {
         newsCategoryService.updateById(category);
-        return ResponseResult.buildSuccess("更新新闻分类成功");
+        return ResponseResult.buildSuccess("更新资讯分类成功");
     }
 
-    @ApiOperation("获取新闻分类")
+    @ApiOperation("获取资讯分类")
     @GetMapping("/category")
     public ResponseResult getNewsCategoryList() {
         return ResponseResult.buildSuccess(newsCategoryService.list());
     }
 
-    @ApiOperation("停用新闻分类")
+    @ApiOperation("停用资讯分类")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "categoryId", value = "分类名称", required = true, dataType = "Long")
     })
@@ -68,19 +68,19 @@ public class NewsController extends AbstractController {
         NewsCategory category = newsCategoryService.getById(categoryId);
         category.setStop(true);
         newsCategoryService.updateById(category);
-        return ResponseResult.buildSuccess("停用新闻分类成功");
+        return ResponseResult.buildSuccess("停用资讯分类成功");
     }
 
-    @ApiOperation("获取我的新闻列表")
+    @ApiOperation("获取我的资讯列表")
     @GetMapping("/edit/list")
     public ResponseResult getNewsEditList() {
         return ResponseResult.buildSuccess(newsEditService.getUserEditNewsList(getUserId()));
     }
 
-    @ApiOperation("编写新闻")
+    @ApiOperation("编写资讯")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "分类类别", required = true, dataType = "Long"),
-            @ApiImplicitParam(name = "newsDetails", value = "新闻详情信息", required = true, dataType = "NewsDetails")
+            @ApiImplicitParam(name = "newsDetails", value = "资讯详情信息", required = true, dataType = "NewsDetails")
     })
     @PostMapping("/edit/details/{type}")
     public ResponseResult editNews(@PathVariable("type") Long type, @RequestBody NewsDetails newsDetails) {
@@ -91,13 +91,13 @@ public class NewsController extends AbstractController {
         newsEdit.setEditTime(DateUtils.getCurrentSecondTimestamp());
         newsEdit.setStatus(0L);
         newsEditService.editNews(newsEdit, newsDetails);
-        return ResponseResult.buildSuccess("新闻撰写成功，请等待审核！");
+        return ResponseResult.buildSuccess("资讯撰写成功，请等待审核！");
     }
 
-    @ApiOperation("获取我的新闻详情")
+    @ApiOperation("获取我的资讯详情")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "分类类别", required = true, dataType = "Long"),
-            @ApiImplicitParam(name = "detailsId", value = "新闻详情ID", required = true, dataType = "Long")
+            @ApiImplicitParam(name = "detailsId", value = "资讯详情ID", required = true, dataType = "Long")
     })
     @GetMapping("/edit/details/{type}/{detailsId}")
     public ResponseResult getNewsDetails(@PathVariable("type") Long type, @PathVariable("detailsId") Long detailsId) {
@@ -106,28 +106,28 @@ public class NewsController extends AbstractController {
         return ResponseResult.buildSuccess(details);
     }
 
-    @ApiOperation("修改新闻")
+    @ApiOperation("修改资讯")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "分类类别", required = true, dataType = "Long"),
-            @ApiImplicitParam(name = "newsDetails", value = "新闻详情信息", required = true, dataType = "NewsDetails")
+            @ApiImplicitParam(name = "newsDetails", value = "资讯详情信息", required = true, dataType = "NewsDetails")
     })
     @PutMapping("/edit/details/{type}")
     public ResponseResult updateNews(@PathVariable("type") Long type, @RequestBody NewsDetails newsDetails) {
         verifyForm(newsDetails);
-        //判断新闻是否发布
+        //判断资讯是否发布
         NewsEdit newsEdit = newsEditService.selectEditByDetailsId(newsDetails.getDetailsId());
         if (newsEdit.getStatus() == 1) {
             //如果审核通过发布，不能修改，需联系管理员停用后重新发布
-            return ResponseResult.buildError("原新闻已发布，无法修改，如需修改请联系审核员停用原新闻");
+            return ResponseResult.buildError("原资讯已发布，无法修改，如需修改请联系审核员停用原资讯");
         } else {
-            //如果发布新闻停用、待审核或者审核未通过，则会修改原新闻，并将状态重新设为未审核
+            //如果发布资讯停用、待审核或者审核未通过，则会修改原资讯，并将状态重新设为未审核
             newsEdit.setType(type);
             newsEditService.updateNews(newsEdit, newsDetails);
             return ResponseResult.buildSuccess("修改成功，请等待审核！");
         }
     }
 
-    @ApiOperation("获取发布新闻列表")
+    @ApiOperation("获取发布资讯列表")
     @GetMapping("/review/list/publish")
     public ResponseResult getPublishNewsList(@RequestParam Map<String, Object> params) {
         PageUtils pageUtils = newsPublishService.queryPage(params);
@@ -141,7 +141,7 @@ public class NewsController extends AbstractController {
         return ResponseResult.buildSuccess(pageUtils);
     }
 
-    @ApiOperation("停用已发布的新闻")
+    @ApiOperation("停用已发布的资讯")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "publishId", value = "发布信息ID", required = true, dataType = "Long")
     })
@@ -151,7 +151,7 @@ public class NewsController extends AbstractController {
         return ResponseResult.buildSuccess("停用成功");
     }
 
-    @ApiOperation("恢复已发布的新闻")
+    @ApiOperation("恢复已发布的资讯")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "publishId", value = "发布信息ID", required = true, dataType = "Long")
     })
@@ -161,7 +161,7 @@ public class NewsController extends AbstractController {
         return ResponseResult.buildSuccess("恢复成功");
     }
 
-    @ApiOperation("获取全部新闻列表")
+    @ApiOperation("获取全部资讯列表")
     @GetMapping("/review/list")
     public ResponseResult getAllNewsList(@RequestParam Map<String, Object> params) {
         PageUtils pageUtils = newsEditService.queryPage(params);
@@ -175,10 +175,10 @@ public class NewsController extends AbstractController {
         return ResponseResult.buildSuccess(pageUtils);
     }
 
-    @ApiOperation("新闻审核不通过")
+    @ApiOperation("资讯审核不通过")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "publishId", value = "新闻编辑表ID", required = true, dataType = "Long"),
-            @ApiImplicitParam(name = "message", value = "新闻不通过原因", required = true, dataType = "String")
+            @ApiImplicitParam(name = "publishId", value = "资讯编辑表ID", required = true, dataType = "Long"),
+            @ApiImplicitParam(name = "message", value = "资讯不通过原因", required = true, dataType = "String")
     })
     @DeleteMapping("/review/{editId}/{message}")
     public ResponseResult disagreeNews(@PathVariable("editId") Long editId, @PathVariable("message") String message) {
@@ -186,9 +186,9 @@ public class NewsController extends AbstractController {
         return ResponseResult.buildSuccess("审核成功");
     }
 
-    @ApiOperation("新闻审核通过")
+    @ApiOperation("资讯审核通过")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "editId", value = "新闻编辑表ID", required = true, dataType = "Long")
+            @ApiImplicitParam(name = "editId", value = "资讯编辑表ID", required = true, dataType = "Long")
     })
     @PostMapping("/review/{editId}")
     public ResponseResult agreeNews(@PathVariable("editId") Long editId) {
@@ -196,16 +196,16 @@ public class NewsController extends AbstractController {
         return ResponseResult.buildSuccess("审核成功");
     }
 
-    @ApiOperation("获取发布新闻列表")
+    @ApiOperation("获取发布资讯列表")
     @GetMapping("/api/list")
     public ResponseResult getPublishNewsListApi(@RequestParam Map<String, Object> params) {
         return this.getPublishNewsList(params);
     }
 
-    @ApiOperation("获取我的新闻详情")
+    @ApiOperation("获取我的资讯详情")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "分类类别", required = true, dataType = "Long"),
-            @ApiImplicitParam(name = "detailsId", value = "新闻详情ID", required = true, dataType = "Long")
+            @ApiImplicitParam(name = "detailsId", value = "资讯详情ID", required = true, dataType = "Long")
     })
     @GetMapping("/api/details/{type}/{detailsId}")
     public ResponseResult getNewsDetailsApi(@PathVariable("type") Long type, @PathVariable("detailsId") Long detailsId) {
@@ -214,15 +214,15 @@ public class NewsController extends AbstractController {
 
     private void verifyForm(NewsDetails details) {
         if (StringUtils.isBlank(details.getNewsTitle())) {
-            throw new BasicException("新闻标题不能为空");
+            throw new BasicException("资讯标题不能为空");
         }
 
         if (StringUtils.isBlank(details.getAuthor())) {
-            throw new BasicException("新闻作者不能为空");
+            throw new BasicException("资讯作者不能为空");
         }
 
         if (StringUtils.isBlank(details.getNewsContent())) {
-            throw new BasicException("新闻内容不能为空");
+            throw new BasicException("资讯内容不能为空");
         }
     }
 }

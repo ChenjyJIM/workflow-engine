@@ -11,7 +11,7 @@ import java.util.List;
 
 
 /**
- * @author jimmy
+ * @author lianglili
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

@@ -28,30 +28,30 @@ public class Institute implements Serializable {
 
     private String instEngName;
 
-    @ApiModelProperty(value = "学会行业分类")
+    @ApiModelProperty(value = "行业分类")
     private Integer industryId;
 
     @TableField(exist = false)
-    @ApiModelProperty(value = "学会行业分类名称")
+    @ApiModelProperty(value = "行业分类名称")
     private String indusName;
 
     @TableField(exist = false)
-    @ApiModelProperty(value = "学会行业分类简称")
+    @ApiModelProperty(value = "行业分类简称")
     private String indusShort;
 
-    @ApiModelProperty(value = "学会地址")
+    @ApiModelProperty(value = "地址")
     private String instAddress;
 
-    @ApiModelProperty(value = "学会网址")
+    @ApiModelProperty(value = "网址")
     private String instWebsite;
 
-    @ApiModelProperty(value = "学会微信")
+    @ApiModelProperty(value = "微信")
     private String instWechat;
 
-    @ApiModelProperty(value = "学会qq")
+    @ApiModelProperty(value = "qq")
     private String instQq;
 
-    @ApiModelProperty(value = "学会其他联系方式")
+    @ApiModelProperty(value = "其他联系方式")
     private String instOthers;
 
     private Long instRegisterDate;
@@ -62,10 +62,10 @@ public class Institute implements Serializable {
     @TableField(exist = false)
     private String registerTime;
 
-    @ApiModelProperty(value = "学会介绍")
+    @ApiModelProperty(value = "介绍")
     private String instIntroduction;
 
-    @ApiModelProperty(value = "学会备注")
+    @ApiModelProperty(value = "备注")
     private String instMemo;
 
     private Boolean stop;

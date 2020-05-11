@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * 新增任务执行阶段前端请求模板
  *
- * @author jimmy
+ * @author lianglili
  */
 @Data
 public class TaskExecRequest implements Serializable {

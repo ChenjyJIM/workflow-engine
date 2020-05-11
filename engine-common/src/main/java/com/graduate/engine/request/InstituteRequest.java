@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * 前端修改学会信息request
  *
- * @author jimmy
+ * @author lianglili
  */
 @Data
 public class InstituteRequest implements Serializable {

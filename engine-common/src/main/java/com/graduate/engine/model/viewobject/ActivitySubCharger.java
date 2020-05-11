@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 用于增加子活动时分配任务负责人
  *
- * @author jimmy
+ * @author lianglili
  */
 @Data
 public class ActivitySubCharger {
